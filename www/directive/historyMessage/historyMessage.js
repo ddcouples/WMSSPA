@@ -1,15 +1,10 @@
 'use strict';
 
-require('./title.scss');
+require('./historyMessage.scss');
 module.exports = angular.module('directive.historyMessage', []).directive('historyMessage', function() {
     return {
         restrict: 'EA',
-        scope:{
-            source:'='
-        },
         template: require('./historyMessage.html'),
-        link: function($scope, elem, attr) {
-
-        }
+        link: function($scope, elem, attr) {}
     };
 }).name;

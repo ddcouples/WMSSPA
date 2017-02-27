@@ -3,9 +3,15 @@
 //require('../../node_modules/bootstrap/dist/css/bootstrap.css');
 //  require('bootstrap');
 require('bootstrap-loader');
-// var $=require('jquery');
+ // var $=require('jquery');
+ // window.jQuery=$;
+ // var jQuery=$;
 // require('../../node_modules/bootstrap/dist/js/bootstrap.js');
 require('../css/style.css');
+require('../css/bootstrap-datetimepicker.css');
+require('../lib/bootstrap-datetimepicker.js');
+require('../lib/bootstrap-datetimepicker.zh-CN.js');
+
 
 angular.module('app', [
         require('angular-ui-router'),

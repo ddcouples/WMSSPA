@@ -10,13 +10,19 @@
 .ware_container {
   background-color: #238af3;
   height: 39px;
+  min-height:39px;
   margin-top: -20px; }
 
 .ware_content {
   width: 80%;
   margin: 0 auto; }
 .ware_content .ware_title {
-  font-weight: bold; }
+  font-weight: bold;
+  a:hover,a:focus{
+    background:#fff !important;
+    color:#000;
+  }
+}
 .ware_content .ware_title li > a {
   color: #fff;
   cursor: pointer;
@@ -39,7 +45,8 @@
   background: #00a25f;
   padding: 10px 30px;
   color: #fff;
-  font-size: 14px; }
+  font-size: 14px;
+  font-size:1.4rem;}
 .common_span {
   float: right;
   margin-right: 10px; }
@@ -53,11 +60,13 @@
   border-left: 3px solid #00a05d;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 24px;
+  font-size:2.4rem;
   padding-left: 10px;
   vertical-align: text-bottom; }
 .home_title span {
   font-weight: 500;
   font-size: 24px;
+  font-size:2.4rem;
   margin-top: -5px; }
 
 .home_right_content li {
@@ -156,7 +165,7 @@
   margin-top: 83px;
   margin-left: -100px; }
 .ware_sec_nav{
-  height:36px;
+  min-height:36px;
   background: #fff;
 }
 .ware_sec_nav_content{
@@ -191,4 +200,60 @@
 .ware_sec_nav_tit a{
   width:104px;
 }
+
+.footer{
+  width:90%;
+  padding:1rem 2rem;
+  border-top:5px solid #3084c0;
+  margin:4rem auto;
+  p{
+    text-align: center;
+  }
+}
+
+
+.receive_container{
+  background: #e1eaf4;
+  padding:1rem;
+  .receive-form-title{
+    font-size:1.2rem;
+    font-weight: normal;
+    padding-right:0;
+  }
+  .receive_message{
+    background: url("../img/message.gif") no-repeat;
+    background-size: 80% 80%;
+    pointer-events: auto;
+    top: .4rem;
+    cursor: pointer;
+    span{
+      position:absolute;
+      top:-1.5rem;
+      font-weight: bold;
+    }
+  }
+  .history-message{
+    background: #fff;
+    margin-top:.1rem;
+    position: absolute;
+    width:90%;
+    li{
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    }
+  }
+}
+.recevive_tables{
+  padding:0 4rem;
+}
+.receive_btns{
+  background: #fff;
+  padding:1rem 2rem;
+  .btn-info{
+    margin-right:3rem;
+  }
+
+}
+
+
+//white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 /*# sourceMappingURL=warehouse.css.map */

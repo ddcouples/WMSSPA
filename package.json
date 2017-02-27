@@ -4,7 +4,7 @@
   "description": "front-solution",
   "main": "index.js",
   "scripts": {
-    "webpack":"set NODE_ENV=dev&&webpack  --progress --colors",
+    "webpack": "set NODE_ENV=dev&&webpack  --progress --colors",
     "build": "set NODE_ENV=build&&webpack -p --progress --colors",
     "test": "set NODE_ENV=test&&webpack -p --progress --colors",
     "dev": "set NODE_ENV=dev&& webpack-dev-server --hot --progress  --colors --host 0.0.0.0 --port 8080",
@@ -39,6 +39,7 @@
     "angular": "^1.6.1",
     "angular-ui-router": "^0.3.2",
     "bootstrap": "^3.3.7",
+    "bootstrap-datetimepicker": "0.0.7",
     "bootstrap-loader": "^2.0.0-beta.21",
     "bootstrap-sass": "^3.3.7",
     "jquery": "^3.1.1",

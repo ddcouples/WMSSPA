@@ -1,1 +1,132 @@
-<h1>epManagement</h1>
+<div class="receive_container">
+    <form class="form-horizontal" name="storeSearchForm" novalidate>
+    <div class="row">
+        <div class="col-sm-2 form-horizontal">
+            <div class="form-group  has-feedback">
+                <label class="col-sm-4 control-label receive-form-title">货主</label>
+                <div class="col-sm-8">
+                    <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
+                           required name="ownerComment"
+                           placeholder="货主">
+                    <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchReceiveMsg.ownerComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">订单日期</label>
+                <div class="col-sm-8 ">
+                    <input type="text" ng-model="searchReceiveMsg.asn.orderDate" class="form-control"  date-pick-select  placeholder="订单日期">
+                    <span  class="fa fa-calendar form-control-feedback" aria-hidden="true"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2 form-horizontal">
+            <div class="form-group  has-feedback">
+                <label class="col-sm-4 control-label receive-form-title">PO单号</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.poNo"
+                           name="poNo" required
+                           placeholder="PO单号">
+                    <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchReceiveMsg.asn.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">单据来源</label>
+                <div class="col-sm-8">
+                    <select class="form-control" ng-model="searchReceiveMsg.asn.dataFrom">
+                        <option value="00" selected>请选择</option>
+                        <option value="10">手动录入</option>
+                        <option value="20">批量导入</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2 form-horizontal">
+            <div class="form-group  has-feedback">
+                <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">ASN单号</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                           name="asnNo" required
+                           placeholder="ASN单号">
+                    <span ng-if="!storeSearchForm.asnNo.$error.required" clear-input-btn="searchReceiveMsg.asn.asnNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                </div>
+            </div>
+            <div class="form-group has-feedback">
+                <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">创建人</label>
+                <div class="col-sm-8">
+                    <input type="password" class="form-control"  ng-model="searchReceiveMsg.createPersonComment"
+                           name="createPerson" required
+                           placeholder="创建人">
+                    <span ng-if="!storeSearchForm.createPerson.$error.required" clear-input-btn="searchReceiveMsg.createPersonComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2 form-horizontal">
+            <div class="form-group">
+                <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">状态</label>
+                <div class="col-sm-8">
+                    <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
+                        <option value="00">请选择</option>
+                        <option value="10">打开</option>
+                        <option value="11">生效</option>
+                        <option value="12">取消</option>
+                        <option value="13">部分收货</option>
+                        <option value="14">已收货</option>
+                        <option value="15">部分上架</option>
+                        <option value="16">已上架</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 form-horizontal">
+            <div class="form-group  has-feedback">
+                <label class="col-sm-2 control-label receive-form-title">历史查询</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control"  placeholder="请选择">
+                    <span class="form-control-feedback receive_message" aria-hidden="true">
+                        <span class="color-red">5</span>
+                    </span>
+                    <history-message></history-message>
+                </div>
+            </div>
+            <div class="row">
+                <div class=" col-sm-offset-2">
+                    <button type="button" class="btn btn-info">查询</button>
+                    <button type="button" class="btn btn-info">重置</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    </form>
+
+
+</div>
+
+<!--按钮组-->
+<div class="recevive_tables">
+    <div class="row receive_btns">
+        <div class="col-sm-10 col-sm-offset-1">
+            <button type="button" class="btn btn-info">新增</button>
+
+            <button type="button" class="btn btn-info">修改</button>
+
+            <button type="button" class="btn btn-info">生效</button>
+
+            <button type="button" class="btn btn-info">失效</button>
+
+            <button type="button" class="btn btn-info">取消</button>
+
+            <button type="button" class="btn btn-info">收货确认</button>
+
+            <button type="button" class="btn btn-info">批量收货</button>
+
+            <button type="button" class="btn btn-info">拆分</button>
+
+            <button type="button" class="btn btn-info">取消拆分</button>
+        </div>
+    </div>
+</div>
+
+
+<!--按钮组end-->

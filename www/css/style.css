@@ -3,13 +3,17 @@
 html,
 body {
   height: 100%;
-  font-size: 14px;
   color: #333;
   background: #f2f1ef;
+}
+html{
+  font-size:62.5%;
 }
 body {
   color: #000;
   font: normal 100% Microsoft Yahei;
+  font-size:14px;
+  font-size:1.4rem;
   margin: 0;
   padding: 0;
 }
@@ -85,17 +89,7 @@ a:focus {
   outline: none;
   color: inherit;
 }
-/* 定义字体图标样式 */
-[class*="icon-"],
-[class^="icon-"] {
-  font-family: "iconfont" !important;
-  font-size: 16px;
-  font-style: normal;
-  display: inline-block;
-  -webkit-font-smoothing: antialiased;
-  -webkit-text-stroke-width: 0.2px;
-  -moz-osx-font-smoothing: grayscale;
-}
+
 /* 定义全局字体颜色 */
 /* 定义主题颜色 */
 /* 定义右边内容标题 */
@@ -251,6 +245,7 @@ select.large {
   height: 40px;
   line-height: 40px;
   font-size: 16px;
+  font-size:1.6rem;
   text-align: center;
   font-weight: normal;
   color: #333 !important;
@@ -261,6 +256,7 @@ select.large {
   height: 40px;
   line-height: 40px;
   font-size: 14px;
+  font-size:1.4rem;
   text-align: left;
   font-weight: normal;
   color: #333 !important;
@@ -283,6 +279,7 @@ select.large {
   height: 40px;
   line-height: 40px;
   font-size: 16px;
+  font-size:1.6rem;
   text-align: center;
   font-weight: normal;
   color: #333 !important;
@@ -294,6 +291,7 @@ select.large {
   height: 40px;
   line-height: 40px;
   font-size: 14px;
+  font-size:1.4rem;
   text-align: left;
   font-weight: normal;
   color: #333 !important;
@@ -309,6 +307,7 @@ select.large {
   line-height: 32px;
   text-align: center;
   font-size: 14px;
+  font-size:1.4rem;
   color: #fff;
   background: #32b4ca;
   border: none;
@@ -324,6 +323,7 @@ select.large {
   line-height: 32px;
   text-align: center;
   font-size: 14px;
+  font-size:1.4rem;
   color: #fff;
   background: #ff8f17;
   border: none;
@@ -339,6 +339,7 @@ select.large {
   line-height: 32px;
   text-align: center;
   font-size: 14px;
+  font-size:1.4rem;
   color: #fff;
   background: #c8c9c9;
   border: none;
@@ -354,6 +355,7 @@ select.large {
   line-height: 32px;
   text-align: center;
   font-size: 14px;
+  font-size:1.4rem;
   color: #fff;
   background: #32b4ca;
   border: none;
@@ -369,6 +371,7 @@ select.large {
   line-height: 32px;
   text-align: center;
   font-size: 14px;
+  font-size:1.4rem;
   color: #fff;
   background: #ff8f17;
   border: none;
@@ -384,6 +387,7 @@ select.large {
   line-height: 32px;
   text-align: center;
   font-size: 14px;
+  font-size:1.4rem;
   color: #fff;
   background: #c8c9c9;
   border: none;
@@ -400,6 +404,7 @@ select.large {
 }
 .radius i {
   font-size: 20px;
+  font-size:2rem;
 }
 .radius:hover {
   color: #1da4bb;
@@ -409,6 +414,7 @@ select.large {
   line-height: 30px;
   padding: 0 10px;
   font-size: 14px;
+  font-size:1.4rem;
   text-align: center;
   color: #ff8f17;
   background: #fff;
@@ -438,6 +444,7 @@ select.large {
 .headline {
   padding: 10px 0;
   font-size: 16px;
+  font-size:1.6rem;
   font-weight: normal;
   color: #32b4ca;
   border-bottom: 1px solid #e1e1e1;
@@ -459,6 +466,7 @@ select.large {
   height: 34px;
   padding: 0 10px;
   font-size: 16px;
+  font-size:1.6rem;
   text-align: center;
   font-weight: normal;
   cursor: pointer;
@@ -538,4 +546,28 @@ select.large {
 @media (min-width:768px){.modal-dialog{width:300px}}
 .fz18{
   font-size:18px !important;
+  font-size:1.8rem !important;
+}
+.color345795{
+  color: #345795 !important;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.glyphicon{
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.glyphicon-arrow-left:before{
+  content: "\f0a5";
+}
+.glyphicon-arrow-right:before{
+  content: "\f0a4";
+}
+.has-feedback .form-control {
+   padding-right:0;
+   padding-left:8px;
 }

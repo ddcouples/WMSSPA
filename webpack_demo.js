@@ -22,9 +22,9 @@ var webpack = require('webpack'),
         //     template: __dirname + '/www/template/mobile.html',
         //     filename: './mobile.html'
         // }),
-        // new OpenBrowserPlugin({  //打开地址
-        //     url: 'http://localhost:8080'
-        // }),
+        new OpenBrowserPlugin({  //打开地址
+            url: 'http://localhost:8080'
+        }),
         new webpack.optimize.CommonsChunkPlugin('vendor', 'static/dist/vendor.[hash:6].js'),
         new webpack.ProvidePlugin({
             $:"jquery",
@@ -82,7 +82,7 @@ var config = {
             loader: 'raw'
         }, {
             test: /\.(png|jpg|gif)$/,
-            loader: 'url?limit=8192,name=/static/img/[name].[hash:6].[ext]'
+            loader: 'url?limit=8192,name=static/img/[name].[hash:6].[ext]'
         }, {
             test: /\.(woff|woff2|eot|ttf|svg)(\?.*$|$)/,
             loader: 'url-loader?importLoaders=1&limit=1000&name=static/fonts/[name].[ext]'
@@ -96,11 +96,14 @@ var config = {
             ,
             {test:/\.(eot|ttf|woff|woff2|svg)$/,loader:'file?name=static/fonts/[name].[ext]'}
             // ,
-            // {test: /\.eot/,loader : 'file?name=static/fonts/[name].[ext]'},
-            // {test: /\.woff/,loader : 'file?name=static/fonts/[name].[ext]&limit=10000&mimetype=application/font-woff'},
-            // {test: /\.ttf/, loader : 'file?name=static/fonts/[name].[ext]'},
-            // {test: /\.svg/, loader : 'file?name=static/fonts/[name].[ext]'}
-
+            // {test: /\.eot/,loader : 'file?prefix=font/'},
+            // {test: /\.woff/,loader : 'file?prefix=font/&limit=10000&mimetype=application/font-woff'},
+            // {test: /\.ttf/, loader : 'file?prefix=font/'},
+            // {test: /\.svg/, loader : 'file?prefix=font/'}
+            // ,{  //内联
+            //     test: /\.scss$/,
+            //     loaders: ['style', 'css', 'sass','postcss']
+            // }
         ]
     },
     postcss: function() {
