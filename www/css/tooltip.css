@@ -1,0 +1,49 @@
+.tooltip-box {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+.tooltip-diaphane {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: #000;
+  opacity: 0.5;
+}
+.tooltip-content {
+  background: #fff;
+  overflow: hidden;
+  max-width: 400px;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  position: fixed;
+  z-index: 999;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+}
+.tooltip-content .content {
+  padding: 20px;
+}
+.tooltip-cons {
+  background: #000;
+  border-radius: 3px;
+  color: #fff;
+}
+.tooltip-title {
+  overflow: hidden;
+  padding: 10px 15px;
+  border-bottom: 1px solid #e5e5e5;
+}
+.tooltip-title h3 {
+  margin: 0;
+  padding-top: 2px;
+  font-size: 16px;
+  font-family: "Microsoft YaHei";
+}

@@ -1,5 +1,6 @@
 'use strict';
 require('../../sass/warehouse.scss');
+require('../../css/tooltip.css');
 module.exports = angular.module('app.warehouse', []).config(function($stateProvider) {
     $stateProvider.state('warehouse', {
         url: '/warehouse',

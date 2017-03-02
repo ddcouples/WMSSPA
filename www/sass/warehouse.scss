@@ -181,6 +181,7 @@
      background:#248af3;
      border-radius:26px;
      color:#fff;
+     padding:0 .5rem !important;
    }
   }
   a{
@@ -214,46 +215,40 @@
 
 .receive_container{
   background: #e1eaf4;
-  padding:1rem;
+  padding:.8rem 1rem 0 1rem;
   .receive-form-title{
-    font-size:1.2rem;
+    font-size:1.4rem;
     font-weight: normal;
     padding-right:0;
-  }
-  .receive_message{
-    background: url("../img/message.gif") no-repeat;
-    background-size: 80% 80%;
-    pointer-events: auto;
-    top: .4rem;
-    cursor: pointer;
-    span{
-      position:absolute;
-      top:-1.5rem;
-      font-weight: bold;
-    }
-  }
-  .history-message{
-    background: #fff;
-    margin-top:.1rem;
-    position: absolute;
-    width:90%;
-    li{
-      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-    }
   }
 }
 .recevive_tables{
   padding:0 4rem;
+  min-width: 1024px;
 }
 .receive_btns{
   background: #fff;
   padding:1rem 2rem;
   .btn-info{
-    margin-right:3rem;
+    margin-right:1.6rem;
+  }
+}
+.btn-mr16{
+  .btn-info{
+    margin-right:1.6rem;
+  }
+}
+.receive-table{
+  th,td{
+    vertical-align: middle !important;
+    text-align: center !important;;
+  }
+  table tr th{
+    font-weight: bold !important;
+    font-size:1.4rem !important;
   }
 
 }
-
 
 //white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 /*# sourceMappingURL=warehouse.css.map */

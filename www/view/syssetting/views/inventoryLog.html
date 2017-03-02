@@ -1,0 +1,140 @@
+<div class="receive_container">
+    <form class="form-horizontal" name="storeSearchForm" novalidate>
+        <div class="row">
+            <div class="col-sm-2 form-horizontal">
+                <div class="form-group  has-feedback">
+                    <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">货主</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                               name="asnNo" required
+                               placeholder="货主">
+                        <span ng-if="!storeSearchForm.asnNo.$error.required" clear-input-btn="searchReceiveMsg.asn.asnNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2 form-horizontal">
+                <div class="form-group  has-feedback">
+                    <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">单号</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                               name="asnNo" required
+                               placeholder="单号">
+                        <span ng-if="!storeSearchForm.asnNo.$error.required" clear-input-btn="searchReceiveMsg.asn.asnNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2 form-horizontal">
+                <div class="form-group  has-feedback">
+                    <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">货品代码</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                               name="asnNo" required
+                               placeholder="货品代码">
+                        <span ng-if="!storeSearchForm.asnNo.$error.required" clear-input-btn="searchReceiveMsg.asn.asnNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2 form-horizontal">
+                <div class="form-group  has-feedback">
+                    <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">批次</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo1"
+                               name="asnNo" required
+                               placeholder="批次">
+                        <span ng-if="!storeSearchForm.asnNo.$error.required" clear-input-btn="searchReceiveMsg.asn.asnNo1"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-4 form-horizontal">
+                <div class="form-group  has-feedback">
+                    <label class="col-sm-2 control-label receive-form-title" for="exampleInputName2">创建日期</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo2"
+                               name="asnNo" required date-pick-select
+                               placeholder="开始日期">
+                        <span  class="fa fa-calendar form-control-feedback" aria-hidden="true"></span>
+                    </div>
+                    <label class="col-sm-1 control-label text-center" for="exampleInputName2">-</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo3"
+                               name="asnNo" required date-pick-select
+                               placeholder="截止日期">
+                        <span  class="fa fa-calendar form-control-feedback" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-sm-4 col-sm-offset-4 form-horizontal">
+
+                <div class="row">
+                    <div class=" col-sm-offset-2 btn-mr16">
+                        <button type="button" class="btn btn-info" ng-click="searchformAction.search()">查询</button>
+                        <button type="button" class="btn btn-info" ng-click="searchformAction.reset()">重置</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+
+
+</div>
+
+
+<div class="recevive_tables receive_btns">
+
+    <div class="receive-table" data-example-id="hoverable-table">
+        <table class="table table-hover table-striped">
+            <thead>
+            <tr>
+                <th>
+                    <label>
+                        <input type="checkbox" aria-label="...">
+                    </label>
+                </th>
+                <th>序号</th>
+                <th>日志类型</th>
+                <th>创建时间</th>
+                <th>增减方式</th>
+                <th>货主</th>
+                <th>订单号</th>
+                <th>货品代码</th>
+                <th>货品名称</th>
+                <th>批次</th>
+                <th>包装单位</th>
+                <th>数量/公斤/立方</th>
+                <th>日志</th>
+                <th>操作人员</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th><label>
+                    <input type="checkbox" aria-label="...">
+                </label></th>
+                <td>编码</td>
+                <td>异常等级</td>
+                <td colspan="2">异常类型</td>
+                <td>异常详情异常详情异常详情异常详情异常详情异常详情异常详情异常详情</td>
+                <td>相关单号</td>
+                <td>发生日期</td>
+                <td>登记日期</td>
+                <td>处理意见</td>
+                <td>导入方式</td>
+                <td>状态</td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <!-- /example -->
+
+    <page></page>
+</div>
+
+

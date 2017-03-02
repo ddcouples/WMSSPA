@@ -9,6 +9,12 @@ body {
 html{
   font-size:62.5%;
 }
+
+@media screen and (max-width: 1024px) {
+  html {
+    font-size:45%;
+  }
+}
 body {
   color: #000;
   font: normal 100% Microsoft Yahei;
@@ -568,6 +574,15 @@ select.large {
   content: "\f0a4";
 }
 .has-feedback .form-control {
-   padding-right:0;
-   padding-left:8px;
+   padding-right:2.7rem;
+   padding-left:.6rem;
+}
+input,select{
+  font-size: 1.5rem !important;
+}
+select{
+  padding:0 .5rem !important;
+}
+.pb1{
+  padding-bottom: 1rem;
 }

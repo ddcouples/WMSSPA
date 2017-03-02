@@ -6,7 +6,7 @@ require('bootstrap-loader');
  // var $=require('jquery');
  // window.jQuery=$;
  // var jQuery=$;
-// require('../../node_modules/bootstrap/dist/js/bootstrap.js');
+ require('../../node_modules/bootstrap/dist/js/bootstrap.js');
 require('../css/style.css');
 require('../css/bootstrap-datetimepicker.css');
 require('../lib/bootstrap-datetimepicker.js');
@@ -15,6 +15,7 @@ require('../lib/bootstrap-datetimepicker.zh-CN.js');
 
 angular.module('app', [
         require('angular-ui-router'),
+        require('angular-animate'),
         require('oclazyload'),
         require('./routing.js'),
         require('./directive.js'),

@@ -9,9 +9,24 @@ module.exports = angular.module("app.monitoringCenter").controller("monitoringCe
     this.test = function() {
         alert(this.name);
     }
-}]).controller("inventoryWarningCtrl", [function() {
-    console.log('inventoryWarningCtrl');
-    this.test = function() {
-        alert(this.name);
+}]).controller("inventoryWarningCtrl", ['$scope',function($scope) {
+    $scope.getOriginData={
+        storStatusLists:[{
+            key:0,
+            value:'合格'
+        },{
+            key:1,
+            value:'不合格'
+        },{
+            key:2,
+            value:'代建合格'
+        }],
+        freezeStatusLists:[{
+            key:0,
+            value:'是'
+        },{
+            key:1,
+            value:'否'
+        }]
     }
 }]).name;

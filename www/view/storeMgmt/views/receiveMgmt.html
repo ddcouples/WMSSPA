@@ -32,10 +32,10 @@
             <div class="form-group">
                 <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">单据来源</label>
                 <div class="col-sm-8">
-                    <select class="form-control" ng-model="searchReceiveMsg.asn.dataFrom">
-                        <option value="00" selected>请选择</option>
-                        <option value="10">手动录入</option>
-                        <option value="20">批量导入</option>
+                    <select class="form-control" ng-model="searchReceiveMsg.asn.dataFrom" ng-options="l.value as l.value for l in getOriginData.dataFromLists">
+                        <!--<option value="0" selected>请选择</option>-->
+                        <!--<option value="10">手动录入</option>-->
+                        <!--<option value="20">批量导入</option>-->
                     </select>
                 </div>
             </div>
@@ -53,7 +53,7 @@
             <div class="form-group has-feedback">
                 <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">创建人</label>
                 <div class="col-sm-8">
-                    <input type="password" class="form-control"  ng-model="searchReceiveMsg.createPersonComment"
+                    <input type="text" class="form-control"  ng-model="searchReceiveMsg.createPersonComment"
                            name="createPerson" required
                            placeholder="创建人">
                     <span ng-if="!storeSearchForm.createPerson.$error.required" clear-input-btn="searchReceiveMsg.createPersonComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
@@ -64,34 +64,27 @@
             <div class="form-group">
                 <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">状态</label>
                 <div class="col-sm-8">
-                    <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
-                        <option value="00">请选择</option>
-                        <option value="10">打开</option>
-                        <option value="11">生效</option>
-                        <option value="12">取消</option>
-                        <option value="13">部分收货</option>
-                        <option value="14">已收货</option>
-                        <option value="15">部分上架</option>
-                        <option value="16">已上架</option>
+                    <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus" ng-options="l.value as l.value for l in getOriginData.asnStatusLists">
+                        <!--<option value="0">请选择</option>-->
+                        <!--<option value="10">打开</option>-->
+                        <!--<option value="11">生效</option>-->
+                        <!--<option value="12">取消</option>-->
+                        <!--<option value="13">部分收货</option>-->
+                        <!--<option value="14">已收货</option>-->
+                        <!--<option value="15">部分上架</option>-->
+                        <!--<option value="16">已上架</option>-->
                     </select>
                 </div>
             </div>
         </div>
         <div class="col-sm-4 form-horizontal">
-            <div class="form-group  has-feedback">
-                <label class="col-sm-2 control-label receive-form-title">历史查询</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control"  placeholder="请选择">
-                    <span class="form-control-feedback receive_message" aria-hidden="true">
-                        <span class="color-red">5</span>
-                    </span>
-                    <history-message></history-message>
-                </div>
-            </div>
+            <!--历史查询指令-->
+            <history-message sources="historyMessages" select-history="searchReceiveMsg" ></history-message>
+            <!--历史查询指令end-->
             <div class="row">
                 <div class=" col-sm-offset-2">
-                    <button type="button" class="btn btn-info">查询</button>
-                    <button type="button" class="btn btn-info">重置</button>
+                    <button type="button" class="btn btn-info" ng-click="searchformAction.search()">查询</button>
+                    <button type="button" class="btn btn-info" ng-click="searchformAction.reset()">重置</button>
                 </div>
             </div>
         </div>
@@ -103,9 +96,10 @@
 
 </div>
 
-<!--按钮组-->
-<div class="recevive_tables">
-    <div class="row receive_btns">
+
+<div class="recevive_tables receive_btns">
+    <!--按钮组-->
+    <div class="row ">
         <div class="col-sm-10 col-sm-offset-1">
             <button type="button" class="btn btn-info">新增</button>
 
@@ -126,7 +120,80 @@
             <button type="button" class="btn btn-info">取消拆分</button>
         </div>
     </div>
+    <!--按钮组end-->
+    <div class="receive-table" data-example-id="hoverable-table">
+        <table class="table table-hover table-striped">
+            <thead>
+            <tr>
+                <th>
+                    <label>
+                        <input type="checkbox" aria-label="...">
+                    </label>
+                </th>
+                <th>序号</th>
+                <th>货主</th>
+                <th>仓库</th>
+                <th>ASN单号</th>
+                <th>父编码</th>
+                <th>订单类型</th>
+                <th>单据来源</th>
+                <th>PO单号<br>
+                    相关单号1<br>
+                    相关单号2</th>
+                <th>订单日期</th>
+                <th>订单数量/公斤/立方</th>
+                <th>收货数量/公斤/立方</th>
+                <th>上架数量/公斤/立方</th>
+                <th>状态</th>
+                <th>创建人<br>
+                    创建时间</th>
+                <th>最后修改人<br>
+                    修改时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th><label>
+                    <input type="checkbox" aria-label="...">
+                </label></th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <!-- /example -->
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>用户名</th>
+            <th>真实姓名</th>
+            <th>部门</th>
+            <th>岗位</th>
+            <th>手机号</th>
+            <th>邮箱</th>
+            <th>QQ</th>
+            <th>创建时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in pageData">
+            <td ng-bind="item.username"></td>
+            <td ng-bind="item.realname"></td>
+            <td ng-bind="item.depName"></td>
+            <td ng-bind="item.post"></td>
+            <td ng-bind="item.phone"></td>
+            <td ng-bind="item.email"></td>
+            <td ng-bind="item.qq"></td>
+            <td ng-bind="item.dt"></td>
+        </tr>
+        </tbody>
+    </table>
+    <page></page>
 </div>
 
 
-<!--按钮组end-->
+

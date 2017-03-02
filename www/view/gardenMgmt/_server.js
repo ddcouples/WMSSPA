@@ -1,6 +1,6 @@
 'use strict';
 module.exports = angular.module('app.gardenMgmt', []).config(['$urlRouterProvider','$stateProvider',function($urlRouterProvider,$stateProvider) {
-    $urlRouterProvider.when('/warehouse/gardenMgmt','/warehouse/gardenMgmt/goodsMgmt');
+    $urlRouterProvider.when('/warehouse/gardenMgmt','/warehouse/gardenMgmt/rentalMgmt');
     $stateProvider.state('warehouse.gardenMgmt', {
         url: '/gardenMgmt',
         templateProvider: function($q) {
@@ -29,41 +29,41 @@ module.exports = angular.module('app.gardenMgmt', []).config(['$urlRouterProvide
                 return deferred.promise;
             }
         }
-    }).state('warehouse.gardenMgmt.goodsMgmt', {
-        url: '/goodsMgmt',
+    }).state('warehouse.gardenMgmt.rentalMgmt', {
+        url: '/rentalMgmt',
         templateProvider: function($q) {
             var deferred = $q.defer();
-            require.ensure(['./views/goodsMgmt.html'], function(require) {
-                var template = require('./views/goodsMgmt.html');
+            require.ensure(['./views/rentalMgmt.html'], function(require) {
+                var template = require('./views/rentalMgmt.html');
                 deferred.resolve(template);
-            }, 'goodsMgmt-tpl');
+            }, 'rentalMgmt-tpl');
             return deferred.promise;
         },
-        controller: 'goodsMgmtCtrl',
-        controllerAs: 'goodsMgmtController'
-    }).state('warehouse.gardenMgmt.gardenShelvesMgmt', {
-        url: '/gardenShelvesMgmt',
+        controller: 'rentalMgmtCtrl',
+        controllerAs: 'rentalMgmtController'
+    }).state('warehouse.gardenMgmt.leaseWarning', {
+        url: '/leaseWarning',
         templateProvider: function($q) {
             var deferred = $q.defer();
-            require.ensure(['./views/gardenShelvesMgmt.html'], function(require) {
-                var template = require('./views/gardenShelvesMgmt.html');
+            require.ensure(['./views/leaseWarning.html'], function(require) {
+                var template = require('./views/leaseWarning.html');
                 deferred.resolve(template);
-            }, 'gardenShelvesMgmt-tpl');
+            }, 'leaseWarning-tpl');
             return deferred.promise;
         },
-        controller: 'gardenShelvesMgmtCtrl',
-        controllerAs: 'inventoryWarningController'
-    }).state('warehouse.gardenMgmt.gardenDeliveryMgmt', {
-        url: '/gardenDeliveryMgmt',
+        controller: 'leaseWarningCtrl',
+        controllerAs: 'leaseWarningController'
+    }).state('warehouse.gardenMgmt.businessStatistics', {
+        url: '/businessStatistics',
         templateProvider: function($q) {
             var deferred = $q.defer();
-            require.ensure(['./views/gardenDeliveryMgmt.html'], function(require) {
-                var template = require('./views/gardenDeliveryMgmt.html');
+            require.ensure(['./views/businessStatistics.html'], function(require) {
+                var template = require('./views/businessStatistics.html');
                 deferred.resolve(template);
-            }, 'gardenDeliveryMgmt-tpl');
+            }, 'businessStatistics-tpl');
             return deferred.promise;
         },
-        controller: 'gardenDeliveryMgmtCtrl',
-        controllerAs: 'gardenDeliveryMgmtController'
+        controller: 'businessStatisticsCtrl',
+        controllerAs: 'businessStatisticsController'
     })
 }]).name;

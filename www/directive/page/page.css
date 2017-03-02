@@ -1,0 +1,105 @@
+/*分页*/
+a{
+  cursor: pointer !important;
+}
+.page-main {
+  position: relative;
+  clear: both;
+  width:50%;
+  margin-top: 15px;
+  margin:1.5rem auto;
+}
+.page-main .input-group {
+  margin-left: 10px;
+  margin-left: 1rem;
+  display: inline-block;
+}
+.page-main .input-group .input-group-btn {
+  display: inline-block;
+}
+.page-main .input-group .input-group-btn button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  margin-left: -2px;
+  margin-left: -.2rem;
+  padding: 6px 12px !important;
+  padding: .6rem 1.2rem !important;
+}
+.page-main .input-group input {
+  width: 55px;
+  width: 5.5rem;
+  margin-top:0rem;
+}
+.page-num {
+  display: inline-block;
+}
+.page-num li:first-child {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+.page-num li:last-child {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+.page-num li:nth-last-child(2),
+.page-num li:nth-child(2) {
+  font-size: 24px;
+  font-size: 2.4rem;
+}
+.page-num li {
+  width: 40px;
+  width: 4rem;
+  height: 35px;
+  height: 3.5rem;
+  font-size: 12px;
+  font-size: 1.2rem;
+  background: #fff;
+  border: 1px solid #ccd5db;
+  text-align: center;
+  margin-left: -1px;
+  display: inline-block;
+  line-height: 35px;
+  line-height: 3.5rem;
+  cursor: pointer;
+  vertical-align: middle;
+}
+.page-num li.disabled {
+  background: #fff;
+  border-color: #ccd5db;
+  color: #ddd;
+  cursor: not-allowed;
+}
+.page-num li.active {
+  background: #08a1ef;
+  border-color: #08a1ef;
+  color: #fff;
+}
+.page-num li.active:hover {
+  background: #08a1ef;
+}
+.page-num li:hover {
+  background: #f7f7f7;
+}
+.page-last {
+  font-size: 14px;
+  font-size: 1.4rem;
+  display: inline-block;
+  margin-left: 10px;
+  margin-left: 1rem;
+}
+.page-last input{
+  width: 40px;
+  width: 4rem;
+  height: 35px;
+  height: 3.5rem;
+  font-size: 12px;
+  font-size: 1.2rem;
+  background: #fff;
+  border: 1px solid #ccd5db;
+  text-align: center;
+  display: inline-block;
+  line-height: 35px;
+  line-height: 3.5rem;
+  border-radius: 3px;
+  margin: 3px 5px 0 5px;
+}

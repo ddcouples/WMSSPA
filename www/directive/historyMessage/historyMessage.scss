@@ -1,0 +1,89 @@
+.receive-form-title{
+  font-size:1.2rem;
+  font-weight: normal;
+  padding-right:0;
+
+}
+.receive-form-input{
+  input{
+    cursor: pointer !important;
+  }
+}
+.receive_message{
+  background: url("../../img/message.gif") no-repeat;
+  background-size: 80% 80%;
+  pointer-events: auto;
+  top: .2rem !important;
+  cursor: pointer;
+  pointer-events: auto !important;
+  span{
+    position:absolute;
+    top:-1.8rem;
+    font-weight: bold;
+    font-size:1.6rem;
+  }
+}
+.history-message{
+  background: #fff;
+  margin-top:.1rem;
+  position: absolute;
+  box-shadow:1px 1px 3px 3px #ddd;
+  width:90%;
+  border:1px solid #ddd;
+  z-index:999;
+  li{
+    width:100%;
+  }
+  li:hover{
+    background:mix(#319dcf ,#4bc7f0);
+    color:#fff;
+  }
+  .history-message-items{
+    color:#bbb;
+    font-size:1.6rem;
+    padding:.5rem 1rem;
+    span{
+      cursor: pointer;
+      display: inline-block;
+      max-width:90%;
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    }
+
+    i{
+      cursor: pointer;
+      margin-top:.5rem;
+      color:#4bc7f0;
+    }
+    i:hover{
+      color:#319dcf;
+    }
+
+  }
+}
+.history-message{
+  -webkit-transition: all linear .5s;
+  -o-transition: all linear .5s;
+  transition: all linear .5s;
+}
+/*动画开始前*/
+.history-message.ng-hide-add{
+  opacity:1;
+}
+/*动画过程*/
+.history-message.ng-hide-add-active{
+  opacity:0;
+}
+
+.history-message.ng-hide-remove{
+  opacity:0;
+}
+/*动画过程*/
+.history-message.ng-hide-remove-active{
+  opacity:1;
+}
+/*
+//.history-message.ng-enter-stagger {
+//  transition-delay:0.5s;
+//  transition-duration:0;
+//}
+*/

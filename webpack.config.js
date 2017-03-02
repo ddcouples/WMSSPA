@@ -59,7 +59,7 @@ var config = {
     //入口文件配置
     entry: {
         app:['webpack/hot/only-dev-server', path.resolve(__dirname, 'www/app/app.js')],
-        vendor: ["angular", 'angular-ui-router', 'oclazyload','jquery','bootstrap']
+        vendor: ["angular","angular-animate", 'angular-ui-router', 'oclazyload','jquery','bootstrap']
     },
     //文件导出的配置
     output: {
@@ -77,7 +77,9 @@ var config = {
     },
     //模块配置
     module: {
-        loaders: [{
+        loaders: [
+            {test: /\.json$/,loader: 'json-loader'},
+            {
             test: /\.html$/,
             loader: 'raw'
         }, {
