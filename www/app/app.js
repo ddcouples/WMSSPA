@@ -1,12 +1,12 @@
 'use strict';
  require('../../node_modules/font-awesome/css/font-awesome.min.css');
-//require('../../node_modules/bootstrap/dist/css/bootstrap.css');
+require('../../node_modules/bootstrap/dist/css/bootstrap.css');
 //  require('bootstrap');
 require('bootstrap-loader');
  // var $=require('jquery');
  // window.jQuery=$;
  // var jQuery=$;
- require('../../node_modules/bootstrap/dist/js/bootstrap.js');
+// require('../../node_modules/bootstrap/dist/js/bootstrap.js');
 require('../css/style.css');
 require('../css/bootstrap-datetimepicker.css');
 require('../lib/bootstrap-datetimepicker.js');
@@ -16,6 +16,8 @@ require('../lib/bootstrap-datetimepicker.zh-CN.js');
 angular.module('app', [
         require('angular-ui-router'),
         require('angular-animate'),
+        // require('angular-ui-bootstrap'),
+
         require('oclazyload'),
         require('./routing.js'),
         require('./directive.js'),

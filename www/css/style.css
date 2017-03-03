@@ -548,8 +548,8 @@ select.large {
   height:100%;
 }
 .modal.in .modal-dialog{-webkit-transform:translate(0,-50%);-ms-transform:translate(0,-50%);-o-transform:translate(0,-50%);transform:translate(0,-50%)}
-.modal-dialog{position:absolute;width:auto;margin:0px auto;left:0;right:0;top:50%}
-@media (min-width:768px){.modal-dialog{width:300px}}
+.modal-dialog{position:absolute;margin:0px auto;left:0;right:0;top:50%}
+
 .fz18{
   font-size:18px !important;
   font-size:1.8rem !important;
@@ -578,11 +578,24 @@ select.large {
    padding-left:.6rem;
 }
 input,select{
-  font-size: 1.5rem !important;
+  font-size: 1.3rem !important;
 }
 select{
   padding:0 .5rem !important;
 }
 .pb1{
   padding-bottom: 1rem;
+}
+.clearfix{
+  zoom: 1;
+}
+.clearfix:after{content:".";display:block;clear:both;height:0;overflow:hidden;visibility:hidden;}
+.posAb{
+  position: absolute !important;
+}
+.mg-bm-50{
+  margin-bottom:5rem !important;
+}
+.pdTp7{
+  padding-top:.7rem;
 }

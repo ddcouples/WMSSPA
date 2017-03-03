@@ -12,7 +12,7 @@ module.exports = angular.module('app.home', []).config(function($stateProvider) 
         },
         controller: 'homeCtrl',
         controllerAs: 'homeController',
-        resolve: {
+        resolve: { //用于加载apphome模块下的controller 懒加载的方式
             'app.home': function($q, $ocLazyLoad) {
                 var deferred = $q.defer();
                 require.ensure(['./home.js'], function() {

@@ -1,6 +1,7 @@
 'use strict';
 module.exports = angular.module('app.storeMgmt', []).config(['$urlRouterProvider','$stateProvider',function($urlRouterProvider,$stateProvider) {
     $urlRouterProvider.when('/warehouse/storeMgmt','/warehouse/storeMgmt/receiveMgmt');
+    $urlRouterProvider.when('/warehouse','/warehouse/storeMgmt/receiveMgmt');
     $stateProvider.state('warehouse.storeMgmt', {
         url: '/storeMgmt',
         templateProvider: function($q) {

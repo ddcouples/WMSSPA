@@ -129,7 +129,7 @@ module.exports = angular.module("app.storeMgmt").controller("storeMgmtCtrl",['$s
         }
     });
 
-
+    //开始查询页面
     $scope.searchformAction={
         search:function(){
             if(!angular.equals($scope.searchReceiveMsg,_empty_searchReceiveMsg)){
@@ -155,6 +155,32 @@ module.exports = angular.module("app.storeMgmt").controller("storeMgmtCtrl",['$s
         // $scope.getPageByJson('http://192.168.1.100:8080/wms/asn/list');
     })
     //分页查询 page指令
+
+
+
+    //按钮操作页面
+
+    $scope.btnAction={
+        showAddOrModify:false,
+        showIndex:true,
+        addAsn:function(){
+            this.showAddOrModify=!this.showAddOrModify;
+            this.showIndex=!this.showIndex;
+        },
+        modifyAsn:function(){
+            this.showAddOrModify=!this.showAddOrModify;
+            this.showIndex=!this.showIndex;
+        },
+        searchModel:function(id){
+            $('#'+id).modal('show');
+            console.log($scope);
+        },
+        showMakeSureGetGoods:false,
+        MakeSureGetGoodsBtn:function(){
+            this.showMakeSureGetGoods=!this.showMakeSureGetGoods;
+            this.showIndex=!this.showIndex;
+        }
+    }
 
 }]).controller("shelvesMgmtCtrl", ['$scope',function($scope) {
 
@@ -248,5 +274,4 @@ module.exports = angular.module("app.storeMgmt").controller("storeMgmtCtrl",['$s
         }
 
     }])
-
     .name;

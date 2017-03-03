@@ -5,7 +5,7 @@ a{
 .page-main {
   position: relative;
   clear: both;
-  width:50%;
+  width:50rem;
   margin-top: 15px;
   margin:1.5rem auto;
 }
