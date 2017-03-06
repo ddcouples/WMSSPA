@@ -1,5 +1,6 @@
 'use strict';
-module.exports = angular.module('app.home', []).config(function($stateProvider) {
+module.exports = angular.module('app.home', []).config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider) {
+    $urlRouterProvider.when('/warehouse','/warehouse/home');
     $stateProvider.state('warehouse.home', {
         url: '/home',
         templateProvider: function($q) {
@@ -26,4 +27,4 @@ module.exports = angular.module('app.home', []).config(function($stateProvider) 
             }
         }
     });
-}).name;
+}]).name;

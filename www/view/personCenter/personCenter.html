@@ -1,0 +1,167 @@
+<section class="home-container">
+    <!--个人中心 页面-->
+    <section class="animate-enter-leave">
+        <form class="form-horizontal" name="storeSearchForm" novalidate>
+            <div class="panel-group mg-tp20" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                        <h3 class="panel-title">
+                            <a role="button" ng-init="status.open=true" ng-click="status.open=!status.open" class="btn-block" data-toggle="collapse" data-target="#collapseOne"  aria-expanded="true" aria-controls="collapseOne">
+                                个人中心
+                                <i class="fa  pull-right" ng-class="{'fa-hand-paper-o': status.open, 'fa-hand-rock-o': !status.open}" aria-hidden="true"></i>
+                            </a>
+                        </h3>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group  has-feedback">
+                                        <label class="col-sm-3 control-label receive-form-title">企业</label>
+                                        <div class="col-sm-9">
+                                            <label class="text-left pdTp7">{{getWarehouseId}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group  has-feedback">
+                                        <label class="col-sm-3 control-label receive-form-title">原密码</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
+                                                   required name="ownerComment"
+                                                   placeholder="原密码">
+                                            <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchReceiveMsg.ownerComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group  has-feedback">
+                                        <label class="col-sm-3 control-label receive-form-title">邮箱</label>
+                                        <div class="col-sm-9">
+                                            <input type="email" ng-model="searchReceiveMsg.ownerComment" class="form-control"
+                                                   required name="ownerComment"
+                                                   placeholder="邮箱">
+                                            <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchReceiveMsg.ownerComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group  has-feedback">
+                                        <label class="col-sm-4 control-label receive-form-title">用户编号</label>
+                                        <div class="col-sm-8">
+                                            <label class="col-sm-4 control-label"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group  has-feedback">
+                                        <label class="col-sm-4 control-label receive-form-title">新密码</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
+                                                   required name="ownerComment"
+                                                   placeholder="相关单号2">
+                                            <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchReceiveMsg.ownerComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group  has-feedback">
+                                        <label class="col-sm-4 control-label receive-form-title">用户姓名</label>
+                                        <div class="col-sm-8">
+                                            <label class="col-sm-4 control-label"></label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group  has-feedback">
+                                        <label class="col-sm-3 control-label receive-form-title">用户名</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
+                                                   required name="ownerComment" readonly
+                                                   placeholder="PO单号">
+                                            <span ng-if="!storeSearchForm.ownerComment.$error.required"
+                                                  clear-input-btn="searchReceiveMsg.ownerComment"
+                                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group has-feedback">
+                                        <label for="inputPassword3" class="col-sm-3 control-label receive-form-title">重复新密码</label>
+                                        <div class="col-sm-8 ">
+                                            <input type="text" ng-model="searchReceiveMsg.asn.orderDate" class="form-control"   placeholder="重复新密码">
+                                            <span ng-if="!storeSearchForm.ownerComment.$error.required"
+                                                  clear-input-btn="searchReceiveMsg.ownerComment"
+                                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mg-lf">
+                                <div class="form-group  has-feedback">
+                                    <label class="col-sm-1 control-label receive-form-title">备注</label>
+                                    <div class="col-sm-8">
+                                        <textarea class="form-control" rows="3" placeholder="备注"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-group"  role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" >
+                        <h3 class="panel-title">
+                            <a role="button" ng-init="status.openTwo=true" ng-click="status.openTwo=!status.openTwo" class="btn-block" data-toggle="collapse" data-target="#collapseTwo"  aria-expanded="true" aria-controls="collapseOne">
+                                用户角色
+                                <i class="fa  pull-right" ng-class="{'fa-hand-paper-o': status.openTwo, 'fa-hand-rock-o': !status.openTwo}" aria-hidden="true"></i>
+                            </a>
+                        </h3>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body">
+
+                            <!--表格-->
+                            <div class="receive-table" data-example-id="hoverable-table">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <label>
+                                                <input type="checkbox" aria-label="...">
+                                            </label>
+                                        </th>
+                                        <th>序号</th>
+                                        <th>角色代码</th>
+                                        <th>角色名称</th>
+                                        <th>角色描述</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th><label>
+                                            <input type="checkbox" aria-label="...">
+                                        </label></th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /表格 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mg-bm-50">
+                <div class="col-sm-offset-1 col-sm-1">
+                    <button class="btn btn-info" ng-click="saveForm()">保存</button>
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-info" ui-sref="warehouse.home">返回首页</button>
+                </div>
+            </div>
+        </form>
+    </section>
+    <!--个人中心end-->
+</section>
+

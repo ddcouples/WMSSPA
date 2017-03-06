@@ -22,7 +22,7 @@ module.exports = angular.module("app.login").controller("loginCtrl", ['$scope','
         }
     }
     this.submitLogin = function() {
-        $('#storModel').modal('show');
+        // $('#storModel').modal('show');
 
         $scope.submit=true;
         if($scope.loginForm.enterprise.$invalid){

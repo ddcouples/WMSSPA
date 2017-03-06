@@ -158,120 +158,69 @@ module.exports = angular.module("app.storeMgmt").controller("storeMgmtCtrl",['$s
 
 
 
-    //按钮操作页面
 
+    //按钮操作页面
+    var showTitle=['新增ASN单','修改ASN单'];
     $scope.btnAction={
+        showText:{
+            firstTitle:showTitle[0]
+        },
         showAddOrModify:false,
+        showSplitAsn:false,
         showIndex:true,
-        addAsn:function(){
+        addAsn:function(){ //点击切换新增ASN页面
             this.showAddOrModify=!this.showAddOrModify;
             this.showIndex=!this.showIndex;
         },
-        modifyAsn:function(){
+        modifyAsn:function(){//点击切换修改ASN页面
             this.showAddOrModify=!this.showAddOrModify;
             this.showIndex=!this.showIndex;
+            this.showText.firstTitle=showTitle[1];
+        },
+        splitAsn:function(){//点击切换拆分ASN页面
+            this.showIndex=!this.showIndex;
+            this.showSplitAsn=!this.showSplitAsn;
         },
         searchModel:function(id){
             $('#'+id).modal('show');
-            console.log($scope);
         },
         showMakeSureGetGoods:false,
-        MakeSureGetGoodsBtn:function(){
+        MakeSureGetGoodsBtn:function(){//点击切换收货确认
             this.showMakeSureGetGoods=!this.showMakeSureGetGoods;
             this.showIndex=!this.showIndex;
         }
     }
 
 }]).controller("shelvesMgmtCtrl", ['$scope',function($scope) {
-
-
-
-}]).controller("deliveryGoodMgmtCtrl", ['$scope',function($scope) {
-
-
-
-}]).controller("pickingMgmtCtrl", ['$scope',function($scope) {
-
-
-
-}]).controller("waveCountMgmtCtrl", ['$scope',function($scope) {//波次管理Controllrer
-
-
-
-}]).controller("inventoryMgmtCtrl", ['$scope',function($scope) {//库存管理Controllrer
-
-   $scope.getOriginData={
-       storStatusLists:[{
-           key:0,
-           value:'合格'
-       },{
-           key:1,
-           value:'不合格'
-       },{
-           key:2,
-           value:'代建合格'
-       }],
-       freezeStatusLists:[{
-           key:0,
-           value:'是'
-       },{
-           key:1,
-           value:'否'
-       }]
-   }
-
-}]).controller("takeStockCtrl", ['$scope',function($scope) {//盘点Controllrer
-
-  $scope.getOriginData={
-      inventoryStatus:[{
-          key:'0',
-          value:'打开'
-      },{
-          key:'0',
-          value:'生效'
-      },{
-          key:'0',
-          value:'作业中'
-      },{
-          key:'0',
-          value:'作业完成'
-      }]
-  }
-
+    var showTitle=['新增上架单','修改上架单'];
+    $scope.btnAction={
+        showText:{
+            firstTitle:showTitle[0]
+        },
+        showAddOrModify:false,
+        showSplitAsn:false,
+        showIndex:true,
+        addAsn:function(){ //点击切换新增ASN页面
+            this.showAddOrModify=!this.showAddOrModify;
+            this.showIndex=!this.showIndex;
+        },
+        modifyAsn:function(){//点击切换修改ASN页面
+            this.showAddOrModify=!this.showAddOrModify;
+            this.showIndex=!this.showIndex;
+            this.showText.firstTitle=showTitle[1];
+        },
+        splitAsn:function(){//点击切换拆分ASN页面
+            this.showIndex=!this.showIndex;
+            this.showSplitAsn=!this.showSplitAsn;
+        },
+        searchModel:function(id){
+            $('#'+id).modal('show');
+        },
+        MakeSureWork:false,
+        MakeSureWorkBtn:function(){//点击切换收货确认
+            this.MakeSureWork=!this.MakeSureWork;
+            this.showIndex=!this.showIndex;
+        }
+    }
 }])
-    .controller("profitLossAdjustmentCtrl", ['$scope',function($scope) {//盘点Controllrer
-
-        $scope.getOriginData={
-            AdjustStatus:[{
-                key:'0',
-                value:'打开'
-            },{
-                key:'0',
-                value:'已调帐'
-            },{
-                key:'0',
-                value:'取消'
-            }]
-        }
-
-    }])
-    .controller("gressionCtrl", ['$scope',function($scope) {//盘点Controllrer
-
-        $scope.getOriginData={
-            gressionStatus:[{
-                key:'0',
-                value:'打开'
-            },{
-                key:'0',
-                value:'生效'
-            },{
-                key:'0',
-                value:'作业中'
-            },{
-                key:'0',
-                value:'作业完成'
-            }]
-        }
-
-    }])
     .name;

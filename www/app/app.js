@@ -24,6 +24,6 @@ angular.module('app', [
         require('./service.js')
     ])
     .config(['$urlRouterProvider','$locationProvider',function($urlRouterProvider, $locationProvider) {
-        $urlRouterProvider.otherwise("/login");
+        // $urlRouterProvider.otherwise("/login");
         // $locationProvider.html5Mode(true);
     }]);

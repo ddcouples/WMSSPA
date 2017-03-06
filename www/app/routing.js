@@ -1,6 +1,7 @@
 'use strict';
 module.exports = angular.module('app.controllers', [
     require('../view/home/_service.js'),
+    require('../view/personCenter/_service.js'),
     require('../view/login/_service.js'),
     require('../view/warehouse/_service.js'),
     require('../view/syssetting/_service.js'),

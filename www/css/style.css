@@ -599,3 +599,12 @@ select{
 .pdTp7{
   padding-top:.7rem;
 }
+.mg-lf{
+  margin-left: -2px;
+}
+.right2{
+  right:.2rem !important;
+}
+.paddingLeftRight5{
+  padding:0;
+}

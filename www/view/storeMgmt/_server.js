@@ -65,7 +65,20 @@ module.exports = angular.module('app.storeMgmt', []).config(['$urlRouterProvider
             return deferred.promise;
         },
         controller: 'deliveryGoodMgmtCtrl',
-        controllerAs: 'deliveryGoodMgmtController'
+        controllerAs: 'deliveryGoodMgmtController',
+        resolve: {
+            'app.storeMgmt': function($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure(['./controllers/deliveryGoodMgmtCtrl.js'], function() {
+                    var mod = require('./controllers/deliveryGoodMgmtCtrl.js');
+                    $ocLazyLoad.load({
+                        name: 'app.storeMgmt'
+                    });
+                    deferred.resolve(mod.controller);
+                }, 'storeMgmt-ctl');
+                return deferred.promise;
+            }
+        }
     }).state('warehouse.storeMgmt.pickingMgmt', {//拣货管理 路由
         url: '/pickingMgmt',
         templateProvider: function($q) {
@@ -77,7 +90,20 @@ module.exports = angular.module('app.storeMgmt', []).config(['$urlRouterProvider
             return deferred.promise;
         },
         controller: 'pickingMgmtCtrl',
-        controllerAs: 'pickingMgmtController'
+        controllerAs: 'pickingMgmtController',
+        resolve: {
+            'app.storeMgmt': function($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure(['./controllers/pickingMgmtCtrl.js'], function() {
+                    var mod = require('./controllers/pickingMgmtCtrl.js');
+                    $ocLazyLoad.load({
+                        name: 'app.storeMgmt'
+                    });
+                    deferred.resolve(mod.controller);
+                }, 'storeMgmt-ctl');
+                return deferred.promise;
+            }
+        }
     }).state('warehouse.storeMgmt.waveCountMgmt', {//波次管理 路由
         url: '/waveCountMgmt',
         templateProvider: function($q) {
@@ -89,7 +115,20 @@ module.exports = angular.module('app.storeMgmt', []).config(['$urlRouterProvider
             return deferred.promise;
         },
         controller: 'waveCountMgmtCtrl',
-        controllerAs: 'waveCountMgmtController'
+        controllerAs: 'waveCountMgmtController',
+        resolve: {
+            'app.storeMgmt': function($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure(['./controllers/waveCountMgmtCtrl.js'], function() {
+                    var mod = require('./controllers/waveCountMgmtCtrl.js');
+                    $ocLazyLoad.load({
+                        name: 'app.storeMgmt'
+                    });
+                    deferred.resolve(mod.controller);
+                }, 'storeMgmt-ctl');
+                return deferred.promise;
+            }
+        }
     }).state('warehouse.storeMgmt.inventoryMgmt', {//库存管理 路由
         url: '/inventoryMgmt',
         templateProvider: function($q) {
@@ -101,8 +140,21 @@ module.exports = angular.module('app.storeMgmt', []).config(['$urlRouterProvider
             return deferred.promise;
         },
         controller: 'inventoryMgmtCtrl',
-        controllerAs: 'inventoryMgmtController'
-    }).state('warehouse.storeMgmt.takeStock', {//库存管理 路由
+        controllerAs: 'inventoryMgmtController',
+        resolve: {
+            'app.storeMgmt': function($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure(['./controllers/inventoryMgmtCtrl.js'], function() {
+                    var mod = require('./controllers/inventoryMgmtCtrl.js');
+                    $ocLazyLoad.load({
+                        name: 'app.storeMgmt'
+                    });
+                    deferred.resolve(mod.controller);
+                }, 'storeMgmt-ctl');
+                return deferred.promise;
+            }
+        }
+    }).state('warehouse.storeMgmt.takeStock', {//库房管理 路由
         url: '/takeStock',
         templateProvider: function($q) {
             var deferred = $q.defer();
@@ -113,7 +165,20 @@ module.exports = angular.module('app.storeMgmt', []).config(['$urlRouterProvider
             return deferred.promise;
         },
         controller: 'takeStockCtrl',
-        controllerAs: 'takeStockController'
+        controllerAs: 'takeStockController',
+        resolve: {
+            'app.storeMgmt': function($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure(['./controllers/takeStockCtrl.js'], function() {
+                    var mod = require('./controllers/takeStockCtrl.js');
+                    $ocLazyLoad.load({
+                        name: 'app.storeMgmt'
+                    });
+                    deferred.resolve(mod.controller);
+                }, 'storeMgmt-ctl');
+                return deferred.promise;
+            }
+        }
     }).state('warehouse.storeMgmt.profitLossAdjustment', {//盈亏调整 路由
         url: '/profitLossAdjustment',
         templateProvider: function($q) {
@@ -125,8 +190,22 @@ module.exports = angular.module('app.storeMgmt', []).config(['$urlRouterProvider
             return deferred.promise;
         },
         controller: 'profitLossAdjustmentCtrl',
-        controllerAs: 'profitLossAdjustmentController'
-    }).state('warehouse.storeMgmt.gression', {//盈亏调整 路由
+        controllerAs: 'profitLossAdjustmentController',
+        resolve: {
+            'app.storeMgmt': function($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure(['./controllers/profitLossAdjustmentCtrl.js'], function() {
+                    var mod = require('./controllers/profitLossAdjustmentCtrl.js');
+                    $ocLazyLoad.load({
+                        name: 'app.storeMgmt'
+                    });
+                    deferred.resolve(mod.controller);
+                }, 'storeMgmt-ctl');
+                return deferred.promise;
+            }
+        }
+    })
+        .state('warehouse.storeMgmt.gression', {// 移位调整 路由
         url: '/gression',
         templateProvider: function($q) {
             var deferred = $q.defer();
@@ -137,6 +216,19 @@ module.exports = angular.module('app.storeMgmt', []).config(['$urlRouterProvider
             return deferred.promise;
         },
         controller: 'gressionCtrl',
-        controllerAs: 'gressionController'
+        controllerAs: 'gressionController',
+            resolve: {
+                'app.storeMgmt': function($q, $ocLazyLoad) {
+                    var deferred = $q.defer();
+                    require.ensure(['./controllers/gressionCtrl.js'], function() {
+                        var mod = require('./controllers/gressionCtrl.js');
+                        $ocLazyLoad.load({
+                            name: 'app.storeMgmt'
+                        });
+                        deferred.resolve(mod.controller);
+                    }, 'storeMgmt-ctl');
+                    return deferred.promise;
+                }
+            }
     })
 }]).name;
