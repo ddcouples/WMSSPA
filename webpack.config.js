@@ -7,25 +7,42 @@ var webpack = require('webpack'),
     autoprefixer = require('autoprefixer'),
     path = require('path'),
     buildPath = path.resolve(__dirname, "webapp"), //发布目录
-    __DEV__ = process.env.NODE_ENV === 'dev', //发布环境
+    __DEV__ = process.env.NODE_ENV == 'dev', //发布环境
     publicPath = '', //资源引用统一前缀
     devtool = '', //source-map模式
-
+    CompressionWebpackPlugin=require('compression-webpack-plugin'),// 开启gzip压缩
     plugins = [
         new HtmlWebpackPlugin({
-            chunks: ['app', 'vendor'],
-            template: __dirname + '/www/template/index.html',
-            filename: './index.html'
+            inject: true, // 自动注入
+            minify: {
+                removeComments: true,        //去注释
+                collapseWhitespace: true,    //压缩空格
+                removeAttributeQuotes: true  //去除属性引用
+                // more options:
+                // https://github.com/kangax/html-minifier#options-quick-reference
+            },
+            //必须通过上面的 CommonsChunkPlugin 的依赖关系自动添加 js，css 等
+            chunksSortMode: 'dependency'
         }),
-        // new HtmlWebpackPlugin({
-        //     chunks: ['app', 'vendor'],
-        //     template: __dirname + '/www/template/mobile.html',
-        //     filename: './mobile.html'
-        // }),
         // new OpenBrowserPlugin({  //打开地址
         //     url: 'http://localhost:8080'
         // }),
         new webpack.optimize.CommonsChunkPlugin('vendor', 'static/dist/vendor.[hash:6].js'),
+        new HtmlWebpackPlugin({
+            chunks: ['app', 'vendor'],
+            template: __dirname + '/www/template/index.html',//读取的模板文件,这个路径是相对于当前这个配置文件的
+            filename: './index.html',//生成的文件，从 output.path 开始 output.path + "/index.html"
+            inject: true, // 自动注入
+            minify: {
+                removeComments: true,        //去注释
+                collapseWhitespace: true,    //压缩空格
+                removeAttributeQuotes: true  //去除属性引用
+                // more options:
+                // https://github.com/kangax/html-minifier#options-quick-reference
+            },
+            //必须通过上面的 CommonsChunkPlugin 的依赖关系自动添加 js，css 等
+            chunksSortMode: 'dependency'
+        }),
         new webpack.ProvidePlugin({
             $:"jquery",
             jQuery:'jquery',
@@ -39,19 +56,33 @@ var webpack = require('webpack'),
         new NgAnnotatePlugin({
             add: true
         }),
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: '"production"'
+            }
+        }),
+        new CompressionWebpackPlugin({
+            asset:'[path].gz[query]',
+            algorithm:'gzip',
+            test: new RegExp(
+                '\\.(js|css)$'    //压缩 js 与 css
+            ),
+            threshold: 10240,
+            minRatio: 0.8
+        }),
         new webpack.HotModuleReplacementPlugin() //webpack 打包生成的文件 出现 [HMR] Hot Module Replacement is disabled.fa
     ];
-console.log(!__DEV__);
 if (!__DEV__) {
 
     //压缩
     plugins.push(new webpack.optimize.UglifyJsPlugin({
+        comments: false,        //false为去掉注释我问问
         compress: {
-            warnings: false
+            warnings: false//忽略警告,要不然会有一大堆的黄色字体出现……
         }
     }));
 
-    publicPath = process.env.NODE_ENV == 'test' ? 'test.domain.com' : 'www.domain.com';
+    // publicPath = process.env.NODE_ENV == 'test' ? 'test.domain.com' : 'www.domain.com';
     devtool = 'source-map';
 }
 
@@ -82,7 +113,8 @@ var config = {
             {
             test: /\.html$/,
             loader: 'raw'
-        }, {
+        },
+            {
             test: /\.(png|jpg|gif)$/,
             loader: 'url?limit=8192,name=/static/img/[name].[hash:6].[ext]'
         }, {
@@ -91,7 +123,7 @@ var config = {
         }, {
             test: /\.css$/,
             loaders: ['style', 'css'],
-        }, { //外链
+        }, { //外链  //去除注释
             test: /\.scss$/,
             loader: ExtractTextPlugin.extract("style-loader", "css-loader!sass-loader!postcss-loader")
         }

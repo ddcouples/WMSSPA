@@ -11,9 +11,6 @@
 module.exports = angular.module('directive.searchModal', []).directive('searchModal', function() {
     return {
         restrict: 'EA',
-        // scope:{
-        //
-        // },
         replace:true,
         transclude:true,
         template: require('./searchModal.html'),
@@ -24,14 +21,9 @@ module.exports = angular.module('directive.searchModal', []).directive('searchMo
                 $(ele).find('.modal-header').remove();
             }
            if(attr.lg&&attr.lg==='true'){
-               scope.lg=true;
-               scope.sm=false
+                $(ele).find('.modal-dialog').addClass('modal-lg');
            }else if(attr.sm&&attr.sm==='true'){
-                scope.lg=false;
-                scope.sm=true
-           }else{
-               scope.lg=false;
-               scope.sm=false
+               $(ele).find('.modal-dialog').addClass('modal-sm');
            }
         }
     };

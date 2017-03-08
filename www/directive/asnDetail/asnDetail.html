@@ -1,0 +1,274 @@
+<div>
+    <form class="form-horizontal" name="storeSearchForm" novalidate>
+    <div class="panel-group mg-tp20" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" >
+                <h3 class="panel-title">
+                    <a role="button" ng-init="status.open=true" ng-click="status.open=!status.open" class="btn-block" data-toggle="collapse" data-target="#splitAsnDetail"  aria-expanded="true" aria-controls="collapseOne">
+                        查看ASN单
+                        <i class="fa  pull-right" ng-class="{'fa-hand-paper-o': status.open, 'fa-hand-rock-o': !status.open}" aria-hidden="true"></i>
+                    </a>
+                </h3>
+            </div>
+            <div id="splitAsnDetail" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group  has-feedback">
+                                <label class="col-sm-3 control-label receive-form-title">仓库</label>
+                                <div class="col-sm-9">
+                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                </div>
+                            </div>
+                            <div class="form-group  has-feedback">
+                                <label class="col-sm-3 control-label receive-form-title">相关单号1</label>
+                                <div class="col-sm-9">
+                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group  has-feedback">
+                                <label class="col-sm-3 control-label receive-form-title">总数量</label>
+                                <div class="col-sm-9">
+                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                </div>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label for="inputPassword3" class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>订单日期</label>
+                                <div class="col-sm-9 ">
+                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group  has-feedback">
+                                <label class="col-sm-3 control-label receive-form-title">联系人</label>
+                                <div class="col-sm-9">
+                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group  has-feedback">
+                                <label class="col-sm-4 control-label receive-form-title">ASN单号</label>
+                                <div class="col-sm-8">
+                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                </div>
+                            </div>
+                            <div class="form-group  has-feedback">
+                                <label class="col-sm-4 control-label receive-form-title">相关单号2</label>
+                                <div class="col-sm-8">
+                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group  has-feedback">
+                                <label class="col-sm-4 control-label receive-form-title">总重量(KG)</label>
+                                <div class="col-sm-8">
+                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                </div>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label for="inputPassword3" class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>货主</label>
+                                <div class="col-sm-8 ">
+                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group  has-feedback">
+                                <label class="col-sm-4 control-label receive-form-title">联系电话</label>
+                                <div class="col-sm-8">
+                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group  has-feedback">
+                                <label class="col-sm-3 control-label receive-form-title">PO单号</label>
+                                <div class="col-sm-8">
+                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                </div>
+                            </div>
+                            <div class="form-group  has-feedback">
+                                <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>单据类型</label>
+                                <div class="col-sm-8">
+                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group  has-feedback">
+                                <label class="col-sm-3 control-label receive-form-title">总体积(CBM)</label>
+                                <div class="col-sm-8">
+                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                </div>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label for="inputPassword3" class="col-sm-3 control-label receive-form-title">发货方</label>
+                                <div class="col-sm-8 ">
+                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mg-lf">
+                        <div class="form-group  has-feedback">
+                            <label class="col-sm-1 control-label receive-form-title">联系地址</label>
+                            <div class="col-sm-8">
+                                <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group  has-feedback">
+                            <label class="col-sm-1 control-label receive-form-title">备注</label>
+                            <div class="col-sm-8">
+                                <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-7">
+            <div class="panel-group"  role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" >
+                        <h3 class="panel-title">
+                            <a role="button" ng-init="status.openTwo=true" ng-click="status.openTwo=!status.openTwo" class="btn-block" data-toggle="collapse" data-target="#collapseTwoMS"  aria-expanded="true" aria-controls="collapseOne">
+                                货品明细
+                                <i class="fa  pull-right" ng-class="{'fa-hand-paper-o': status.openTwo, 'fa-hand-rock-o': !status.openTwo}" aria-hidden="true"></i>
+                            </a>
+                        </h3>
+                    </div>
+                    <div id="collapseTwoMS" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body pd5">
+                            <!--表格-->
+                            <div class="receive-table" data-example-id="hoverable-table">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <label>
+                                                <input type="checkbox" aria-label="...">
+                                            </label>
+                                        </th>
+                                        <th>货品代码</th>
+                                        <th>货品名称</th>
+                                        <th>批次</th>
+                                        <th>规格型号</th>
+                                        <th>计量单位</th>
+                                        <th>数量/公斤/立方</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th><label>
+                                            <input type="checkbox" aria-label="...">
+                                        </label></th>
+                                        <td>Mark</td>
+                                        <td title="asfasdfsdfasdfasfasfasfasf">啊时代发生的...</td>
+                                        <td>@mdo</td>
+                                        <td>@mdo</td>
+                                        <td>@mdo</td>
+                                        <td>@mdo</td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /表格 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2 paddingLeftRight5">
+            <div class="panel-group"  role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" >
+                        <h3 class="panel-title">
+                            <a role="button" class="btn-block"  aria-expanded="true" aria-controls="collapseOne">
+                                收货明细
+                                <i class="fa  pull-right" aria-hidden="true"></i>
+                            </a>
+                        </h3>
+                    </div>
+                    <div  class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body pd5">
+                            <!--表格-->
+                            <div class="receive-table" data-example-id="hoverable-table">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>数量/公斤/立方</th>
+                                        <th>库位</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            250/0/0
+                                        </td>
+                                        <td>Z302</td>
+
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /表格 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="panel-group"  role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" >
+                        <h3 class="panel-title">
+                            <a role="button" class="btn-block"  aria-expanded="true" aria-controls="collapseOne">
+                                上架明细
+
+                            </a>
+                        </h3>
+                    </div>
+                    <div  class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body pd5">
+                            <!--表格-->
+                            <div class="receive-table" data-example-id="hoverable-table">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>上架数量/公斤/立方</th>
+                                        <th>上架库位</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            100/0/0
+                                        </td>
+                                        <td> S11</td>
+
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /表格 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row mg-bm-50">
+        <div class="col-sm-2 col-sm-offset-1">
+            <button class="btn btn-info" ng-click="btnAction.showAsnDetailAction()">返回</button>
+        </div>
+    </div>
+    </form>
+</div>

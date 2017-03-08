@@ -23,3 +23,9 @@
 .animate-enter-leave.ng-leave-active{
   left: -100%;
 }
+.nav-tabs > li.active{
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
+  //color:#ddd !important;
+  //background: #3d88e0 !important;
+}

@@ -188,7 +188,18 @@ module.exports = angular.module("app.storeMgmt").controller("storeMgmtCtrl",['$s
         MakeSureGetGoodsBtn:function(){//点击切换收货确认
             this.showMakeSureGetGoods=!this.showMakeSureGetGoods;
             this.showIndex=!this.showIndex;
+        },
+        showAsnDetail:false,
+        showAsnDetailAction:function(){
+            this.showAsnDetail=!this.showAsnDetail;
+            this.showIndex=!this.showIndex;
+        },
+        showAsnDetailActionGetData:function(id){
+            this.showAsnDetailAction();
+            //而后进行查询数据绑定
+            console.log(id);
         }
+
     }
 
 }]).controller("shelvesMgmtCtrl", ['$scope',function($scope) {
@@ -220,7 +231,16 @@ module.exports = angular.module("app.storeMgmt").controller("storeMgmtCtrl",['$s
         MakeSureWorkBtn:function(){//点击切换收货确认
             this.MakeSureWork=!this.MakeSureWork;
             this.showIndex=!this.showIndex;
+        },
+        showAsnDetail:false,
+        showAsnDetailAction:function(){
+            this.showAsnDetail=!this.showAsnDetail;
+            this.showIndex=!this.showIndex;
+        },
+        showAsnDetailActionGetData:function(id){
+            this.showAsnDetailAction();
+            //而后进行查询数据绑定
+            console.log(id);
         }
     }
-}])
-    .name;
+}]).name;

@@ -4,10 +4,22 @@ module.exports = angular.module("app.monitoringCenter").controller("monitoringCe
     this.test = function() {
         alert(this.name);
     }
-}]).controller("exceptionMgmtCtrl", [function() {
-    console.log('exceptionMgmtCtrl');
-    this.test = function() {
-        alert(this.name);
+}]).controller("exceptionMgmtCtrl", ['$scope',function($scope) {
+    $scope.btnAction={
+        showAddOrModify:false,
+        showHandling:false,
+        showIndex:true,
+        addAsn:function(){ //点击切换新增ASN页面
+            this.showAddOrModify=!this.showAddOrModify;
+            this.showIndex=!this.showIndex;
+        },
+        modifyAsn:function(){//点击切换修改ASN页面
+            this.showHandling=!this.showHandling;
+            this.showIndex=!this.showIndex;
+        },
+        searchModel:function(id){
+            $('#'+id).modal('show');
+        }
     }
 }]).controller("inventoryWarningCtrl", ['$scope',function($scope) {
     $scope.getOriginData={

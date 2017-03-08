@@ -1,167 +1,336 @@
-<div class="receive_container">
-    <form class="form-horizontal" name="storeSearchForm" novalidate>
-        <div class="row">
-            <div class="col-sm-2 form-horizontal">
-                <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">异常类型</label>
-                    <div class="col-sm-8">
-                        <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
-                            <option value="" selected>请选择</option>
-                            <option value="{{l.key}}" ng-repeat="l in getOriginData.AdjustStatus">{{l.value}}</option>
-                        </select>
+
+<section class="animate-enter-leave"  ng-if="btnAction.showIndex">
+    <div class="receive_container">
+        <form class="form-horizontal" name="storeSearchForm" novalidate>
+            <div class="row">
+                <div class="col-sm-2 form-horizontal">
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">异常类型</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
+                                <option value="" selected>请选择</option>
+                                <option value="{{l.key}}" ng-repeat="l in getOriginData.AdjustStatus">{{l.value}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2 form-horizontal">
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">异常等级</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
+                                <option value="" selected>请选择</option>
+                                <option value="{{l.key}}" ng-repeat="l in getOriginData.AdjustStatus">{{l.value}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-2 form-horizontal">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">相关单号</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                                   name="asnNo" required
+                                   placeholder="ASN单号">
+                            <span ng-if="!storeSearchForm.asnNo.$error.required" clear-input-btn="searchReceiveMsg.asn.asnNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2 form-horizontal">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">异常详情</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo1"
+                                   name="asnNo" required
+                                   placeholder="ASN单号">
+                            <span ng-if="!storeSearchForm.asnNo.$error.required" clear-input-btn="searchReceiveMsg.asn.asnNo1"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-4 form-horizontal">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-2 control-label receive-form-title" for="exampleInputName2">发生日期</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo2"
+                                   name="asnNo" required date-pick-select
+                                   placeholder="ASN单号">
+                            <span  class="fa fa-calendar form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                        <label class="col-sm-1 control-label text-center" for="exampleInputName2">-</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo3"
+                                   name="asnNo" required date-pick-select
+                                   placeholder="ASN单号">
+                            <span  class="fa fa-calendar form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 form-horizontal">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-2 control-label receive-form-title" for="exampleInputName2">登记日期</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo2"
+                                   name="asnNo" required date-pick-select
+                                   placeholder="ASN单号">
+                            <span  class="fa fa-calendar form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                        <label class="col-sm-1 control-label text-center" for="exampleInputName2">-</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo3"
+                                   name="asnNo" required date-pick-select
+                                   placeholder="ASN单号">
+                            <span  class="fa fa-calendar form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 form-horizontal">
+
+                    <div class="row">
+                        <div class=" col-sm-offset-2">
+                            <button type="button" class="btn btn-info" ng-click="searchformAction.search()">查询</button>
+                            <button type="button" class="btn btn-info" ng-click="searchformAction.reset()">重置</button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-2 form-horizontal">
-                <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">异常等级</label>
-                    <div class="col-sm-8">
-                        <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
-                            <option value="" selected>请选择</option>
-                            <option value="{{l.key}}" ng-repeat="l in getOriginData.AdjustStatus">{{l.value}}</option>
-                        </select>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-sm-2 form-horizontal">
-                <div class="form-group  has-feedback">
-                    <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">相关单号</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                               name="asnNo" required
-                               placeholder="ASN单号">
-                        <span ng-if="!storeSearchForm.asnNo.$error.required" clear-input-btn="searchReceiveMsg.asn.asnNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-2 form-horizontal">
-                <div class="form-group  has-feedback">
-                    <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">异常详情</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo1"
-                               name="asnNo" required
-                               placeholder="ASN单号">
-                        <span ng-if="!storeSearchForm.asnNo.$error.required" clear-input-btn="searchReceiveMsg.asn.asnNo1"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="col-sm-4 form-horizontal">
-                <div class="form-group  has-feedback">
-                    <label class="col-sm-2 control-label receive-form-title" for="exampleInputName2">发生日期</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo2"
-                               name="asnNo" required date-pick-select
-                               placeholder="ASN单号">
-                        <span  class="fa fa-calendar form-control-feedback" aria-hidden="true"></span>
-                    </div>
-                    <label class="col-sm-1 control-label text-center" for="exampleInputName2">-</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo3"
-                               name="asnNo" required date-pick-select
-                               placeholder="ASN单号">
-                        <span  class="fa fa-calendar form-control-feedback" aria-hidden="true"></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-4 form-horizontal">
-                <div class="form-group  has-feedback">
-                    <label class="col-sm-2 control-label receive-form-title" for="exampleInputName2">登记日期</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo2"
-                               name="asnNo" required date-pick-select
-                               placeholder="ASN单号">
-                        <span  class="fa fa-calendar form-control-feedback" aria-hidden="true"></span>
-                    </div>
-                    <label class="col-sm-1 control-label text-center" for="exampleInputName2">-</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo3"
-                               name="asnNo" required date-pick-select
-                               placeholder="ASN单号">
-                        <span  class="fa fa-calendar form-control-feedback" aria-hidden="true"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4 form-horizontal">
-
-                <div class="row">
-                    <div class=" col-sm-offset-2">
-                        <button type="button" class="btn btn-info" ng-click="searchformAction.search()">查询</button>
-                        <button type="button" class="btn btn-info" ng-click="searchformAction.reset()">重置</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
 
-    </form>
+        </form>
 
 
-</div>
-
-
-<div class="recevive_tables receive_btns">
-    <!--按钮组-->
-    <div class="row ">
-        <div class="col-sm-10 col-sm-offset-1">
-            <button type="button" class="btn btn-info">登记</button>
-
-            <button type="button" class="btn btn-info">处理</button>
-
-            <button type="button" class="btn btn-info">关闭</button>
-
-        </div>
     </div>
-    <!--按钮组end-->
-    <div class="receive-table" data-example-id="hoverable-table">
-        <table class="table table-hover table-striped">
-            <thead>
-            <tr>
-                <th>
-                    <label>
+    <div class="recevive_tables receive_btns">
+        <!--按钮组-->
+        <div class="row ">
+            <div class="col-sm-10 col-sm-offset-1">
+                <button type="button" ng-click="btnAction.addAsn()"  class="btn btn-info">登记</button>
+
+                <button type="button" ng-click="btnAction.modifyAsn()" class="btn btn-info">处理</button>
+
+                <button type="button" class="btn btn-info">关闭</button>
+
+            </div>
+        </div>
+        <!--按钮组end-->
+        <div class="receive-table" data-example-id="hoverable-table">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>
+                        <label>
+                            <input type="checkbox" aria-label="...">
+                        </label>
+                    </th>
+                    <th>编码</th>
+                    <th>异常等级</th>
+                    <th colspan="2">异常类型</th>
+                    <th>异常详情</th>
+                    <th>相关单号</th>
+                    <th>发生日期</th>
+                    <th>登记日期</th>
+                    <th>处理意见</th>
+                    <th>导入方式</th>
+                    <th>状态</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th><label>
                         <input type="checkbox" aria-label="...">
-                    </label>
-                </th>
-                <th>编码</th>
-                <th>异常等级</th>
-                <th colspan="2">异常类型</th>
-                <th>异常详情</th>
-                <th>相关单号</th>
-                <th>发生日期</th>
-                <th>登记日期</th>
-                <th>处理意见</th>
-                <th>导入方式</th>
-                <th>状态</th>
+                    </label></th>
+                    <td>编码</td>
+                    <td>异常等级</td>
+                    <td colspan="2">异常类型</td>
+                    <td>异常详情异常详情异常详情异常详情异常详情异常详情异常详情异常详情</td>
+                    <td>相关单号</td>
+                    <td>发生日期</td>
+                    <td>登记日期</td>
+                    <td>处理意见</td>
+                    <td>导入方式</td>
+                    <td>状态</td>
+                </tr>
 
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th><label>
-                    <input type="checkbox" aria-label="...">
-                </label></th>
-                <td>编码</td>
-                <td>异常等级</td>
-                <td colspan="2">异常类型</td>
-                <td>异常详情异常详情异常详情异常详情异常详情异常详情异常详情异常详情</td>
-                <td>相关单号</td>
-                <td>发生日期</td>
-                <td>登记日期</td>
-                <td>处理意见</td>
-                <td>导入方式</td>
-                <td>状态</td>
-            </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- /example -->
 
-            </tbody>
-        </table>
+        <page></page>
     </div>
-    <!-- /example -->
+    <footer></footer>
+</section>
 
-    <page></page>
-</div>
+<!--异常登记页面-->
+<section class="animate-enter-leave posAb" ng-if="btnAction.showAddOrModify">
+    <form class="form-horizontal" name="storeSearchForm" novalidate>
+    <panel title="异常登记">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group  has-feedback">
+                    <label class="col-sm-3 control-label receive-form-title">编码</label>
+                    <div class="col-sm-9">
+                        <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
+                               required name="ownerComment"
+                               placeholder="编码">
+                        <span ng-if="!storeSearchForm.ownerComment.$error.required"
+                              clear-input-btn="searchReceiveMsg.ownerComment"
+                              class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                    </div>
+                </div>
+                <div class="form-group  has-feedback">
+                    <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>相关单号</label>
+                    <div class="col-sm-9">
+                        <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
+                               required name="ownerComment"
+                               placeholder="编码">
+                        <span ng-if="!storeSearchForm.ownerComment.$error.required"
+                              clear-input-btn="searchReceiveMsg.ownerComment"
+                              class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group  has-feedback">
+                    <label class="col-sm-4 control-label receive-form-title">登记日期</label>
+                    <div class="col-sm-8">
+                        <label class="form-control text-left pdTp5">2017/01/11</label>
+                    </div>
+                </div>
+                <div class="form-group  has-feedback">
+                    <label class="col-sm-4 control-label receive-form-title"><span class="color-red"></span>异常等级</label>
+                    <div class="col-sm-8">
+                        <select class="form-control">
+                            <option value="一般">一般</option>
+                            <option value="严重">严重</option>
+                            <option value="轻微">轻微</option>
+                            <option value="险兆">险兆</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group  has-feedback">
+                    <label class="col-sm-4 control-label receive-form-title"><span class="color-red"></span>发生日期</label>
+                    <div class="col-sm-8">
+                        <input type="text" ng-model="searchReceiveMsg.asn.orderDate" class="form-control"  date-pick-select  placeholder="订单日期">
+                        <span  class="fa fa-calendar form-control-feedback" aria-hidden="true"></span>
+                    </div>
+                </div>
+                <div class="form-group  has-feedback">
+                    <label class="col-sm-4 control-label receive-form-title"><span class="color-red"></span>异常类型</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" ng-model="searchReceiveMsg.asn.dataFrom">
+                            <option value="库位低储高储报警">库位低储高储报警</option>
+                            <option value="安全库存报警">安全库存报警</option>
+                            <option value="收货异常">收货异常</option>
+                            <option value="上架异常">上架异常</option>
+                            <option value="计划与执行不符">计划与执行不符</option><option value="发货异常">发货异常</option>
+                            <option value="盘点异常">盘点异常</option>
+                            <option value="移位异常">移位异常</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mg-lf">
+            <div class="form-group  has-feedback">
+                <label class="col-sm-1 control-label receive-form-title"><span class="color-red">*</span>异常详情</label>
+                <div class="col-sm-8">
+                    <textarea class="form-control" rows="3" placeholder="备注"></textarea>
+                </div>
+            </div>
+        </div>
+    </panel>
+    <div class="row mg-bm-50">
+        <div class="col-sm-offset-1 col-sm-1">
+            <button class="btn btn-info">保存</button>
+        </div>
+        <div class="col-sm-2">
+            <button class="btn btn-info" ng-click="btnAction.addAsn()">返回</button>
+        </div>
+    </div>
+</form>
+</section>
+<!--异常登记end-->
 
-
+<!--异常处理页面-->
+<section class="animate-enter-leave posAb" ng-if="btnAction.showHandling">
+    <form class="form-horizontal" name="storeSearchForm" novalidate>
+        <panel title="异常登记">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title">编码</label>
+                        <div class="col-sm-9">
+                            <label class="form-control text-left pdTp5">ex20170111000001</label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>相关单号</label>
+                        <div class="col-sm-9">
+                            <label class="form-control text-left pdTp5">2O2O76567875</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">登记日期</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5">2017/01/11</label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title"><span class="color-red"></span>异常等级</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5">一般</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title"><span class="color-red"></span>发生日期</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5">2017/01/11</label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title"><span class="color-red"></span>异常类型</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5">发货异常</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mg-lf">
+                <div class="form-group  has-feedback">
+                    <label class="col-sm-1 control-label receive-form-title"><span class="color-red">*</span>异常详情</label>
+                    <div class="col-sm-8">
+                        <label class="form-control text-left pdTp5">发货装车过程中,E460C电脑掉地损坏,不能继续进行装车发运。</label>
+                    </div>
+                </div>
+                <div class="form-group  has-feedback">
+                    <label class="col-sm-1 control-label receive-form-title"><span class="color-red">*</span>处理意见</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" rows="3" placeholder="备注"></textarea>
+                    </div>
+                </div>
+            </div>
+        </panel>
+        <div class="row mg-bm-50">
+            <div class="col-sm-offset-1 col-sm-1">
+                <button class="btn btn-info">保存</button>
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-info" ng-click="btnAction.modifyAsn()">返回</button>
+            </div>
+        </div>
+    </form>
+</section>
+<!--异常处理end-->

@@ -131,8 +131,9 @@
                                 <input type="checkbox" aria-label="...">
                             </label>
                         </th>
-                        <th>序号</th>
+
                         <th>货主</th>
+                        <th>仓库</th>
                         <th>ASN单号</th>
                         <th>父编码</th>
                         <th>订单类型</th>
@@ -156,9 +157,27 @@
                         <th><label>
                             <input type="checkbox" aria-label="...">
                         </label></th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
+                        <td>联想</td>
+                        <td>广州RDC</td>
+                        <td><a ng-click="btnAction.showAsnDetailActionGetData(12)">87656899644</a></td>
+                        <td></td>
+                        <td>采购订单</td>
+                        <td>Excel导入</td>
+                        <td>151515121<br>
+                            A616-1200<br>
+                            B516100</td>
+                        <td>2016/10/10</td>
+                        <td>100/0/0</td>
+                        <td>100/0/0</td>
+                        <td>100/0/0</td>
+                        <td>生效</td>
+                        <td>张三<br>
+                            2016/10/10<br>
+                            22:22:22</td>
+                        <td>张三<br>
+                            2016/10/10<br>
+                            22:22:22</td>
+
                     </tr>
 
                     </tbody>
@@ -170,7 +189,6 @@
 
         <footer></footer>
     </section>
-
 
     <!--新增ASN和修改ASN调用 -->
     <section class="animate-enter-leave posAb" ng-if="btnAction.showAddOrModify">
@@ -192,7 +210,7 @@
                                 <div class="form-group  has-feedback">
                                     <label class="col-sm-3 control-label receive-form-title">仓库</label>
                                     <div class="col-sm-9">
-                                        <label class="text-left pdTp7">{{getWarehouseId}}</label>
+                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
                                     </div>
                                 </div>
                                 <div class="form-group  has-feedback">
@@ -201,7 +219,9 @@
                                         <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
                                                required name="ownerComment"
                                                placeholder="相关单号1">
-                                        <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchReceiveMsg.ownerComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                        <span ng-if="!storeSearchForm.ownerComment.$error.required"
+                                              clear-input-btn="searchReceiveMsg.ownerComment"
+                                              class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                                     </div>
                                 </div>
 
@@ -225,7 +245,9 @@
                                         <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
                                                required name="ownerComment"
                                                placeholder="联系人">
-                                        <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchReceiveMsg.ownerComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                        <span ng-if="!storeSearchForm.ownerComment.$error.required"
+                                              clear-input-btn="searchReceiveMsg.ownerComment"
+                                              class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                                     </div>
                                 </div>
 
@@ -520,6 +542,7 @@
                                 收货确认
                                 <i class="fa  pull-right" ng-class="{'fa-hand-paper-o': status.openOwn, 'fa-hand-rock-o': !status.openOwn}" aria-hidden="true"></i>
                             </a>
+
                         </h3>
                     </div>
                     <div id="collapseMakesureReceive" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
@@ -532,9 +555,7 @@
                                             <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
                                                    required name="ownerComment" onfocus="this.blur()" ng-click="btnAction.searchModel('select_users_searchModel')"
                                                    placeholder="请选择">
-                                            <span ng-if="!storeSearchForm.ownerComment.$error.required"
-                                                  clear-input-btn="searchReceiveMsg.ownerComment"
-                                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                            <span class="fa fa-search form-control-feedback color345795" aria-hidden="true"></span>
                                         </div>
                                     </div>
 
@@ -547,9 +568,7 @@
                                                    required name="ownerComment"
                                                    onfocus="this.blur()" ng-click="btnAction.searchModel('select_wareLocation_searchModel')"
                                                    placeholder="请选择">
-                                            <span ng-if="!storeSearchForm.ownerComment.$error.required"
-                                                  clear-input-btn="searchReceiveMsg.ownerComment"
-                                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                            <span class="fa fa-search form-control-feedback color345795" aria-hidden="true"></span>
                                         </div>
                                     </div>
 
@@ -560,7 +579,7 @@
                     </div>
                 </div>
             </div>
-
+            <!--发货明细 和收货详情-->
             <div class="row">
                 <div class="col-sm-8">
                     <div class="panel-group"  role="tablist" aria-multiselectable="true">
@@ -617,10 +636,11 @@
                         <div class="panel panel-default">
                             <div class="panel-heading" role="tab" >
                                 <h3 class="panel-title">
-                                    <a role="button" class="btn-block" data-toggle="collapse" data-target="#collapseThrMS"  aria-expanded="true" aria-controls="collapseOne">
+                                    <div role="button" class="btn-block"  aria-expanded="true" aria-controls="collapseOne">
                                         收货详情
-                                        <i class="fa  pull-right" aria-hidden="true"></i>
-                                    </a>
+                                        <i class="fa fa-minus-square pull-right color345795" aria-hidden="true"></i>
+                                        <i class="fa fa-plus-square pull-right color345795" aria-hidden="true"></i>
+                                    </div>
                                 </h3>
                             </div>
                             <div id="collapseThrMS" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
@@ -668,7 +688,7 @@
                     </div>
                 </div>
             </div>
-
+            <!--发货明细 和收货详情end-->
 
             <div class="row mg-bm-50">
                 <div class="col-sm-offset-1 col-sm-1">
@@ -681,6 +701,7 @@
         </form>
     </section>
     <!--收货确认end-->
+
     <!--或者拆分ASN单-->
     <section class="animate-enter-leave posAb" ng-if="btnAction.showSplitAsn">
         <form class="form-horizontal" name="storeSearchForm" novalidate>
@@ -701,33 +722,33 @@
                                     <div class="form-group  has-feedback">
                                         <label class="col-sm-3 control-label receive-form-title">仓库</label>
                                         <div class="col-sm-9">
-                                            <label class="text-left pdTp7">{{getWarehouseId}}</label>
+                                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
                                         </div>
                                     </div>
                                     <div class="form-group  has-feedback">
                                         <label class="col-sm-3 control-label receive-form-title">相关单号1</label>
                                         <div class="col-sm-9">
-                                            <label class="text-left pdTp7">{{getWarehouseId}}</label>
+                                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
                                         </div>
                                     </div>
 
                                     <div class="form-group  has-feedback">
                                         <label class="col-sm-3 control-label receive-form-title">总数量</label>
                                         <div class="col-sm-9">
-                                            <label class="text-left pdTp7">{{getWarehouseId}}</label>
+                                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback">
                                         <label for="inputPassword3" class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>订单日期</label>
                                         <div class="col-sm-9 ">
-                                            <label class="text-left pdTp7">{{getWarehouseId}}</label>
+                                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
                                         </div>
                                     </div>
 
                                     <div class="form-group  has-feedback">
                                         <label class="col-sm-3 control-label receive-form-title">联系人</label>
                                         <div class="col-sm-9">
-                                            <label class="text-left pdTp7">{{getWarehouseId}}</label>
+                                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
                                         </div>
                                     </div>
 
@@ -736,33 +757,33 @@
                                     <div class="form-group  has-feedback">
                                         <label class="col-sm-4 control-label receive-form-title">ASN单号</label>
                                         <div class="col-sm-8">
-                                            <label class="text-left pdTp7">{{getWarehouseId}}</label>
+                                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
                                         </div>
                                     </div>
                                     <div class="form-group  has-feedback">
                                         <label class="col-sm-4 control-label receive-form-title">相关单号2</label>
                                         <div class="col-sm-8">
-                                            <label class="text-left pdTp7">{{getWarehouseId}}</label>
+                                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
                                         </div>
                                     </div>
 
                                     <div class="form-group  has-feedback">
                                         <label class="col-sm-4 control-label receive-form-title">总重量(KG)</label>
                                         <div class="col-sm-8">
-                                            <label class="text-left pdTp7">{{getWarehouseId}}</label>
+                                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback">
                                         <label for="inputPassword3" class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>货主</label>
                                         <div class="col-sm-8 ">
-                                            <label class="text-left pdTp7">{{getWarehouseId}}</label>
+                                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
                                         </div>
                                     </div>
 
                                     <div class="form-group  has-feedback">
                                         <label class="col-sm-4 control-label receive-form-title">联系电话</label>
                                         <div class="col-sm-8">
-                                            <label class="text-left pdTp7">{{getWarehouseId}}</label>
+                                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
                                         </div>
                                     </div>
                                 </div>
@@ -770,26 +791,26 @@
                                     <div class="form-group  has-feedback">
                                         <label class="col-sm-3 control-label receive-form-title">PO单号</label>
                                         <div class="col-sm-8">
-                                            <label class="text-left pdTp7">{{getWarehouseId}}</label>
+                                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
                                         </div>
                                     </div>
                                     <div class="form-group  has-feedback">
                                         <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>单据类型</label>
                                         <div class="col-sm-8">
-                                            <label class="text-left pdTp7">{{getWarehouseId}}</label>
+                                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
                                         </div>
                                     </div>
 
                                     <div class="form-group  has-feedback">
                                         <label class="col-sm-3 control-label receive-form-title">总体积(CBM)</label>
                                         <div class="col-sm-8">
-                                            <label class="text-left pdTp7">{{getWarehouseId}}</label>
+                                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback">
                                         <label for="inputPassword3" class="col-sm-3 control-label receive-form-title">发货方</label>
                                         <div class="col-sm-8 ">
-                                            <label class="text-left pdTp7">{{getWarehouseId}}</label>
+                                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
                                         </div>
                                     </div>
                                 </div>
@@ -798,13 +819,13 @@
                                 <div class="form-group  has-feedback">
                                     <label class="col-sm-1 control-label receive-form-title">联系地址</label>
                                     <div class="col-sm-8">
-                                        <label class="text-left pdTp7">{{getWarehouseId}}</label>
+                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
                                     </div>
                                 </div>
                                 <div class="form-group  has-feedback">
                                     <label class="col-sm-1 control-label receive-form-title">备注</label>
                                     <div class="col-sm-8">
-                                        <label class="text-left pdTp7">{{getWarehouseId}}</label>
+                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
                                     </div>
                                 </div>
                             </div>
@@ -825,7 +846,7 @@
                         </h3>
                     </div>
                     <div id="splitAsnTable" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                        <div class="panel-body">
+                        <div class="panel-body pd5">
 
                             <!--表格-->
                             <div class="receive-table" data-example-id="hoverable-table">
@@ -887,7 +908,7 @@
 
             <div class="row mg-bm-50">
                 <div class="col-sm-offset-1 col-sm-1">
-                    <button class="btn btn-info">保存</button>
+                    <button class="btn btn-info">确认拆分</button>
                 </div>
                 <div class="col-sm-2">
                     <button class="btn btn-info" ng-click="btnAction.splitAsn()">返回</button>
@@ -896,4 +917,11 @@
         </form>
     </section>
     <!--或者拆分ASN单end-->
+
+    <!--查看ASN单指令 数据绑定需要在指令asn-detail里绑定 作用域是当前controller-->
+    <section  class="animate-enter-leave posAb" ng-if="btnAction.showAsnDetail">
+        <asn-detail></asn-detail>
+    </section>
+    <!--查看ASN单指令end-->
+
 </section>

@@ -11,13 +11,13 @@ require('../css/style.css');
 require('../css/bootstrap-datetimepicker.css');
 require('../lib/bootstrap-datetimepicker.js');
 require('../lib/bootstrap-datetimepicker.zh-CN.js');
-
+var tabs=require('angular-ui-bootstrap/src/tabs');
 
 angular.module('app', [
         require('angular-ui-router'),
         require('angular-animate'),
         // require('angular-ui-bootstrap'),
-
+        tabs,
         require('oclazyload'),
         require('./routing.js'),
         require('./directive.js'),

@@ -198,14 +198,14 @@ i.need {
 i.need:before {
   content: "*";
 }
-input {
-  width: auto;
-  height: 30px;
-  padding: 0 10px;
-  line-height: 30px;
-  background: #f8f8f8;
-  border: 1px solid #e1e1e1;
-}
+/*input[type="text"] {*/
+  /*width: auto;*/
+  /*height: 30px;*/
+  /*padding: 0 10px;*/
+  /*line-height: 30px;*/
+  /*background: #f8f8f8;*/
+  /*border: 1px solid #e1e1e1;*/
+/*}*/
 input.date {
   background: #f8f8f8 url(../img/datePicker.gif) no-repeat scroll right center;
 }
@@ -220,13 +220,6 @@ input[readonly] {
   color: #999 !important;
   cursor: not-allowed !important;
 }
-button[disabled],
-button[disabled]:hover {
-  cursor: not-allowed !important;
-  background: #f0f0f0 !important;
-  color: #999 !important;
-  border: 1px solid #e1e1e1 !important;
-}
 select {
   width: 150px;
   height: 30px;
@@ -240,71 +233,6 @@ select.large {
   background: #f8f8f8;
   border: 1px solid #dae1e8;
   padding: 0 10px;
-}
-.table {
-  width: 100%;
-  margin: 0;
-  background: #fff;
-  margin-top: 14px;
-}
-.table th {
-  height: 40px;
-  line-height: 40px;
-  font-size: 16px;
-  font-size:1.6rem;
-  text-align: center;
-  font-weight: normal;
-  color: #333 !important;
-  background: #eeeded;
-  border-bottom: 1px solid #e1e1e1;
-}
-.table td {
-  height: 40px;
-  line-height: 40px;
-  font-size: 14px;
-  font-size:1.4rem;
-  text-align: left;
-  font-weight: normal;
-  color: #333 !important;
-  background: #fff;
-  border-bottom: 1px solid #e1e1e1;
-}
-.table-hover tr:hover {
-  background: #f5f5f5;
-}
-.table-hover tr:hover td {
-  background: none;
-}
-.table-border {
-  width: 100%;
-  margin: 0;
-  background: #fff;
-  margin-top: 14px;
-}
-.table-border th {
-  height: 40px;
-  line-height: 40px;
-  font-size: 16px;
-  font-size:1.6rem;
-  text-align: center;
-  font-weight: normal;
-  color: #333 !important;
-  background: #eeeded;
-  border-bottom: 1px solid #e1e1e1;
-  border: 1px solid #e1e1e1;
-}
-.table-border td {
-  height: 40px;
-  line-height: 40px;
-  font-size: 14px;
-  font-size:1.4rem;
-  text-align: left;
-  font-weight: normal;
-  color: #333 !important;
-  background: #fff;
-  border-bottom: 1px solid #e1e1e1;
-  padding-left: 10px;
-  border: 1px solid #e1e1e1;
 }
 .primary {
   min-width: 100px;
@@ -559,6 +487,12 @@ select.large {
   cursor: pointer;
   pointer-events: auto;
 }
+.color345795:hover{
+  color:#4d8bf5 !important;
+  -webkit-box-shadow: 0 1px 1px 3px #ddd;
+  -moz-box-shadow: 0 1px 1px 3px #ddd;
+  box-shadow: 0 1px 1px 3px #ddd;
+}
 .glyphicon{
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
@@ -599,6 +533,9 @@ select{
 .pdTp7{
   padding-top:.7rem;
 }
+.pdTp5{
+  padding-top:.5rem;
+}
 .mg-lf{
   margin-left: -2px;
 }
@@ -607,4 +544,7 @@ select{
 }
 .paddingLeftRight5{
   padding:0;
+}
+.mg-tp100{
+  margin-top:100px;
 }
