@@ -17,7 +17,7 @@ module.exports = angular.module('app.httpServer', []).factory('httpServer', func
             });
         return d.promise;
     };
-    service.postData = function(url,data,config){
+    service.postData = function(url,data){
         var d = $q.defer();
         $http.post(url,data)//读取数据的函数。
             .then(function(response) {
@@ -137,4 +137,35 @@ module.exports = angular.module('app.httpServer', []).factory('httpServer', func
         }
         return ret.join('&');
     }
-}).name;
+}).factory("modifyById", ['tooltip','httpServer','$q','loadingModalServer',function (tooltip,httpServer,$q,loadingModalServer) {
+    /**
+     * 修改根据id 进行  返回 需要修改的数据 object
+     * 如果没有传入id 弹出提示框
+     * */
+    /*提示框*/
+    var modifyById = function (id,url,mes) {
+        var d=$q.defer();
+        if(id&&/[0-9]+/.test(id)){
+            loadingModalServer.show();
+            var _d= httpServer.postData(url,id);
+            _d.then(function(res){
+                if(res=='error'){
+                    setTimeout(function(){
+                        loadingModalServer.hide();
+                    },800);
+                    tooltip('网络错误！请稍候重试！');
+                    d.resolve('err');
+                }else{
+                    //loadingModalServer.hide();
+                    d.resolve(res);
+                }
+            })
+
+        }else{
+            tooltip(mes);
+            d.resolve('err');
+        }
+        return d.promise;
+    };
+    return modifyById;
+}]).name;

@@ -37,7 +37,20 @@ module.exports = angular.module('app.basicData', []).config(['$urlRouterProvider
             return deferred.promise;
         },
         controller: 'bdStoreMgmtCtrl',
-        controllerAs: 'bdStoreMgmtController'
+        controllerAs: 'bdStoreMgmtController',
+        resolve: {
+            'app.basicData': function($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure(['./controllers/bdStoreMgmtCtrl.js'], function() {
+                    var mod = require('./controllers/bdStoreMgmtCtrl.js');
+                    $ocLazyLoad.load({
+                        name: 'app.basicData'
+                    });
+                    deferred.resolve(mod.controller);
+                }, 'basicData-ctl');
+                return deferred.promise;
+            }
+        }
     }).state('warehouse.basicData.bdReservoirMgmt', {
         url: '/bdReservoirMgmt',
         templateProvider: function($q) {
@@ -49,7 +62,20 @@ module.exports = angular.module('app.basicData', []).config(['$urlRouterProvider
             return deferred.promise;
         },
         controller: 'bdReservoirMgmtCtrl',
-        controllerAs: 'bdReservoirMgmtController'
+        controllerAs: 'bdReservoirMgmtController',
+        resolve: {
+            'app.basicData': function($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure(['./controllers/bdReservoirMgmtCtrl.js'], function() {
+                    var mod = require('./controllers/bdReservoirMgmtCtrl.js');
+                    $ocLazyLoad.load({
+                        name: 'app.basicData'
+                    });
+                    deferred.resolve(mod.controller);
+                }, 'basicData-ctl');
+                return deferred.promise;
+            }
+        }
     }).state('warehouse.basicData.locationMgmt', {
         url: '/locationMgmt',
         templateProvider: function($q) {
@@ -61,7 +87,20 @@ module.exports = angular.module('app.basicData', []).config(['$urlRouterProvider
             return deferred.promise;
         },
         controller: 'locationMgmtCtrl',
-        controllerAs: 'locationMgmtController'
+        controllerAs: 'locationMgmtController',
+        resolve: {
+            'app.basicData': function($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure(['./controllers/locationMgmtCtrl.js'], function() {
+                    var mod = require('./controllers/locationMgmtCtrl.js');
+                    $ocLazyLoad.load({
+                        name: 'app.basicData'
+                    });
+                    deferred.resolve(mod.controller);
+                }, 'basicData-ctl');
+                return deferred.promise;
+            }
+        }
     }).state('warehouse.basicData.platformMgmt', {
         url: '/platformMgmt',
         templateProvider: function($q) {
@@ -73,7 +112,20 @@ module.exports = angular.module('app.basicData', []).config(['$urlRouterProvider
             return deferred.promise;
         },
         controller: 'platformMgmtCtrl',
-        controllerAs: 'platformMgmtController'
+        controllerAs: 'platformMgmtController',
+        resolve: {
+            'app.basicData': function($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure(['./controllers/platformMgmtCtrl.js'], function() {
+                    var mod = require('./controllers/platformMgmtCtrl.js');
+                    $ocLazyLoad.load({
+                        name: 'app.basicData'
+                    });
+                    deferred.resolve(mod.controller);
+                }, 'basicData-ctl');
+                return deferred.promise;
+            }
+        }
     })
         //客商管理路由
         .state('warehouse.basicData.merchantsMgmt', {
@@ -87,7 +139,20 @@ module.exports = angular.module('app.basicData', []).config(['$urlRouterProvider
                 return deferred.promise;
             },
             controller: 'merchantsMgmtCtrl',
-            controllerAs: 'merchantsMgmtController'
+            controllerAs: 'merchantsMgmtController',
+            resolve: {
+                'app.basicData': function($q, $ocLazyLoad) {
+                    var deferred = $q.defer();
+                    require.ensure(['./controllers/merchantsMgmtCtrl.js'], function() {
+                        var mod = require('./controllers/merchantsMgmtCtrl.js');
+                        $ocLazyLoad.load({
+                            name: 'app.basicData'
+                        });
+                        deferred.resolve(mod.controller);
+                    }, 'basicData-ctl');
+                    return deferred.promise;
+                }
+            }
         })
         .state('warehouse.basicData.itemType', {
             url: '/itemType',
@@ -100,7 +165,20 @@ module.exports = angular.module('app.basicData', []).config(['$urlRouterProvider
                 return deferred.promise;
             },
             controller: 'itemTypeCtrl',
-            controllerAs: 'itemTypeController'
+            controllerAs: 'itemTypeController',
+            resolve: {
+                'app.basicData': function($q, $ocLazyLoad) {
+                    var deferred = $q.defer();
+                    require.ensure(['./controllers/itemTypeCtrl.js'], function() {
+                        var mod = require('./controllers/itemTypeCtrl.js');
+                        $ocLazyLoad.load({
+                            name: 'app.basicData'
+                        });
+                        deferred.resolve(mod.controller);
+                    }, 'basicData-ctl');
+                    return deferred.promise;
+                }
+            }
         })
         .state('warehouse.basicData.bdGoodsMgmt', {
             url: '/bdGoodsMgmt',
@@ -113,7 +191,20 @@ module.exports = angular.module('app.basicData', []).config(['$urlRouterProvider
                 return deferred.promise;
             },
             controller: 'bdGoodsMgmtCtrl',
-            controllerAs: 'bdGoodsMgmtController'
+            controllerAs: 'bdGoodsMgmtController',
+            resolve: {
+                'app.basicData': function($q, $ocLazyLoad) {
+                    var deferred = $q.defer();
+                    require.ensure(['./controllers/bdGoodsMgmtCtrl.js'], function() {
+                        var mod = require('./controllers/bdGoodsMgmtCtrl.js');
+                        $ocLazyLoad.load({
+                            name: 'app.basicData'
+                        });
+                        deferred.resolve(mod.controller);
+                    }, 'basicData-ctl');
+                    return deferred.promise;
+                }
+            }
         })
         .state('warehouse.basicData.bdPackagingMgmt', {
             url: '/bdPackagingMgmt',
@@ -126,7 +217,20 @@ module.exports = angular.module('app.basicData', []).config(['$urlRouterProvider
                 return deferred.promise;
             },
             controller: 'bdPackagingMgmtCtrl',
-            controllerAs: 'bdPackagingMgmtController'
+            controllerAs: 'bdPackagingMgmtController',
+            resolve: {
+                'app.basicData': function($q, $ocLazyLoad) {
+                    var deferred = $q.defer();
+                    require.ensure(['./controllers/bdPackagingMgmtCtrl.js'], function() {
+                        var mod = require('./controllers/bdPackagingMgmtCtrl.js');
+                        $ocLazyLoad.load({
+                            name: 'app.basicData'
+                        });
+                        deferred.resolve(mod.controller);
+                    }, 'basicData-ctl');
+                    return deferred.promise;
+                }
+            }
         })
         .state('warehouse.basicData.locationSpecifications', {
             url: '/locationSpecifications',
@@ -139,21 +243,48 @@ module.exports = angular.module('app.basicData', []).config(['$urlRouterProvider
                 return deferred.promise;
             },
             controller: 'locationSpecificationsCtrl',
-            controllerAs: 'locationSpecificationsController'
+            controllerAs: 'locationSpecificationsController',
+            resolve: {
+                'app.basicData': function($q, $ocLazyLoad) {
+                    var deferred = $q.defer();
+                    require.ensure(['./controllers/locationSpecificationsCtrl.js'], function() {
+                        var mod = require('./controllers/locationSpecificationsCtrl.js');
+                        $ocLazyLoad.load({
+                            name: 'app.basicData'
+                        });
+                        deferred.resolve(mod.controller);
+                    }, 'basicData-ctl');
+                    return deferred.promise;
+                }
+            }
         })
-        .state('warehouse.basicData.databaseSetup', {
-            url: '/databaseSetup',
-            templateProvider: function($q) {
-                var deferred = $q.defer();
-                require.ensure(['./views/databaseSetup.html'], function(require) {
-                    var template = require('./views/databaseSetup.html');
-                    deferred.resolve(template);
-                }, 'databaseSetup-tpl');
-                return deferred.promise;
-            },
-            controller: 'databaseSetupCtrl',
-            controllerAs: 'databaseSetupController'
-        })
+            // 库容量设置模块 已经被卡掉
+        // .state('warehouse.basicData.databaseSetup', {
+        //     url: '/databaseSetup',
+        //     templateProvider: function($q) {
+        //         var deferred = $q.defer();
+        //         require.ensure(['./views/databaseSetup.html'], function(require) {
+        //             var template = require('./views/databaseSetup.html');
+        //             deferred.resolve(template);
+        //         }, 'databaseSetup-tpl');
+        //         return deferred.promise;
+        //     },
+        //     controller: 'databaseSetupCtrl',
+        //     controllerAs: 'databaseSetupController',
+        //     resolve: {
+        //         'app.basicData': function($q, $ocLazyLoad) {
+        //             var deferred = $q.defer();
+        //             require.ensure(['./controllers/databaseSetupCtrl.js'], function() {
+        //                 var mod = require('./controllers/databaseSetupCtrl.js');
+        //                 $ocLazyLoad.load({
+        //                     name: 'app.basicData'
+        //                 });
+        //                 deferred.resolve(mod.controller);
+        //             }, 'basicData-ctl');
+        //             return deferred.promise;
+        //         }
+        //     }
+        // })
         .state('warehouse.basicData.equipmentMgmt', {
             url: '/equipmentMgmt',
             templateProvider: function($q) {
@@ -165,7 +296,20 @@ module.exports = angular.module('app.basicData', []).config(['$urlRouterProvider
                 return deferred.promise;
             },
             controller: 'equipmentMgmtCtrl',
-            controllerAs: 'equipmentMgmtController'
+            controllerAs: 'equipmentMgmtController',
+            resolve: {
+                'app.basicData': function($q, $ocLazyLoad) {
+                    var deferred = $q.defer();
+                    require.ensure(['./controllers/equipmentMgmtCtrl.js'], function() {
+                        var mod = require('./controllers/equipmentMgmtCtrl.js');
+                        $ocLazyLoad.load({
+                            name: 'app.basicData'
+                        });
+                        deferred.resolve(mod.controller);
+                    }, 'basicData-ctl');
+                    return deferred.promise;
+                }
+            }
         })
         .state('warehouse.basicData.workspaceMgmt', {
             url: '/workspaceMgmt',
@@ -178,6 +322,19 @@ module.exports = angular.module('app.basicData', []).config(['$urlRouterProvider
                 return deferred.promise;
             },
             controller: 'workspaceMgmtCtrl',
-            controllerAs: 'workspaceMgmtController'
+            controllerAs: 'workspaceMgmtController',
+            resolve: {
+                'app.basicData': function($q, $ocLazyLoad) {
+                    var deferred = $q.defer();
+                    require.ensure(['./controllers/workspaceMgmtCtrl.js'], function() {
+                        var mod = require('./controllers/workspaceMgmtCtrl.js');
+                        $ocLazyLoad.load({
+                            name: 'app.basicData'
+                        });
+                        deferred.resolve(mod.controller);
+                    }, 'basicData-ctl');
+                    return deferred.promise;
+                }
+            }
         })
 }]).name;

@@ -1,112 +1,226 @@
-<div class="receive_container">
+<section class="w100"  ng-if="btnAction.showIndex">
     <div class="receive_container">
-        <form class="form-horizontal" name="storeSearchForm" novalidate>
-            <div class="row">
-                <div class="col-sm-2 form-horizontal">
-                    <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title">租期企业</label>
-                        <div class="col-sm-8">
-                            <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                   required name="ownerComment"
-                                   placeholder="租期企业">
-                            <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchReceiveMsg.ownerComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+        <div class="receive_container">
+            <form class="form-horizontal" name="storeSearchForm" novalidate>
+                <div class="row">
+                    <div class="col-sm-2 form-horizontal">
+                        <div class="form-group  has-feedback">
+                            <label class="col-sm-4 control-label receive-form-title">租期企业</label>
+                            <div class="col-sm-8">
+                                <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
+                                       required name="ownerComment"
+                                       placeholder="租期企业">
+                                <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchReceiveMsg.ownerComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            </div>
                         </div>
+
+                    </div>
+                    <div class="col-sm-2 form-horizontal">
+                        <div class="form-group  has-feedback">
+                            <label class="col-sm-4 control-label receive-form-title">租赁客商</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.poNo"
+                                       name="poNo" required
+                                       placeholder="租赁客商">
+                                <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchReceiveMsg.asn.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-2 form-horizontal">
+                        <div class="form-group  has-feedback">
+                            <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">出租仓库</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                                       name="asnNo" required
+                                       placeholder="出租仓库">
+                                <span ng-if="!storeSearchForm.asnNo.$error.required" clear-input-btn="searchReceiveMsg.asn.asnNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            </div>
+                        </div>
+
                     </div>
 
+                    <div class="col-sm-4 form-horizontal">
+
+                        <div class="row">
+                            <div class=" col-sm-offset-2">
+                                <button type="button" class="btn btn-info" ng-click="searchformAction.search()">查询</button>
+                                <button type="button" class="btn btn-info" ng-click="searchformAction.reset()">重置</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-2 form-horizontal">
+            </form>
+        </div>
+    </div>
+    <div class="recevive_tables receive_btns">
+        <!--按钮组-->
+        <div class="row ">
+            <div class="col-sm-10 col-sm-offset-1">
+
+                <button type="button" class="btn btn-info">关闭</button>
+
+            </div>
+        </div>
+        <!--按钮组end-->
+        <div class="receive-table" data-example-id="hoverable-table">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>
+                        <label>
+                            <input type="checkbox" aria-label="...">
+                        </label>
+                    </th>
+                    <th>序号</th>
+                    <th>租赁企业</th>
+                    <th>租赁客商</th>
+                    <th>出租仓库</th>
+                    <th>租期</th>
+                    <th>租金收取方式</th>
+                    <th>计费方式</th>
+                    <th>结算周期</th>
+                    <th>租期倒计时（天）</th>
+                    <th>预警提前（天）</th>
+                    <th>预警频率</th>
+                    <th>预警方式</th>
+                    <th>状态</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th><label>
+                        <input type="checkbox" aria-label="...">
+                    </label></th>
+
+                    <td>1</td>
+                    <td>林安物流园</td>
+                    <td>跨越物流</td>
+                    <td><a ng-click="btnAction.showDetailActionGetData(13)">435325345345</a></td>
+                    <td>2017-01-01~2017-12-31</td>
+                    <td>转账</td>
+                    <td>按月</td>
+                    <td>按月</td>
+                    <td>15</td>
+                    <td>每天</td>
+                    <td>系统</td>
+                    <td>打开</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <!-- /example -->
+
+
+        <page></page>
+
+
+    </div>
+    <footer></footer>
+</section>
+<!--查看仓库出租信息-->
+<section class="w100 posAb" ng-if="btnAction.showDetail">
+    <form class="form-horizontal" name="storeSearchForm" novalidate>
+        <panel title="查看仓库出租信息">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">租赁企业</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5">林安物流园</label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">租金(万元)</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5">林安物流园</label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">结算周期</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5">林安物流园</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">租赁客商</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.poNo"
-                                   name="poNo" required
-                                   placeholder="租赁客商">
-                            <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchReceiveMsg.asn.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            <label class="form-control text-left pdTp5">林安物流园</label>
                         </div>
                     </div>
-
-                </div>
-                <div class="col-sm-2 form-horizontal">
                     <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">出租仓库</label>
+                        <label class="col-sm-4 control-label receive-form-title">押金(元)</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="出租仓库">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required" clear-input-btn="searchReceiveMsg.asn.asnNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            <label class="form-control text-left pdTp5">林安物流园</label>
                         </div>
                     </div>
-
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">预警提前(天)</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5">林安物流园</label>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="col-sm-4 form-horizontal">
-
-                    <div class="row">
-                        <div class=" col-sm-offset-2">
-                            <button type="button" class="btn btn-info" ng-click="searchformAction.search()">查询</button>
-                            <button type="button" class="btn btn-info" ng-click="searchformAction.reset()">重置</button>
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">出租仓库</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5">林安物流园</label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">租金收取方式</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5">林安物流园</label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">预警频率</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5">林安物流园</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title" for="exampleInputName2">租期</label>
+                        <div class="col-sm-9">
+                            <label class="form-control text-left pdTp5">1990-3-3 ~ 2930-3-3  </label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title">计费方式</label>
+                        <div class="col-sm-9">
+                            <label class="form-control text-left pdTp5">林安物流园</label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title">预警方式</label>
+                        <div class="col-sm-9">
+                            <label class="form-control text-left pdTp5">林安物流园</label>
                         </div>
                     </div>
                 </div>
             </div>
-        </form>
-    </div>
-</div>
 
-<div class="recevive_tables receive_btns">
-    <!--按钮组-->
-    <div class="row ">
-        <div class="col-sm-10 col-sm-offset-1">
-            <button type="button" class="btn btn-info">查看</button>
+            <div class="form-group  has-feedback">
+                <label class="col-sm-1 control-label receive-form-title"><span class="color-red">*</span>处理意见</label>
+                <div class="col-sm-8">
+                    <label class="form-control text-left pdTp5">林安物流园</label>
+                </div>
+            </div>
 
-            <button type="button" class="btn btn-info">关闭</button>
-
+        </panel>
+        <div class="mg-bm-50 mg-lt20">
+            <button class="btn btn-info mg-lt20" ng-click="btnAction.turnShowDetail()">返回</button>
         </div>
-    </div>
-    <!--按钮组end-->
-    <div class="receive-table" data-example-id="hoverable-table">
-        <table class="table table-hover table-striped">
-            <thead>
-            <tr>
-                <th>
-                    <label>
-                        <input type="checkbox" aria-label="...">
-                    </label>
-                </th>
-                <th>序号</th>
-                <th>租赁企业</th>
-                <th>租赁客商</th>
-                <th>出租仓库</th>
-                <th>租期</th>
-                <th>租金收取方式</th>
-                <th>计费方式</th>
-                <th>结算周期</th>
-                <th>租期倒计时（天）</th>
-                <th>预警提前（天）</th>
-                <th>预警频率</th>
-                <th>预警方式</th>
-                <th>状态</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th><label>
-                    <input type="checkbox" aria-label="...">
-                </label></th>
+    </form>
+</section>
+<!--/查看仓库出租信息-->
 
-            </tr>
-
-            </tbody>
-        </table>
-    </div>
-    <!-- /example -->
-
-
-    <page></page>
-
-
-</div>
-<footer></footer>
 
 
 

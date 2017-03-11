@@ -1,133 +1,460 @@
-<div class="receive_container">
+
+
+<section class="animate-enter-leave"  ng-if="btnAction.showIndex">
     <div class="receive_container">
-        <form class="form-horizontal" name="storeSearchForm" novalidate>
+        <div class="receive_container">
+            <form class="form-horizontal" name="storeSearchForm" novalidate>
+                <div class="row">
+                    <div class="col-sm-2 form-horizontal">
+                        <div class="form-group  has-feedback">
+                            <label class="col-sm-4 control-label receive-form-title">库位代码</label>
+                            <div class="col-sm-8">
+                                <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
+                                       required name="ownerComment"
+                                       placeholder="库位代码">
+                                <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchReceiveMsg.ownerComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-2 form-horizontal">
+                        <div class="form-group  has-feedback">
+                            <label class="col-sm-4 control-label receive-form-title">库位名称</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.poNo"
+                                       name="poNo" required
+                                       placeholder="库位名称">
+                                <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchReceiveMsg.asn.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-2 form-horizontal">
+                        <div class="form-group  has-feedback">
+                            <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">所属库区</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                                       name="asnNo" required
+                                       placeholder="所属库区">
+                                <span ng-if="!storeSearchForm.asnNo.$error.required" clear-input-btn="searchReceiveMsg.asn.asnNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-2 form-horizontal">
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">状态</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
+                                    <option value="" selected>请选择</option>
+                                    <option value="{{l.key}}" ng-repeat="l in getOriginData.LocationStatus">{{l.value}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-horizontal">
+
+                        <div class="row">
+                            <div class=" col-sm-offset-2 btn-mr16">
+                                <button type="button" class="btn btn-info" ng-click="searchformAction.search()">查询</button>
+                                <button type="button" class="btn btn-info" ng-click="searchformAction.reset()">重置</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="recevive_tables receive_btns">
+        <!--按钮组-->
+        <div class="row ">
+            <div class="col-sm-10 col-sm-offset-1">
+                <button type="button" class="btn btn-info" ng-click="btnAction.addAsn()">新增</button>
+
+                <button type="button" class="btn btn-info" ng-click="btnAction.modifyAsn(11)">修改</button>
+
+                <button type="button" class="btn btn-info">生效</button>
+
+                <button type="button" class="btn btn-info">失效</button>
+
+            </div>
+        </div>
+        <!--按钮组end-->
+        <div class="receive-table" data-example-id="hoverable-table">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>
+                        <label>
+                            <input type="checkbox" aria-label="...">
+                        </label>
+                    </th>
+                    <th>序号</th>
+                    <th>库位代码</th>
+                    <th>所属库区</th>
+                    <th>库位名称</th>
+                    <th>库容量</th>
+                    <th>计量单位</th>
+                    <th>已占用容量</th>
+                    <th>预分配容量</th>
+                    <th>库容量占比</th>
+                    <th>包装</th>
+
+                    <th>冻结</th>
+
+                    <th>今日动碰</th>
+                    <th>区</th>
+
+                    <th>排</th>
+                    <th>列</th>
+                    <th>层</th>
+                    <th>备注</th>
+                    <th>状态</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th><label>
+                        <input type="checkbox" aria-label="...">
+                    </label></th>
+                    <td>1</td>
+                    <td><a ng-click="btnAction.showDetailActionGetData(13)">435325345345</a></td>
+                    <td>进口产品库位1</td>
+                    <td>库区1</td>
+                    <td>6000</td>
+                    <td>转账</td>
+                    <td>按月</td>
+                    <td>按月</td>
+                    <td>15</td>
+                    <td>每天</td>
+                    <td>系统</td>
+                    <td>打开</td>
+
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <!-- /example -->
+
+
+        <page></page>
+    </div>
+    <footer></footer>
+</section>
+<!--新增/修改库位-->
+<section class="animate-enter-leave posAb" ng-if="btnAction.showAddOrModify">
+    <form class="form-horizontal" name="storeSearchForm" novalidate>
+        <panel title="{{btnAction.showText.firstTitle}}">
             <div class="row">
-                <div class="col-sm-2 form-horizontal">
+                <div class="col-sm-3">
                     <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title">库位代码</label>
-                        <div class="col-sm-8">
-                            <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                   required name="ownerComment"
-                                   placeholder="库位代码">
-                            <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchReceiveMsg.ownerComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-sm-2 form-horizontal">
-                    <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title">库位名称</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.poNo"
-                                   name="poNo" required
-                                   placeholder="库位名称">
-                            <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchReceiveMsg.asn.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-sm-2 form-horizontal">
-                    <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">所属库区</label>
+                        <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>库位代码</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
                                    name="asnNo" required
-                                   placeholder="所属库区">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required" clear-input-btn="searchReceiveMsg.asn.asnNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                   placeholder="库位代码">
+                            <span ng-if="!storeSearchForm.asnNo.$error.required"
+                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
-
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">最大库容量</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                                   name="asnNo" required
+                                   placeholder="最大库容量">
+                            <span ng-if="!storeSearchForm.asnNo.$error.required"
+                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">区</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                                   name="asnNo" required
+                                   placeholder="区">
+                            <span ng-if="!storeSearchForm.asnNo.$error.required"
+                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">X轴</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                                   name="asnNo" required
+                                   placeholder="X轴">
+                            <span ng-if="!storeSearchForm.asnNo.$error.required"
+                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-2 form-horizontal">
-                    <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">状态</label>
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>库位名称</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                                   name="asnNo" required
+                                   placeholder="租赁客商">
+                            <span ng-if="!storeSearchForm.asnNo.$error.required"
+                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">使用库容量</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                                   name="asnNo" required
+                                   placeholder="使用库容量">
+                            <span ng-if="!storeSearchForm.asnNo.$error.required"
+                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">排</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                                   name="asnNo" required
+                                   placeholder="排">
+                            <span ng-if="!storeSearchForm.asnNo.$error.required"
+                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">Y轴</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                                   name="asnNo" required
+                                   placeholder="Y轴">
+                            <span ng-if="!storeSearchForm.asnNo.$error.required"
+                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">所属库区</label>
                         <div class="col-sm-8">
                             <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
                                 <option value="" selected>请选择</option>
-                                <option value="{{l.key}}" ng-repeat="l in getOriginData.LocationStatus">{{l.value}}</option>
+                                <option value="{{l.key}}" ng-repeat="l in getOriginData.AdjustStatus">{{l.value}}</option>
                             </select>
                         </div>
                     </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">预分配库容量</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                                   name="asnNo" required
+                                   placeholder="Y轴">
+                            <span ng-if="!storeSearchForm.asnNo.$error.required"
+                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">列</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                                   name="asnNo" required
+                                   placeholder="列">
+                            <span ng-if="!storeSearchForm.asnNo.$error.required"
+                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">Z轴</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                                   name="asnNo" required
+                                   placeholder="Z轴">
+                            <span ng-if="!storeSearchForm.asnNo.$error.required"
+                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-4 form-horizontal">
-
-                    <div class="row">
-                        <div class=" col-sm-offset-2 btn-mr16">
-                            <button type="button" class="btn btn-info" ng-click="searchformAction.search()">查询</button>
-                            <button type="button" class="btn btn-info" ng-click="searchformAction.reset()">重置</button>
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">库位规格</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
+                                <option value="" selected>请选择</option>
+                                <option value="{{l.key}}" ng-repeat="l in getOriginData.AdjustStatus">{{l.value}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">库容量占比</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                                   name="asnNo" required
+                                   placeholder="Z轴">
+                            <span ng-if="!storeSearchForm.asnNo.$error.required"
+                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">层</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                                   name="asnNo" required
+                                   placeholder="Z轴">
+                            <span ng-if="!storeSearchForm.asnNo.$error.required"
+                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                 </div>
             </div>
-        </form>
-    </div>
-</div>
 
-<div class="recevive_tables receive_btns">
-    <!--按钮组-->
-    <div class="row ">
-        <div class="col-sm-10 col-sm-offset-1">
-            <button type="button" class="btn btn-info">新增</button>
+            <div class="form-group  has-feedback">
+                <label class="col-sm-1 control-label receive-form-title"><span class="color-red">*</span>备注</label>
+                <div class="col-sm-8">
+                    <textarea class="form-control" rows="3" placeholder="备注"></textarea>
+                </div>
+            </div>
 
-            <button type="button" class="btn btn-info">修改</button>
-
-            <button type="button" class="btn btn-info">生效</button>
-
-            <button type="button" class="btn btn-info">失效</button>
-
+        </panel>
+        <div class="mg-bm-50 mg-lt20">
+            <button class="btn btn-info mg-lt20">暂存</button>
+            <button class="btn btn-info mg-lt20">保存并返回</button>
+            <button class="btn btn-info mg-lt20" ng-click="btnAction.addAsn()">返回</button>
         </div>
-    </div>
-    <!--按钮组end-->
-    <div class="receive-table" data-example-id="hoverable-table">
-        <table class="table table-hover table-striped">
-            <thead>
-            <tr>
-                <th>
-                    <label>
-                        <input type="checkbox" aria-label="...">
-                    </label>
-                </th>
-                <th>序号</th>
-                <th>库位代码</th>
-                <th>所属库区</th>
-                <th>库位名称</th>
-                <th>库容量</th>
-                <th>计量单位</th>
-                <th>已占用容量</th>
-                    <th>预分配容量</th>
-                <th>库容量占比</th>
-                <th>包装</th>
+    </form>
+</section>
+<!--/新增/修改库位-->
 
-                <th>冻结</th>
+<!--查看库位-->
+<section class="animate-enter-leave posAb" ng-if="btnAction.showDetail">
 
-                <th>今日动碰</th>
-                <th>区</th>
+    <form class="form-horizontal" name="storeSearchForm" novalidate>
+        <panel title="查看库位">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>库位代码</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5">林安物流园</label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">最大库容量</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5">林安物流园</label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">区</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5">林安物流园</label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">X轴</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5">林安物流园</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>库位名称</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5">林安物流园</label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">使用库容量</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5">林安物流园</label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">排</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5">林安物流园</label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">Y轴</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5">林安物流园</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">所属库区</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5">林安物流园</label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">预分配库容量</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5">林安物流园</label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">列</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5">林安物流园</label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">Z轴</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5">林安物流园</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">库位规格</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5">林安物流园</label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">库容量占比</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5">林安物流园</label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">层</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5">林安物流园</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                <th>排</th>
-                <th>列</th>
-                <th>层</th>
-                <th>备注</th>
-                <th>状态</th>
+            <div class="form-group  has-feedback">
+                <label class="col-sm-1 control-label receive-form-title"><span class="color-red">*</span>备注</label>
+                <div class="col-sm-8">
+                    <label class="form-control text-left pdTp5">林安物流园</label>
+                </div>
+            </div>
 
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th><label>
-                    <input type="checkbox" aria-label="...">
-                </label></th>
-
-            </tr>
-
-            </tbody>
-        </table>
-    </div>
-    <!-- /example -->
-
-
-    <page></page>
-</div>
-<footer></footer>
-
-
+        </panel>
+        <div class="mg-bm-50 mg-lt20">
+            <button class="btn btn-info mg-lt20" ng-click="btnAction.turnShowDetail()">返回</button>
+        </div>
+    </form>
+</section>
+<!--/查看库位-->
 

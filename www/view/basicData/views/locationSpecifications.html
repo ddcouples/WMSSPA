@@ -1,117 +1,242 @@
-<div class="receive_container">
+<section class="animate-enter-leave"  ng-if="btnAction.showIndex">
     <div class="receive_container">
-        <form class="form-horizontal" name="storeSearchForm" novalidate>
+        <div class="receive_container">
+            <form class="form-horizontal" name="storeSearchForm" novalidate>
+                <div class="row">
+                    <div class="col-sm-2 form-horizontal">
+                        <div class="form-group  has-feedback">
+                            <label class="col-sm-4 control-label receive-form-title">规格代码</label>
+                            <div class="col-sm-8">
+                                <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
+                                       required name="ownerComment"
+                                       placeholder="规格代码">
+                                <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchReceiveMsg.ownerComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-2 form-horizontal">
+                        <div class="form-group  has-feedback">
+                            <label class="col-sm-4 control-label receive-form-title">规格名称</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.poNo"
+                                       name="poNo" required
+                                       placeholder="规格名称">
+                                <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchReceiveMsg.asn.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-sm-4 form-horizontal">
+                        <div class="row">
+                            <label for="inputPassword3" class="col-sm-3 control-label receive-form-title">载重(KG)&nbsp;&nbsp;</label>
+                            <div class="col-sm-4">
+                                <div class="form-group  has-feedback">
+                                    <input type="number" class="form-control"  ng-model="searchReceiveMsg.asn.poNo"
+                                           name="poNo" required
+                                           placeholder="最小值">
+                                    <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchReceiveMsg.asn.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                            <label class="col-sm-1 control-label text-center">-</label>
+                            <div class="col-sm-4">
+                                <div class="form-group  has-feedback">
+                                    <input type="number" class="form-control"  ng-model="searchReceiveMsg.asn.poNo"
+                                           name="poNo" required
+                                           placeholder="最大值">
+                                    <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchReceiveMsg.asn.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-horizontal">
+                        <div class="row">
+                            <div class=" col-sm-offset-2 btn-mr16">
+                                <button type="button" class="btn btn-info" ng-click="searchformAction.search()">查询</button>
+                                <button type="button" class="btn btn-info" ng-click="searchformAction.reset()">重置</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="recevive_tables receive_btns">
+        <!--按钮组-->
+        <div class="row ">
+            <div class="col-sm-10 col-sm-offset-1">
+                <button type="button" class="btn btn-info"  ng-click="btnAction.addAsn()">新增</button>
+
+                <button type="button" class="btn btn-info" ng-click="btnAction.modifyAsn(11)">修改</button>
+
+                <button type="button" class="btn btn-info">生效</button>
+
+                <button type="button" class="btn btn-info">失效</button>
+
+            </div>
+        </div>
+        <!--按钮组end-->
+        <div class="receive-table" data-example-id="hoverable-table">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>
+                        <label>
+                            <input type="checkbox" aria-label="...">
+                        </label>
+                    </th>
+                    <th>序号</th>
+                    <th>仓库</th>
+                    <th>规格代码</th>
+                    <th>规格名称</th>
+                    <th>长（M）</th>
+                    <th>宽（M）</th>
+                    <th>高（M）</th>
+                    <th>载重（KG）</th>
+                    <th>备注</th>
+                    <th>状态</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th><label>
+                        <input type="checkbox" aria-label="...">
+                    </label></th>
+
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <!-- /example -->
+
+
+        <page></page>
+    </div>
+    <footer></footer>
+</section>
+<!--新增/修改仓库-->
+<section class="animate-enter-leave posAb" ng-if="btnAction.showAddOrModify">
+    <form class="form-horizontal" name="storeSearchForm" novalidate>
+        <panel title="{{btnAction.showText.firstTitle}}">
             <div class="row">
-                <div class="col-sm-2 form-horizontal">
+                <div class="col-sm-3">
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">规格代码</label>
                         <div class="col-sm-8">
-                            <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                   required name="ownerComment"
+                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                                   name="asnNo" required
                                    placeholder="规格代码">
-                            <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchReceiveMsg.ownerComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            <span ng-if="!storeSearchForm.asnNo.$error.required"
+                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
-
-                </div>
-                <div class="col-sm-2 form-horizontal">
                     <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title">规格名称</label>
+                        <label class="col-sm-4 control-label receive-form-title">长(CM)</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.poNo"
-                                   name="poNo" required
+                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                                   name="asnNo" required
+                                   placeholder="长(CM)">
+                            <span ng-if="!storeSearchForm.asnNo.$error.required"
+                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>规格名称</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                                   name="asnNo" required
                                    placeholder="规格名称">
-                            <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchReceiveMsg.asn.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            <span ng-if="!storeSearchForm.asnNo.$error.required"
+                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">宽(CM)</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                                   name="asnNo" required
+                                   placeholder="宽(CM)">
+                            <span ng-if="!storeSearchForm.asnNo.$error.required"
+                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
 
                 </div>
-
-                <div class="col-sm-4 form-horizontal">
-                    <div class="row">
-                        <label for="inputPassword3" class="col-sm-3 control-label receive-form-title">载重(KG)&nbsp;&nbsp;</label>
-                        <div class="col-sm-4">
-                            <div class="form-group  has-feedback">
-                                <input type="number" class="form-control"  ng-model="searchReceiveMsg.asn.poNo"
-                                       name="poNo" required
-                                       placeholder="最小值">
-                                <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchReceiveMsg.asn.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
-                            </div>
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">最大库容量</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                                   name="asnNo" required
+                                   placeholder="最大库容量">
+                            <span ng-if="!storeSearchForm.asnNo.$error.required"
+                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
-                        <label class="col-sm-1 control-label text-center">-</label>
-                        <div class="col-sm-4">
-                            <div class="form-group  has-feedback">
-                                <input type="number" class="form-control"  ng-model="searchReceiveMsg.asn.poNo"
-                                       name="poNo" required
-                                       placeholder="最大值">
-                                <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchReceiveMsg.asn.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
-                            </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">高(CM)</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                                   name="asnNo" required
+                                   placeholder="高(CM)">
+                            <span ng-if="!storeSearchForm.asnNo.$error.required"
+                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4 form-horizontal">
-                    <div class="row">
-                        <div class=" col-sm-offset-2 btn-mr16">
-                            <button type="button" class="btn btn-info" ng-click="searchformAction.search()">查询</button>
-                            <button type="button" class="btn btn-info" ng-click="searchformAction.reset()">重置</button>
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title">载重(KG)</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                                   name="asnNo" required
+                                   placeholder="载重(KG)">
+                            <span ng-if="!storeSearchForm.asnNo.$error.required"
+                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title">体积(CM³)</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                                   name="asnNo" required
+                                   placeholder="体积(CM³)">
+                            <span ng-if="!storeSearchForm.asnNo.$error.required"
+                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-        </form>
-    </div>
-</div>
+            <div class="form-group  has-feedback">
+                <label class="col-sm-1 control-label receive-form-title">备注</label>
+                <div class="col-sm-9">
+                    <textarea class="form-control" rows="3" placeholder="备注"></textarea>
+                </div>
+            </div>
 
-<div class="recevive_tables receive_btns">
-    <!--按钮组-->
-    <div class="row ">
-        <div class="col-sm-10 col-sm-offset-1">
-            <button type="button" class="btn btn-info">新增</button>
-
-            <button type="button" class="btn btn-info">修改</button>
-
-            <button type="button" class="btn btn-info">生效</button>
-
-            <button type="button" class="btn btn-info">失效</button>
-
+        </panel>
+        <div class="mg-bm-50 mg-lt20">
+            <button class="btn btn-info mg-lt20">暂存</button>
+            <button class="btn btn-info mg-lt20">保存并返回</button>
+            <button class="btn btn-info mg-lt20" ng-click="btnAction.addAsn()">返回</button>
         </div>
-    </div>
-    <!--按钮组end-->
-    <div class="receive-table" data-example-id="hoverable-table">
-        <table class="table table-hover table-striped">
-            <thead>
-            <tr>
-                <th>
-                    <label>
-                        <input type="checkbox" aria-label="...">
-                    </label>
-                </th>
-                <th>序号</th>
-                <th>仓库</th>
-                <th>规格代码</th>
-                <th>规格名称</th>
-                <th>长（M）</th>
-                <th>宽（M）</th>
-                <th>高（M）</th>
-                <th>载重（KG）</th>
-                <th>备注</th>
-                <th>状态</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th><label>
-                    <input type="checkbox" aria-label="...">
-                </label></th>
-
-            </tr>
-
-            </tbody>
-        </table>
-    </div>
-    <!-- /example -->
+    </form>
+</section>
+<!--/新增/修改仓库-->
 
 
-    <page></page>
-</div>
-<footer></footer>

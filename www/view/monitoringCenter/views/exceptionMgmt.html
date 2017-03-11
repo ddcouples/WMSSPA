@@ -33,7 +33,9 @@
                             <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
                                    name="asnNo" required
                                    placeholder="ASN单号">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required" clear-input-btn="searchReceiveMsg.asn.asnNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            <span ng-if="!storeSearchForm.asnNo.$error.required"
+                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                 </div>
@@ -263,7 +265,7 @@
 <!--异常处理页面-->
 <section class="animate-enter-leave posAb" ng-if="btnAction.showHandling">
     <form class="form-horizontal" name="storeSearchForm" novalidate>
-        <panel title="异常登记">
+        <panel title="异常处理">
             <div class="row">
                 <div class="col-sm-4">
                     <div class="form-group  has-feedback">
