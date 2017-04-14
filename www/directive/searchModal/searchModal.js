@@ -7,7 +7,6 @@
 *
 * js调用 $("#myModal").modal('show');
 * */
-
 module.exports = angular.module('directive.searchModal', []).directive('searchModal', function() {
     return {
         restrict: 'EA',

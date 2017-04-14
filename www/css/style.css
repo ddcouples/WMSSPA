@@ -22,6 +22,7 @@ body {
   font-size:1.4rem;
   margin: 0;
   padding: 0;
+  padding-right:0 !important;
 }
 html,
 body,
@@ -489,6 +490,7 @@ select.large {
   color: #345795 !important;
   cursor: pointer;
   pointer-events: auto;
+  font-size: 2.0rem;
 }
 .color345795:hover{
   color:#4d8bf5 !important;
@@ -555,3 +557,33 @@ select{
   padding: .7rem 0;
   text-align: center;
 }
+.scroll_y{
+  max-height:12rem;
+  overflow-y:auto;
+  position: relative;
+}
+.scroll_y_height{
+  max-height:30rem;
+  overflow-y:auto;
+  position: relative;
+}
+.cursor_pointer{
+  cursor: pointer;
+}
+/*去掉自带number样式*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin:0;
+}
+input[type="number"]{
+  -moz-appearance: textfield;
+}
+input::-ms-clear
+{display:none;}
+.text_overflow{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+

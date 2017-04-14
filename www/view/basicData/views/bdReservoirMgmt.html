@@ -1,17 +1,18 @@
 
-<section class="animate-enter-leave"  ng-if="btnAction.showIndex">
+<section class="animate-enter-leave"  ng-if="searchAreaAction.showIndex">
     <div class="receive_container">
         <div class="receive_container">
-            <form class="form-horizontal" name="storeSearchForm" novalidate>
+            <form class="form-horizontal" name="saveAreaForm" novalidate>
                 <div class="row">
                     <div class="col-sm-2 form-horizontal">
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title">库区代码</label>
                             <div class="col-sm-8">
-                                <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                       required name="ownerComment"
+
+                                <input type="text" ng-model="searchAreaAction.areaVOModel.likeAreaNo" class="form-control"
+                                       required name="likeAreaNo"
                                        placeholder="库区代码">
-                                <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchReceiveMsg.ownerComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!saveAreaForm.likeAreaNo.$error.required"  clear-input-btn="searchAreaAction.areaVOModel.likeAreaNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
 
@@ -20,10 +21,10 @@
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title">库区名称</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.poNo"
-                                       name="poNo" required
+                                <input type="text" class="form-control"  ng-model="searchAreaAction.areaVOModel.likeAreaName"
+                                       name="likeAreaName" required
                                        placeholder="库区名称">
-                                <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchReceiveMsg.asn.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!saveAreaForm.likeAreaName.$error.required"  clear-input-btn="searchAreaAction.areaVOModel.likeAreaName" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
 
@@ -32,10 +33,10 @@
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">所属仓库</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                       name="asnNo" required
+                                <input type="text" class="form-control"  ng-model="searchAreaAction.areaVOModel.likeWarehouseComment"
+                                       name="likeWarehouseComment" required
                                        placeholder="所属仓库">
-                                <span ng-if="!storeSearchForm.asnNo.$error.required" clear-input-btn="searchReceiveMsg.asn.asnNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!saveAreaForm.likeWarehouseComment.$error.required" clear-input-btn="searchAreaAction.areaVOModel.likeWarehouseComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
 
@@ -44,9 +45,9 @@
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">状态</label>
                             <div class="col-sm-8">
-                                <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
+                                <select class="form-control" ng-model="searchAreaAction.areaVOModel.areaStatusComment">
                                     <option value="" selected>请选择</option>
-                                    <option value="{{l.key}}" ng-repeat="l in getOriginData.reservoirStatus">{{l.value}}</option>
+                                    <option value="{{l.value}}" ng-repeat="l in getOriginData.AREASTATUS">{{l.value}}</option>
                                 </select>
                             </div>
                         </div>
@@ -55,8 +56,8 @@
 
                         <div class="row">
                             <div class=" col-sm-offset-2 btn-mr16">
-                                <button type="button" class="btn btn-info" ng-click="searchformAction.search()">查询</button>
-                                <button type="button" class="btn btn-info" ng-click="searchformAction.reset()">重置</button>
+                                <button type="button" class="btn btn-info" ng-click="searchAreaAction.search()">查询</button>
+                                <button type="button" class="btn btn-info" ng-click="searchAreaAction.reset()">重置</button>
                             </div>
                         </div>
                     </div>
@@ -69,13 +70,13 @@
         <!--按钮组-->
         <div class="row ">
             <div class="col-sm-10 col-sm-offset-1">
-                <button type="button" class="btn btn-info" ng-click="btnAction.addAsn()">新增</button>
+                <button type="button" class="btn btn-info" ng-click="searchAreaAction.add()">新增</button>
 
-                <button type="button" class="btn btn-info" ng-click="btnAction.modifyAsn(11)">修改</button>
+                <button type="button" class="btn btn-info" ng-click="searchAreaAction.modify()">修改</button>
 
-                <button type="button" class="btn btn-info">生效</button>
+                <button type="button" class="btn btn-info" ng-click="searchAreaAction.active()">生效</button>
 
-                <button type="button" class="btn btn-info">失效</button>
+                <button type="button" class="btn btn-info" ng-click="searchAreaAction.inactive()">失效</button>
 
             </div>
         </div>
@@ -86,10 +87,9 @@
                 <tr>
                     <th>
                         <label>
-                            <input type="checkbox" aria-label="...">
+                            <!--<input type="checkbox" aria-label="..." ng-model="searchAreaAction.selectedAll" ng-change="searchAreaAction.selectAll()" />-->
                         </label>
                     </th>
-                    <th>序号</th>
                     <th>库区代码</th>
                     <th>库区名称</th>
                     <th>所属仓库</th>
@@ -100,11 +100,20 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th><label>
-                        <input type="checkbox" aria-label="...">
-                    </label></th>
-
+                <tr ng-repeat="pageItem in searchAreaAction.listAreaVO"  ng-click="searchAreaAction.selectModify($index,$event)"
+                    ng-class="{'info':searchAreaAction.currentSelectItems==$index&&searchAreaAction.selectedItems[$index]==true}" >
+                    <td>
+                        <label>
+                            <input type="checkbox" class="chk_selectItem" aria-label="..."  ng-model="searchAreaAction.selectedItems[$index]" ng-change="searchAreaAction.selectModify($index,$event)" />
+                        </label>
+                    </td>
+                    <td ng-bind="pageItem.area.areaNo">库区代码</td>
+                    <td ng-bind="pageItem.area.areaName">库区名称</td>
+                    <td ng-bind="pageItem.warehouseComment">所属仓库</td>
+                    <td ng-bind="pageItem.area.maxTemperature">额定最高温度</td>
+                    <td ng-bind="pageItem.area.minTemperature">额定最低温度</td>
+                    <td ng-bind="pageItem.area.note">备注</td>
+                    <td ng-bind="pageItem.areaStatusComment">状态</td>
                 </tr>
 
                 </tbody>
@@ -113,7 +122,7 @@
         <!-- /example -->
 
 
-        <page></page>
+        <page page-data="searchAreaAction.listAreaVO" url="{{listArea_url}}" page-model-query="pageModelQuery"></page>
 
 
     </div>
@@ -121,28 +130,28 @@
 </section>
 
 <!--新增/修改库区-->
-<section class="animate-enter-leave posAb" ng-if="btnAction.showAddOrModify">
-    <form class="form-horizontal" name="storeSearchForm" novalidate>
-        <panel title="{{btnAction.showText.firstTitle}}">
+<section class="animate-enter-leave posAb" ng-if="searchAreaAction.showAddOrModify">
+    <form class="form-horizontal" name="saveAreaForm" novalidate>
+        <panel title="{{searchAreaAction.showText.firstTitle}}">
             <div class="row">
                 <div class="col-sm-4">
                     <div class="form-group  has-feedback">
                         <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>库区代码</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
+                            <input type="text" class="form-control"  ng-model="addAreaAction.areaVOModel.area.areaNo"
+                                   name="areaNo" required
                                    placeholder="库区代码">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <span ng-if="!saveAreaForm.areaNo.$error.required"
+                                  clear-input-btn="addAreaAction.areaVOModel.area.areaNo"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-3 control-label receive-form-title">仓库类型</label>
                         <div class="col-sm-9">
-                            <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
+                            <select class="form-control" ng-model="addAreaAction.areaVOModel.area.areaType">
                                 <option value="" selected>请选择</option>
-                                <option value="{{l.key}}" ng-repeat="l in getOriginData.AdjustStatus">{{l.value}}</option>
+                                <option value="{{l.key}}" ng-repeat="l in getOriginData.AREATYPE">{{l.value}}</option>
                             </select>
                         </div>
                     </div>
@@ -152,22 +161,22 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>库区名称</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
+                            <input type="text" class="form-control"  ng-model="addAreaAction.areaVOModel.area.areaName"
+                                   name="areaName" required
                                    placeholder="库区名称">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <span ng-if="!saveAreaForm.areaName.$error.required"
+                                  clear-input-btn="addAreaAction.areaVOModel.area.areaName"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">额定最低温度</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
+                            <input type="text" class="form-control"  ng-model="addAreaAction.areaVOModel.area.minTemperature"
+                                   name="minTemperature" required
                                    placeholder="额定最低温度">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <span ng-if="!saveAreaForm.minTemperature.$error.required"
+                                  clear-input-btn="addAreaAction.areaVOModel.area.minTemperature"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -177,20 +186,20 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">所属仓库</label>
                         <div class="col-sm-8">
-                            <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
+                            <select class="form-control" ng-model="addAreaAction.areaVOModel.area.warehouseId">
                                 <option value="" selected>请选择</option>
-                                <option value="{{l.key}}" ng-repeat="l in getOriginData.AdjustStatus">{{l.value}}</option>
+                                <option value="{{l.warehouse.warehouseId}}" ng-repeat="l in getOriginData.WRHLIST">{{l.warehouse.warehouseName}}</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">额定最高温度</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
+                            <input type="text" class="form-control"  ng-model="addAreaAction.areaVOModel.area.maxTemperature"
+                                   name="maxTemperature" required
                                    placeholder="额定最高温度">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <span ng-if="!saveAreaForm.maxTemperature.$error.required"
+                                  clear-input-btn="addAreaAction.areaVOModel.area.maxTemperature"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -199,17 +208,17 @@
             </div>
 
             <div class="form-group  has-feedback mg-lt20">
-                <label class="col-sm-1 control-label receive-form-title"><span class="color-red">*</span>备注</label>
+                <label class="col-sm-1 control-label receive-form-title">备注</label>
                 <div class="col-sm-9">
-                    <textarea class="form-control" rows="3" placeholder="备注"></textarea>
+                    <textarea class="form-control" rows="3" placeholder="备注" ng-model="addAreaAction.areaVOModel.area.note"></textarea>
                 </div>
             </div>
 
         </panel>
         <div class="mg-bm-50 mg-lt20">
-            <button class="btn btn-info mg-lt20">暂存</button>
-            <button class="btn btn-info mg-lt20">保存并返回</button>
-            <button class="btn btn-info mg-lt20" ng-click="btnAction.addAsn()">返回</button>
+            <button class="btn btn-info mg-lt20" ng-click="addAreaAction.save()">暂存</button>
+            <button class="btn btn-info mg-lt20" ng-click="addAreaAction.saveAndBack()">保存并返回</button>
+            <button class="btn btn-info mg-lt20" ng-click="searchAreaAction.backToIndex()">返回</button>
         </div>
     </form>
 </section>

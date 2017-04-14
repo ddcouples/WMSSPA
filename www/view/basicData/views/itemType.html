@@ -1,47 +1,52 @@
+<!--列表页面-->
 <section class="animate-enter-leave"  ng-if="btnAction.showIndex">
     <div class="receive_container">
         <div class="receive_container">
-            <form class="form-horizontal" name="storeSearchForm" novalidate>
+            <form class="form-horizontal" name="searchForm" novalidate>
                 <div class="row">
                     <div class="col-sm-2 form-horizontal">
-                        <div class="form-group  has-feedback">
+                        <div class="form-group has-feedback">
                             <label class="col-sm-4 control-label receive-form-title">所属客户</label>
-                            <div class="col-sm-8">
-                                <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                       required name="ownerComment"
-                                       placeholder="所属客户">
-                                <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchReceiveMsg.ownerComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            <div class="col-sm-8" ng-click="btnAction.searchModel('selectOrganizationModal')">
+                                <input type="text" ng-model="queryReqParam.merchantId" id="merchantId1"
+                                       ng-class="{'error':searchForm.merchantId1.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                       uib-tooltip="所属客户"
+                                       tooltip-placement="top" tooltip-class="customClass"
+                                       tooltip-trigger="'none'"
+                                       tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                       tooltip-enable="searchForm.merchantId1.$invalid"
+                                       required name="merchantId1"
+                                       onfocus="this.blur()" class="form-control"  placeholder="请选择">
+                                <span ng-if="!searchForm.merchantId1.$error.required"  clear-input-btn="queryReqParam.merchantId1"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
-
                     </div>
+
+
                     <div class="col-sm-2 form-horizontal">
                         <div class="form-group  has-feedback">
-                            <label class="col-sm-4 control-label receive-form-title">分类代码</label>
+                            <label class="col-sm-4 control-label receive-form-title">分类编码</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.poNo"
-                                       name="poNo" required
-                                       placeholder="分类代码">
-                                <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchReceiveMsg.asn.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <input type="text" class="form-control"  ng-model="queryReqParam.entity.skuTypeNo"
+                                       name="skuTypeNo" required
+                                       placeholder="分类编码">
+                                <span ng-if="!searchForm.skuTypeNo.$error.required"  clear-input-btn="queryReqParam.entity.skuTypeNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
-
                     </div>
                     <div class="col-sm-2 form-horizontal">
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">分类名称</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                       name="asnNo" required
+                                <input type="text" class="form-control"  ng-model="queryReqParam.entity.skuTypeName"
+                                       name="skuTypeName" required
                                        placeholder="分类名称">
-                                <span ng-if="!storeSearchForm.asnNo.$error.required" clear-input-btn="searchReceiveMsg.asn.asnNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!searchForm.skuTypeName.$error.required" clear-input-btn="queryReqParam.entity.skuTypeName"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
-
                     </div>
 
                     <div class="col-sm-4 form-horizontal">
-
                         <div class="row">
                             <div class=" col-sm-offset-2 btn-mr16">
                                 <button type="button" class="btn btn-info" ng-click="searchformAction.search()">查询</button>
@@ -58,14 +63,15 @@
         <!--按钮组-->
         <div class="row ">
             <div class="col-sm-10 col-sm-offset-1">
-                <button type="button" class="btn btn-info"  ng-click="btnAction.addAsn()">新增</button>
+                <button type="button" ng-click="btnAction.addPage()" class="btn btn-info">新增</button>
 
-                <button type="button" class="btn btn-info" ng-click="btnAction.modifyAsn(11)">修改</button>
+                <button type="button" ng-click="btnAction.modifyPage(selectById.idArray[0])" class="btn btn-info">修改</button>
 
-                <button type="button" class="btn btn-info">生效</button>
+                <button type="button" ng-click="btnAction.takeEffect(selectById.idArray[0],10)" class="btn btn-info">生效</button>
 
-                <button type="button" class="btn btn-info">失效</button>
+                <button type="button" ng-click="btnAction.loseEffect(selectById.idArray[0],20)" class="btn btn-info">失效</button>
 
+                <button type="button" ng-click="btnAction.cancel(selectById.idArray[0],10)" class="btn btn-info">取消</button>
             </div>
         </div>
         <!--按钮组end-->
@@ -74,9 +80,11 @@
                 <thead>
                 <tr>
                     <th>
+                        <!--
                         <label>
                             <input type="checkbox" aria-label="...">
                         </label>
+                        -->
                     </th>
                     <th>序号</th>
                     <th>所属客户</th>
@@ -87,52 +95,66 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
+                <tr ng-repeat="item in pageData">
                     <th><label>
-                        <input type="checkbox" aria-label="...">
+                        <input ng-model="item.selected" type="checkbox" ng-change="btnAction.slectOnly(item.entity.skuTypeId, item.selected, item)">
                     </label></th>
-
+                    <td ng-bind="$index+1"></td>
+                    <td ng-bind="item.merchantId|substr:6:'...'"></td>
+                    <td><a ng-bind="item.entity.skuTypeNo|substr:6:'...'" ng-click="btnAction.showDetailActionGetData(item.entity.skuTypeId)"></a></td>
+                    <td ng-bind="item.entity.skuTypeName|substr:6:'...'"></td>
+                    <td ng-bind="item.entity.note|substr:6:'...'"></td>
+                    <td ng-bind="item.skuTypeStatus"></td>
                 </tr>
-
                 </tbody>
             </table>
         </div>
         <!-- /example -->
-
-
-        <page></page>
+        <!-- 分页列表数据显示 page-data用来绑定表格数据的别名 page-model-query查询参数别名 -->
+        <page page-data="pageData" url="/skuType/list" page-model-query="queryParam"></page>
     </div>
     <footer></footer>
 </section>
+<!--列表页面-->
 
-
-<!--新增/修改仓库-->
+<!--新增/修改页面-->
 <section class="animate-enter-leave posAb" ng-if="btnAction.showAddOrModify">
-    <form class="form-horizontal" name="storeSearchForm" novalidate>
+    <form class="form-horizontal" name="addForm" novalidate>
         <panel title="{{btnAction.showText.firstTitle}}">
             <div class="row">
                 <div class="col-sm-3">
-                    <div class="form-group  has-feedback">
+                    <div class="form-group has-feedback">
                         <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>所属客户</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="所属客户">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
-                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        <div class="col-sm-8" ng-click="btnAction.searchModel('selectOrganizationModal')">
+                            <input type="text" ng-model="addModifyReqParam.merchantId" id="merchantId2"
+                                   ng-class="{'error':addForm.merchantId2.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入正确所属客户"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.merchantId2.$invalid"
+                                   required name="merchantId2"
+                                   onfocus="this.blur()" class="form-control"  placeholder="请选择">
+                            <span class="fa fa-search form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-sm-3">
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>分类编码</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="分类编码">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.skuTypeNo"
+                                   ng-minlength="6" ng-maxlength="18" ng-pattern="/[a-zA-Z0-9]/"
+                                   ng-class="{'error':addForm.skuTypeNo.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入正确的分类编码"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.skuTypeNo.$invalid"
+                                   name="skuTypeNo" required placeholder="分类编码">
+                            <span ng-if="!addForm.skuTypeNo.$error.required"
+                                  clear-input-btn="addModifyReqParam.entity.skuTypeNo"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -141,44 +163,198 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>分类名称</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="分类编码">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.skuTypeName"
+                                   ng-maxlength="32"
+                                   ng-class="{'error':addForm.skuTypeName.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入正确的分类名称"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.skuTypeName.$invalid"
+                                   name="skuTypeName" required placeholder="分类名称">
+                            <span ng-if="!addForm.skuTypeName.$error.required"
+                                  clear-input-btn="addModifyReqParam.entity.skuTypeName"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
+                </div>
 
+                <div class="col-sm-3">
+                    <div class="form-group has-feedback">
+                        <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">父级分类</label>
+                        <div class="col-sm-8" ng-click="btnAction.searchModel('selectSkuTypeModal')">
+                            <input type="text" ng-model="addModifyReqParam.parentId" id="parentId1"
+                                   ng-class="{'error':addForm.parentId1.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须选择父级分类"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.parentId1.$invalid"
+                                   id="parentId1" name="parentId1"
+                                   onfocus="this.blur()" class="form-control"  placeholder="请选择">
+                            <span class="fa fa-search form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group  has-feedback">
+                <label class="col-sm-1 control-label receive-form-title">备注</label>
+                <div class="col-sm-9">
+                    <textarea class="form-control" rows="3" ng-model="addModifyReqParam.entity.note"
+                              ng-maxlength="128"
+                              ng-class="{'error':addForm.note.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                              uib-tooltip="必须输入正确的备注"
+                              tooltip-placement="top" tooltip-class="customClass"
+                              tooltip-trigger="'none'"
+                              tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                              tooltip-enable="addForm.note.$invalid"
+                              id="note" name="note" placeholder="备注" ></textarea>
+                </div>
+            </div>
+        </panel>
+        <div class="mg-bm-50 mg-lt20">
+            <button class="btn btn-info mg-lt20" ng-click="addModifyBtnAction.temporarilySave(addForm)">暂存</button>
+            <button class="btn btn-info mg-lt20" ng-click="addModifyBtnAction.saveEffectBack(addForm)">保存并返回</button>
+            <button class="btn btn-info mg-lt20" ng-click="btnAction.addPage()">返回</button>
+        </div>
+    </form>
+</section>
+<!--新增/修改页面-->
+
+<!--查看详情页面-->
+<section class="animate-enter-leave posAb" ng-if="btnAction.showDetail">
+    <form class="form-horizontal" name="viewForm" novalidate>
+        <panel title="查看货品类型">
+            <div class="row">
+
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">所属客户</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.merchantId"></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">分类编码</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.skuTypeNo"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">分类名称</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.skuTypeName"></label>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">父级分类</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="父级分类">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
-                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.parentId"></label>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="form-group  has-feedback">
-                <label class="col-sm-1 control-label receive-form-title"><span class="color-red">*</span>备注</label>
+                <label class="col-sm-1 control-label receive-form-title">备注</label>
                 <div class="col-sm-9">
-                    <textarea class="form-control" rows="3" placeholder="备注"></textarea>
+                    <textarea class="form-control" readonly="true" rows="3" placeholder="备注" ng-bind="viewRspParam.entity.note"></textarea>
                 </div>
             </div>
-
         </panel>
         <div class="mg-bm-50 mg-lt20">
-            <button class="btn btn-info mg-lt20">暂存</button>
-            <button class="btn btn-info mg-lt20">保存并返回</button>
-            <button class="btn btn-info mg-lt20" ng-click="btnAction.addAsn()">返回</button>
+            <button class="btn btn-info mg-lt20" ng-click="btnAction.showDetailAction()">返回</button>
         </div>
     </form>
 </section>
-<!--/新增/修改仓库-->
 
+<!--弹出框（选择客商）-->
+<search-modal  id="selectOrganizationModal" title="选择客商" lg="true">
+    <div class="modal-body modal-merchant">
+        <form class="form-inline" name="selectForm4Merchant" novalidate>
+            <div class="form-group">
+                <label>客商代码：</label>
+                <input type="text" ng-model="queryReqParam1.entity.merchantNo" class="form-control" placeholder="客商代码">
+            </div>
+            <div class="form-group">
+                <label>客商名称：</label>
+                <input type="text" ng-model="queryReqParam1.entity.merchantName" class="form-control" placeholder="客商名称">
+            </div>
+            <div class="form-group">
+                <label>负责人：</label>
+                <input type="text" ng-model="queryReqParam1.entity.contactPerson" class="form-control" placeholder="负责人">
+            </div>
+            <button type="submit" class="btn btn-primary" ng-click="selectForm1.search()">查询</button>
+        </form>
+        <div class="receive-table scroll_y" data-example-id="hoverable-table">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>客商代码</th>
+                    <th>客商简称</th>
+                    <th>客商名称</th>
+                    <th>负责人</th>
+                    <th>联系电话</th>
+                    <th>备注</th>
+                </tr>
+                </thead>
+                <tbody class="">
+                <tr class="cursor_pointer" ng-repeat="item in pageData1" ng-click="selectForm1.selectMerchant(item)">
+                    <td ng-bind="$index+1"></td>
+                    <td ng-bind="item.entity.merchantNo"></td>
+                    <td ng-bind="item.entity.merchantShortName"></td>
+                    <td ng-bind="item.entity.merchantName"></td>
+                    <td ng-bind="item.entity.contactPerson"></td>
+                    <td ng-bind="item.entity.contactPhone"></td>
+                    <td ng-bind="item.entity.note"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <page page-data="pageData1" url="/merchant/list" page-model-query="queryParam1"></page>
+    </div>
+</search-modal>
+
+<!--弹出框（选择货品类型）-->
+<search-modal  id="selectSkuTypeModal" title="选择货品类型" lg="true">
+    <div class="modal-body modal-merchant">
+        <form class="form-inline" name="selectForm4SkuType1" novalidate>
+            <div class="form-group">
+                <label>货品类型代码：</label>
+                <input type="text" ng-model="queryReqParam4SkuType.entity.merchantNo" class="form-control" placeholder="货品类型代码">
+            </div>
+            <div class="form-group">
+                <label>货品类型名称：</label>
+                <input type="text" ng-model="queryReqParam4SkuType.entity.merchantName" class="form-control" placeholder="货品类型名称">
+            </div>
+            <button type="submit" class="btn btn-primary" ng-click="selectForm4SkuType.search()">查询</button>
+        </form>
+        <div class="receive-table scroll_y" data-example-id="hoverable-table">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>货品类型代码</th>
+                    <th>货品类型名称</th>
+                </tr>
+                </thead>
+                <tbody class="">
+                <tr class="cursor_pointer" ng-repeat="item in pageData4SkuType" ng-click="selectForm4SkuType.select(item)">
+                    <td ng-bind="$index+1"></td>
+                    <td ng-bind="item.entity.skuTypeNo"></td>
+                    <td ng-bind="item.entity.skuTypeName"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <page page-data="pageData4SkuType" url="/skuType/list" page-model-query="queryParam4SkuType"></page>
+    </div>
+</search-modal>

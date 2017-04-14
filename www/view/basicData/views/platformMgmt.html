@@ -1,17 +1,17 @@
 
-<section class="animate-enter-leave"  ng-if="btnAction.showIndex">
+<section class="animate-enter-leave"  ng-if="searchDockAction.showIndex">
     <div class="receive_container">
         <div class="receive_container">
-            <form class="form-horizontal" name="storeSearchForm" novalidate>
+            <form class="form-horizontal" name="searchDockForm" novalidate>
                 <div class="row">
                     <div class="col-sm-2 form-horizontal">
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title">月台代码</label>
                             <div class="col-sm-8">
-                                <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                       required name="ownerComment"
+                                <input type="text" ng-model="searchDockAction.voModel.likeDockNo" class="form-control"
+                                       required name="likeDockNo"
                                        placeholder="月台代码">
-                                <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchReceiveMsg.ownerComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!searchDockForm.likeDockNo.$error.required"  clear-input-btn="searchDockAction.voModel.likeDockNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
 
@@ -20,10 +20,10 @@
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title">月台名称</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.poNo"
-                                       name="poNo" required
+                                <input type="text" class="form-control"  ng-model="searchDockAction.voModel.likeDockName"
+                                       name="likeDockName" required
                                        placeholder="月台名称">
-                                <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchReceiveMsg.asn.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!searchDockForm.likeDockName.$error.required"  clear-input-btn="searchDockAction.voModel.likeDockName" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
 
@@ -32,10 +32,10 @@
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">所属库区</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                       name="asnNo" required
+                                <input type="text" class="form-control"  ng-model="searchDockAction.voModel.likeAreaName"
+                                       name="likeAreaName" required
                                        placeholder="所属库区">
-                                <span ng-if="!storeSearchForm.asnNo.$error.required" clear-input-btn="searchReceiveMsg.asn.asnNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!searchDockForm.likeAreaName.$error.required" clear-input-btn="searchDockAction.voModel.likeAreaName"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
 
@@ -44,9 +44,9 @@
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">状态</label>
                             <div class="col-sm-8">
-                                <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
+                                <select class="form-control" ng-model="searchDockAction.voModel.dockStatusComment">
                                     <option value="" selected>请选择</option>
-                                    <option value="{{l.key}}" ng-repeat="l in getOriginData.platformStatus">{{l.value}}</option>
+                                    <option value="{{l.value}}" ng-repeat="l in getOriginData.DOCKSTATUS">{{l.value}}</option>
                                 </select>
                             </div>
                         </div>
@@ -55,8 +55,8 @@
 
                         <div class="row">
                             <div class=" col-sm-offset-2 btn-mr16">
-                                <button type="button" class="btn btn-info" ng-click="searchformAction.search()">查询</button>
-                                <button type="button" class="btn btn-info" ng-click="searchformAction.reset()">重置</button>
+                                <button type="button" class="btn btn-info" ng-click="searchDockAction.search()">查询</button>
+                                <button type="button" class="btn btn-info" ng-click="searchDockAction.reset()">重置</button>
                             </div>
                         </div>
                     </div>
@@ -69,13 +69,13 @@
         <!--按钮组-->
         <div class="row ">
             <div class="col-sm-10 col-sm-offset-1">
-                <button type="button" class="btn btn-info"  ng-click="btnAction.addAsn()">新增</button>
+                <button type="button" class="btn btn-info"  ng-click="searchDockAction.add()">新增</button>
 
-                <button type="button" class="btn btn-info" ng-click="btnAction.modifyAsn(11)">修改</button>
+                <button type="button" class="btn btn-info" ng-click="searchDockAction.modify()">修改</button>
 
-                <button type="button" class="btn btn-info">生效</button>
+                <button type="button" class="btn btn-info" ng-click="searchDockAction.active()">生效</button>
 
-                <button type="button" class="btn btn-info">失效</button>
+                <button type="button" class="btn btn-info" ng-click="searchDockAction.inactive()">失效</button>
 
             </div>
         </div>
@@ -86,10 +86,9 @@
                 <tr>
                     <th>
                         <label>
-                            <input type="checkbox" aria-label="...">
+                            <!--<input type="checkbox" aria-label="...">-->
                         </label>
                     </th>
-                    <th>序号</th>
                     <th>月台代码</th>
                     <th>所属库区</th>
                     <th>月台名称</th>
@@ -100,11 +99,20 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th><label>
-                        <input type="checkbox" aria-label="...">
-                    </label></th>
-
+                <tr ng-repeat="pageItem in searchDockAction.listVO"  ng-click="searchDockAction.selectModify($index,$event)"
+                    ng-class="{'info':searchDockAction.currentSelectItems==$index&&searchDockAction.selectedItems[$index]==true}" >
+                    <td>
+                        <label>
+                            <input type="checkbox" class="chk_selectItem" aria-label="..."  ng-model="searchDockAction.selectedItems[$index]" ng-change="searchDockAction.selectModify($index,$event)" />
+                        </label>
+                    </td>
+                    <th ng-bind="pageItem.dock.dockNo">月台代码</th>
+                    <th ng-bind="pageItem.areaComment">所属库区</th>
+                    <th ng-bind="pageItem.dock.dockName">月台名称</th>
+                    <th ng-bind="pageItem.isReceiveComment">是否收货月台</th>
+                    <th ng-bind="pageItem.isSendComment">是否发货月台</th>
+                    <th ng-bind="pageItem.dock.note">备注</th>
+                    <th ng-bind="pageItem.dockStatusComment">状态</th>
                 </tr>
 
                 </tbody>
@@ -113,32 +121,32 @@
         <!-- /example -->
 
 
-        <page></page>
+        <page page-data="searchDockAction.listVO" url="{{listDock_url}}" page-model-query="pageModelQuery"></page>
     </div>
     <footer></footer>
 </section>
 <!--新增/修改仓库-->
-<section class="animate-enter-leave posAb" ng-if="btnAction.showAddOrModify">
-    <form class="form-horizontal" name="storeSearchForm" novalidate>
-        <panel title="{{btnAction.showText.firstTitle}}">
+<section class="animate-enter-leave posAb" ng-if="searchDockAction.showAddOrModify">
+    <form class="form-horizontal" name="searchDockForm" novalidate>
+        <panel title="{{searchDockAction.showText.firstTitle}}">
             <div class="row">
                 <div class="col-sm-4">
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>月台代码</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
+                            <input type="text" class="form-control"  ng-model="addDockAction.voModel.dock.dockNo"
+                                   name="dockNo" required
                                    placeholder="月台代码">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <span ng-if="!searchDockForm.dockNo.$error.required"
+                                  clear-input-btn="addDockAction.voModel.dock.dockNo"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">收货月台</label>
                         <div class="col-sm-2">
-                            <input type="checkbox" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required >
+                            <input type="checkbox" class="form-control" ng-model="addDockAction.voModel.isInComment"
+                                   name="isIn" required >
                         </div>
                     </div>
                 </div>
@@ -146,29 +154,29 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>月台名称</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
+                            <input type="text" class="form-control"  ng-model="addDockAction.voModel.dock.dockName"
+                                   name="dockName" required
                                    placeholder="月台名称">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <span ng-if="!searchDockForm.dockName.$error.required"
+                                  clear-input-btn="addDockAction.voModel.dock.dockName"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">发货月台</label>
                         <div class="col-sm-2">
-                            <input type="checkbox" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required >
+                            <input type="checkbox"  class="form-control" ng-model="addDockAction.voModel.isOutComment"
+                                   name="inOut" required >
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title">仓库类型</label>
+                        <label class="col-sm-4 control-label receive-form-title">所属库区</label>
                         <div class="col-sm-8">
-                            <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
+                            <select class="form-control" ng-model="addDockAction.voModel.dock.areaId">
                                 <option value="" selected>请选择</option>
-                                <option value="{{l.key}}" ng-repeat="l in getOriginData.AdjustStatus">{{l.value}}</option>
+                                <option value="{{l.area.areaId}}" ng-repeat="l in getOriginData.AREALIST">{{l.area.areaName}}</option>
                             </select>
                         </div>
                     </div>
@@ -177,15 +185,15 @@
             <div class="form-group  has-feedback mg-lt20">
                 <label class="col-sm-1 control-label receive-form-title">备注</label>
                 <div class="col-sm-9">
-                    <textarea class="form-control" rows="3" placeholder="备注"></textarea>
+                    <textarea class="form-control" rows="3" ng-model="addDockAction.voModel.dock.note" placeholder="备注"></textarea>
                 </div>
             </div>
 
         </panel>
         <div class="mg-bm-50 mg-lt20">
-            <button class="btn btn-info mg-lt20">暂存</button>
-            <button class="btn btn-info mg-lt20">保存并返回</button>
-            <button class="btn btn-info mg-lt20" ng-click="btnAction.addAsn()">返回</button>
+            <button class="btn btn-info mg-lt20" ng-click="addDockAction.save()">暂存</button>
+            <button class="btn btn-info mg-lt20" ng-click="addDockAction.saveAndBack()">保存并返回</button>
+            <button class="btn btn-info mg-lt20" ng-click="searchDockAction.backToIndex()">返回</button>
         </div>
     </form>
 </section>

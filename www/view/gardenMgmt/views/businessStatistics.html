@@ -6,10 +6,10 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">租赁企业</label>
                         <div class="col-sm-8">
-                            <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                   required name="ownerComment"
+                            <input type="text" ng-model="parkOrgBusiStasReqParam.orgName" class="form-control"
+                                   required name="orgName"
                                    placeholder="租赁企业">
-                            <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchReceiveMsg.ownerComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            <span ng-if="!parkOrgBusiStasReqParam.orgName.$error.required"  clear-input-btn="parkOrgBusiStasReqParam.orgName"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
 
@@ -18,27 +18,27 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">租赁客商</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.poNo"
-                                   name="poNo" required
+                            <input type="text" class="form-control"  ng-model="parkOrgBusiStasReqParam.merchantName"
+                                   name="merchantName" required
                                    placeholder="租赁客商">
-                            <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchReceiveMsg.asn.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            <span ng-if="!parkOrgBusiStasReqParam.merchantName.$error.required"  clear-input-btn="parkOrgBusiStasReqParam.merchantName" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
 
                 </div>
                 <div class="col-sm-4 form-horizontal">
                     <div class="form-group  has-feedback">
-                        <label class="col-sm-2 control-label receive-form-title" for="exampleInputName2">统计日期</label>
+                        <label class="col-sm-2 control-label receive-form-title" >统计日期</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo2"
-                                   name="asnNo" required date-pick-select
+                            <input type="text" class="form-control"  ng-model="parkOrgBusiStasReqParam.beginDate"
+                                   name="beginDate" required date-pick-select
                                    placeholder="开始日期">
                             <span  class="fa fa-calendar form-control-feedback" aria-hidden="true"></span>
                         </div>
                         <label class="col-sm-1 control-label text-center">-</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo3"
-                                   name="asnNo" required date-pick-select
+                            <input type="text" class="form-control"  ng-model="parkOrgBusiStasReqParam.endDate"
+                                   name="endDate" required date-pick-select
                                    placeholder="结束日期">
                             <span  class="fa fa-calendar form-control-feedback" aria-hidden="true"></span>
                         </div>
@@ -47,11 +47,11 @@
                 </div>
                 <div class="col-sm-2 form-horizontal">
                     <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">状态</label>
+                        <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">业务类型</label>
                         <div class="col-sm-8">
-                            <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
+                            <select class="form-control" ng-model="parkOrgBusiStasReqParam.parkOrgBusiStas.busiType">
                                 <option value="" selected>请选择</option>
-                                <option value="{{l.key}}" ng-repeat="l in getOriginData.businessStates">{{l.value}}</option>
+                                <option value="{{l.key}}" ng-repeat="l in BUSITYPE">{{l.value}}</option>
                             </select>
                         </div>
                     </div>
@@ -59,8 +59,8 @@
                 <div class="col-sm-2 form-horizontal">
                     <div class="row">
                         <div class=" col-sm-offset-2">
-                            <button type="button" class="btn btn-info" ng-click="searchformAction.search()">查询</button>
-                            <button type="button" class="btn btn-info" ng-click="searchformAction.reset()">重置</button>
+                            <button type="button" class="btn btn-info" ng-click="searchAction.search()">查询</button>
+                            <button type="button" class="btn btn-info" ng-click="searchAction.reset()">重置</button>
                         </div>
                     </div>
                 </div>
@@ -87,16 +87,21 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr ng-repeat="l in searchAction.dataList">
+                <td>{{$index+1}}</td>
+                <td>{{l.orgName}}</td>
+                <td>{{l.merchantName}}</td>
+                <td>{{l.parkOrgBusiStas.stasDate}}</td>
+                <td>{{l.parkOrgBusiStas.docNo}}</td>
+                <td>{{l.busiTypeComment}}</td>
+                <td>{{l.parkOrgBusiStas.stasQty}}/{{l.parkOrgBusiStas.stasWeight}}/{{l.parkOrgBusiStas.stasVolume}}</td>
             </tr>
 
             </tbody>
         </table>
     </div>
     <!-- /example -->
-
-
-    <page></page>
+    <page page-data="searchAction.dataList" url="/busiStas/qryList" page-model-query="ParkOrgBusiStasModelQuery"></page>
 
 
 </div>

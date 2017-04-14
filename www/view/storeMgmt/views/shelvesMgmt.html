@@ -1,16 +1,16 @@
-<section ng-if="btnAction.showIndex" class="animate-enter-leave">
+<section ng-if="searchPtwAction.showIndex" class="animate-enter-leave">
     <div class="receive_container">
         <div class="receive_container">
-            <form class="form-horizontal" name="storeSearchForm" novalidate>
+            <form class="form-horizontal" name="searchPtwForm" novalidate>
                 <div class="row">
                     <div class="col-sm-2 form-horizontal">
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title">货主</label>
                             <div class="col-sm-8">
-                                <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                       required name="ownerComment"
+                                <input type="text" ng-model="searchPtwAction.voModel.likeOwnerName" class="form-control"
+                                       required name="likeOwnerName"
                                        placeholder="货主">
-                                <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchReceiveMsg.ownerComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!searchPtwForm.likeOwnerName.$error.required"  clear-input-btn="searchPtwAction.voModel.likeOwnerName"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
 
@@ -19,10 +19,10 @@
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title">PO单号</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.poNo"
+                                <input type="text" class="form-control"  ng-model="searchPtwAction.voModel.poNo"
                                        name="poNo" required
                                        placeholder="PO单号">
-                                <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchReceiveMsg.asn.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!searchPtwForm.poNo.$error.required"  clear-input-btn="searchPtwAction.voModel.putaway.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
 
@@ -31,10 +31,10 @@
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">ASN单号</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                                <input type="text" class="form-control"  ng-model="searchPtwAction.voModel.asnNo"
                                        name="asnNo" required
                                        placeholder="ASN单号">
-                                <span ng-if="!storeSearchForm.asnNo.$error.required" clear-input-btn="searchReceiveMsg.asn.asnNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!searchPtwForm.asnNo.$error.required" clear-input-btn="searchPtwAction.voModel.putaway.asnNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
 
@@ -43,9 +43,9 @@
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">状态</label>
                             <div class="col-sm-8">
-                                <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
+                                <select class="form-control" ng-model="searchPtwAction.voModel.putawayStatusComment">
                                     <option value="" selected>请选择</option>
-                                    <option value="{{l.key}}" ng-repeat="l in getOriginData.asnStatusLists">{{l.value}}</option>
+                                    <option value="{{l.value}}" ng-repeat="l in getOriginData.PUTAWAYSTATUS">{{l.value}}</option>
                                 </select>
                             </div>
                         </div>
@@ -54,8 +54,8 @@
 
                         <div class="row">
                             <div class=" col-sm-offset-2">
-                                <button type="button" class="btn btn-info" ng-click="searchformAction.search()">查询</button>
-                                <button type="button" class="btn btn-info" ng-click="searchformAction.reset()">重置</button>
+                                <button type="button" class="btn btn-info" ng-click="searchPtwAction.search()">查询</button>
+                                <button type="button" class="btn btn-info" ng-click="searchPtwAction.reset()">重置</button>
                             </div>
                         </div>
                     </div>
@@ -67,21 +67,19 @@
         <!--按钮组-->
         <div class="row ">
             <div class="col-sm-10 col-sm-offset-1">
-                <button type="button"  ng-click="btnAction.addAsn()"  class="btn btn-info">新增</button>
+                <button type="button"  ng-click="searchPtwAction.addAsn()"  class="btn btn-info">新增</button>
 
-                <button type="button" ng-click="btnAction.modifyAsn()"  class="btn btn-info">修改</button>
+                <button type="button" ng-click="searchPtwAction.modifyAsn()"  class="btn btn-info">修改</button>
 
-                <button type="button" class="btn btn-info">生效</button>
+                <button type="button" class="btn btn-info" ng-click="searchPtwAction.active()">生效</button>
 
-                <button type="button" class="btn btn-info">失效</button>
+                <button type="button" class="btn btn-info" ng-click="searchPtwAction.inactive()">失效</button>
 
                 <button type="button" class="btn btn-info">取消</button>
 
-                <button type="button" class="btn btn-info">作业</button>
+                <button type="button" ng-click="searchPtwAction.MakeSureWorkBtn()" class="btn btn-info">作业确认</button>
 
-                <button type="button" ng-click="btnAction.MakeSureWorkBtn()" class="btn btn-info">作业确认</button>
-
-                <button type="button" ng-click="btnAction.splitAsn()" class="btn btn-info">拆分</button>
+                <button type="button" ng-click="searchPtwAction.splitAsn()" class="btn btn-info">拆分</button>
 
                 <button type="button" class="btn btn-info">取消拆分</button>
             </div>
@@ -93,76 +91,70 @@
                 <tr>
                     <th>
                         <label>
-                            <input type="checkbox" aria-label="...">
+                            <input type="checkbox" aria-label="..." ng-model="searchPtwAction.selectedAll" ng-change="searchPtwAction.selectAll()">
                         </label>
                     </th>
                     <th>序号</th>
                     <th>货主</th>
-                    <th>仓库</th>
                     <th>上架单号</th>
-                    <th>父编码</th>
                     <th>单据类型</th>
                     <th>PO单号<br>
                         ASN单号</th>
                     <th>计划数量/公斤/立方</th>
-                    <th>分配数量/公斤/立方</th>
                     <th>上架数量/公斤/立方</th>
                     <th>状态</th>
                     <th>作业人员<br>
                         作业时间</th>
-                    <th>创建人<br>
-                        创建时间</th>
-                    <th>最后修改人<br>
-                        修改时间</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th><label>
-                        <input type="checkbox" aria-label="...">
-                    </label></th>
-                <td>1</td>
-                <td>联想</td>
-                <td>广州RDC</td>
-                <td><a ng-click="btnAction.showAsnDetailActionGetData(13)">435325345345</a></td>
-                <td></td>
-                <td>采购订单</td>
-                <td>151515121<br>
-                    A616-1200</td>
-                <td>100/0/0</td>
-                <td>100/0/0</td>
-                <td>100/0/0</td>
-                <td>生效</td>
-                <td></td>
-                <td>张三<br>
-                    2016/10/10 <br>
-                    22:22:22</td>
-                <td>张三<br>
-                    2016/10/10 <br>
-                    22:22:22</td>
+                <tr ng-repeat="l in searchPtwAction.listVO track by $index"  ng-click="searchPtwAction.selectModify($index,$event)"
+                    ng-class="{'info':searchPtwAction.currentSelectItems==$index&&searchPtwAction.selectedItems[$index]==true}" >
+                    <td>
+                        <label>
+                            <input type="checkbox" class="chk_selectItem" aria-label="..."  ng-model="searchPtwAction.selectedItems[$index]" ng-change="searchPtwAction.selectModify($index,$event)" />
+                        </label>
+                    </td>
+                <td>{{$index+1}}</td>
+                <td ng-bind="l.ownerComment"></td>
+                <!--ANDY<td ><a ng-click="searchPtwAction.showAsnDetailActionGetData(13)" ng-bind="l.putaway.putawayNo">435325345345</a></td>-->
+                <td ng-bind="l.putaway.putawayNo" ></td>
+                <td ng-bind="l.docTypeComment"></td>
+                <td><span ng-bind="l.putaway.poNo"></span><br>
+                    <span title="{{l.putaway.asnNo}}" ng-bind="l.putaway.asnNo| substr : 8: '...'"></span>
+                </td>
+                <td>
+                    <span ng-bind="l.putaway.planQty| number : 2"></span>/<span ng-bind="l.putaway.planWeight | number : 2"></span>/<span ng-bind="l.putaway.planVolume | number : 2"></span>
+                </td>
+                <td ng-bind="l.ownerComment">
+                    <span ng-bind="l.putaway.realQty | number : 2"></span>/<span ng-bind="l.putaway.realWeight | number : 2"></span>/<span ng-bind="l.putaway.realVolume | number : 2"></span>
+                </td>
+                <td ng-bind="l.putawayStatusComment">生效</td>
+                <td >
+                    <span ng-bind="l.opPersonComment"></span><br>
+                    <span ng-bind="l.putaway.opTime"></span></td>
                 </tr>
-
-
 
                 </tbody>
             </table>
         </div>
+
         <!-- /example -->
-        <page></page>
+        <page page-data="searchPtwAction.listVO" url="/ptw/list" page-model-query="indexModule.shelvesIndexModelQuery"></page>
 
     </div>
     <footer></footer>
 </section>
 
 <!--新增和修改上架页面-->
-<section class="animate-enter-leave posAb" ng-if="btnAction.showAddOrModify">
-    <form class="form-horizontal" name="storeSearchForm" novalidate>
+<section class="animate-enter-leave posAb" ng-if="searchPtwAction.showAddOrModify">
+    <form class="form-horizontal" name="searchPtwForm" novalidate>
         <div class="panel-group mg-tp20" role="tablist" aria-multiselectable="true">
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingOne">
                     <h3 class="panel-title">
                         <a role="button" ng-init="status.open=true" ng-click="status.open=!status.open" class="btn-block" data-toggle="collapse" data-target="#collapseOne"  aria-expanded="true" aria-controls="collapseOne">
-                            {{btnAction.showText.firstTitle}}
+                            {{searchPtwAction.showText.firstTitle}}
                             <i class="fa  pull-right" ng-class="{'fa-hand-paper-o': status.open, 'fa-hand-rock-o': !status.open}" aria-hidden="true"></i>
                         </a>
                     </h3>
@@ -173,99 +165,83 @@
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group  has-feedback">
-                                    <label class="col-sm-3 control-label receive-form-title">仓库</label>
+                                    <label class="col-sm-3 control-label receive-form-title">上架单号</label>
                                     <div class="col-sm-9">
-                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                        <label class="text-left pdTp5" ng-bind="shelvesAddModify.shelvesVo.putaway.putawayNo"></label>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group  has-feedback">
-                                    <label class="col-sm-4 control-label receive-form-title">上架单号</label>
-                                    <div class="col-sm-8">
-                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mg-lf">
-                            <div class="form-group  has-feedback">
-                                <label class="col-sm-1 control-label receive-form-title">PO单号</label>
-                                <div class="col-sm-8">
-                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
-                                </div>
-                            </div>
-                            <div class="form-group  has-feedback">
-                                <label class="col-sm-1 control-label receive-form-title">ASN单号</label>
-                                <div class="col-sm-8">
-                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-4">
                                 <div class="form-group  has-feedback">
                                     <label class="col-sm-3 control-label receive-form-title">订单数量</label>
                                     <div class="col-sm-9">
-                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                        <label class="text-left pdTp5">{{shelvesAddModify.shelvesVo.orderQty | nullIsZero :0}}</label>
                                     </div>
                                 </div>
                                 <div class="form-group  has-feedback">
                                     <label class="col-sm-3 control-label receive-form-title">收货数量</label>
                                     <div class="col-sm-9">
-                                        <label class="text-left pdTp5">4444</label>
+                                        <label class="text-left pdTp5">{{shelvesAddModify.shelvesVo.receiveQty | nullIsZero :0}}</label>
                                     </div>
                                 </div>
 
                                 <div class="form-group  has-feedback">
                                     <label class="col-sm-3 control-label receive-form-title">上架数量</label>
                                     <div class="col-sm-9">
-                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                        <label class="text-left pdTp5">{{shelvesAddModify.shelvesVo.putaway.planQty | nullIsZero :0}}</label>
                                     </div>
                                 </div>
 
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group  has-feedback">
+                                    <label class="col-sm-4 control-label receive-form-title">PO单号</label>
+                                    <div class="col-sm-8">
+                                        <label class="text-left pdTp5 text_overflow" title="{{shelvesAddModify.shelvesVo.putaway.poNo}}">{{shelvesAddModify.shelvesVo.putaway.poNo }}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group  has-feedback">
                                     <label class="col-sm-4 control-label receive-form-title">订单公斤</label>
                                     <div class="col-sm-8">
-                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                        <label class="text-left pdTp5">{{shelvesAddModify.shelvesVo.orderWeight  | nullIsZero }}</label>
                                     </div>
                                 </div>
                                 <div class="form-group  has-feedback">
                                     <label class="col-sm-4 control-label receive-form-title">收货公斤</label>
                                     <div class="col-sm-8">
-                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                        <label class="text-left pdTp5">{{shelvesAddModify.shelvesVo.receiveWeight  | nullIsZero }}</label>
                                     </div>
                                 </div>
 
                                 <div class="form-group  has-feedback">
                                     <label class="col-sm-4 control-label receive-form-title">上架公斤</label>
                                     <div class="col-sm-8">
-                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                        <label class="text-left pdTp5">{{shelvesAddModify.shelvesVo.putaway.planWeight  | nullIsZero }}</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group  has-feedback">
+                                    <label class="col-sm-3 control-label receive-form-title">ASN单号</label>
+                                    <div class="col-sm-8">
+                                        <label class="text-left pdTp5 text_overflow" title="{{shelvesAddModify.shelvesVo.putaway.asnNo}}">{{shelvesAddModify.shelvesVo.putaway.asnNo}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group  has-feedback">
                                     <label class="col-sm-3 control-label receive-form-title">订单立方</label>
                                     <div class="col-sm-9">
-                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                        <label class="text-left pdTp5">{{shelvesAddModify.shelvesVo.orderVolume  | nullIsZero }}</label>
                                     </div>
                                 </div>
                                 <div class="form-group  has-feedback">
                                     <label class="col-sm-3 control-label receive-form-title">收货立方</label>
                                     <div class="col-sm-9">
-                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                        <label class="text-left pdTp5">{{shelvesAddModify.shelvesVo.receiveVolume  | nullIsZero }}</label>
                                     </div>
                                 </div>
 
                                 <div class="form-group  has-feedback">
                                     <label class="col-sm-3 control-label receive-form-title">上架立方</label>
                                     <div class="col-sm-9">
-                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                        <label class="text-left pdTp5">{{shelvesAddModify.shelvesVo.putaway.planVolume  | nullIsZero }}</label>
                                     </div>
                                 </div>
 
@@ -275,7 +251,7 @@
                             <div class="form-group  has-feedback">
                                 <label class="col-sm-1 control-label receive-form-title">备注</label>
                                 <div class="col-sm-8">
-                                    <textarea class="form-control" rows="3" placeholder="备注"></textarea>
+                                    <textarea class="form-control" rows="3" placeholder="备注" ng-model="shelvesAddModify.shelvesVo.putaway.note"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -290,28 +266,39 @@
                                             <table class="table table-hover table-striped">
                                                 <thead>
                                                 <tr>
-                                                    <th>
+                                                    <th width="10%">
                                                         <label>
-                                                            <input type="checkbox" aria-label="...">
+                                                            <input type="checkbox" ng-change="shelvesAddModify.selectAsnAction(0,shelvesAddModify.asnVos,shelvesAddModify.asnDetailVos)"
+                                                                   ng-model="shelvesAddModify.selectAllAsn">
                                                         </label>
                                                     </th>
-                                                    <th>PO单号</th>
-                                                    <th>ASN单号</th>
-                                                    <th>货主</th>
-                                                    <th>订单日期</th>
-                                                    <th>订单数量</th>
-                                                    <th>待上架货品数</th>
-                                                    <th>待上架总数量</th>
+                                                    <th width="15%">PO单号</th>
+                                                    <th width="16%">ASN单号</th>
+                                                    <th width="10%">货主</th>
+                                                    <th width="12%">订单日期</th>
+                                                    <th width="10%">订单数量</th>
+                                                    <th width="10%">待上架货品数</th>
+                                                    <th width="10%">待上架总数量</th>
                                                 </tr>
                                                 </thead>
+                                            </table>
+                                        </div>
+                                        <div class="receive-table scroll_y_height" data-example-id="hoverable-table">
+                                            <table class="table table-hover table-striped">
                                                 <tbody>
-                                                <tr>
-                                                    <th><label>
-                                                        <input type="checkbox" aria-label="...">
+                                                <tr class="cursor_pointer"  ng-repeat="l in shelvesAddModify.asnVos"  ng-if="!l.isDown"
+                                                    ng-click="shelvesAddModify.selectAsnAction(2,shelvesAddModify.asnDetailVos,l,'asn.asnId','asnDetail.asnId',shelvesAddModify.asnVos)"
+                                                    ng-class="{danger:l.selectedStatus}" ng-model="l.selectedStatus">
+                                                    <th width="10%"><label>
+                                                        <input type="checkbox" ng-model="l.selectedStatus" >
                                                     </label></th>
-                                                    <td>Mark</td>
-                                                    <td>Otto</td>
-                                                    <td>@mdo</td>
+                                                    <td width="15%">{{l.asn.poNo}}</td>
+                                                    <td width="16%" title="{{l.asn.asnNo}}">{{l.asn.asnNo | substr : 8:'...'}}</td>
+                                                    <td width="10%">{{l.ownerComment}}</td>
+                                                    <td width="12%">{{l.asn.orderDate}}</td>
+                                                    <td width="10%">{{l.asn.orderQty}}</td>
+                                                    <td width="10%">{{l.stockCount}}</td>
+                                                    <td width="10%">{{l.stockQty}}</td>
                                                 </tr>
 
                                                 </tbody>
@@ -329,28 +316,39 @@
                                             <table class="table table-hover table-striped">
                                                 <thead>
                                                 <tr>
-                                                    <th>
+                                                    <th width="8%">
                                                         <label>
-                                                            <input type="checkbox" aria-label="...">
+                                                            <input type="checkbox"  ng-model="shelvesAddModify.selectAllAsn"
+                                                                   ng-change="shelvesAddModify.selectAsnAction(0,shelvesAddModify.asnVos,shelvesAddModify.asnDetailVos)">
                                                         </label>
                                                     </th>
-                                                    <th>ASN单号</th>
-                                                    <th>货品代码</th>
-                                                    <th>货品名称</th>
-                                                    <th>待上架数量</th>
-                                                    <th>批次</th>
-                                                    <th>规格型号</th>
-                                                    <th>包装单位</th>
+                                                    <th width="15%">ASN单号</th>
+                                                    <th width="10%">货品代码</th>
+                                                    <th width="10%">货品名称</th>
+                                                    <th width="10%">待上架数量</th>
+                                                    <th width="20%">批次</th>
+                                                    <th width="10%">规格型号</th>
+                                                    <th width="12%">包装单位</th>
                                                 </tr>
                                                 </thead>
+                                            </table>
+                                        </div>
+                                        <div class="receive-table scroll_y_height" data-example-id="hoverable-table">
+                                            <table class="table table-hover table-striped">
                                                 <tbody>
-                                                <tr>
-                                                    <th><label>
-                                                        <input type="checkbox" aria-label="...">
+                                                <tr class="cursor_pointer" ng-repeat="l in shelvesAddModify.asnDetailVos" ng-if="!l.isDown"
+                                                    ng-click="shelvesAddModify.selectAsnAction(1,shelvesAddModify.asnVos,l,'asnDetail.asnId','asn.asnId',shelvesAddModify.asnDetailVos)"
+                                                    ng-class="{danger:l.selectedStatus}">
+                                                    <th width="8%"><label>
+                                                        <input type="checkbox" ng-model="l.selectedStatus" >
                                                     </label></th>
-                                                    <td>Mark</td>
-                                                    <td>Otto</td>
-                                                    <td>@mdo</td>
+                                                    <td width="20%" title="{{l.asnNo}}">{{l.asnNo|substr:8:'...'}}</td>
+                                                    <td width="10%">{{l.skuNo}} </td>
+                                                    <td width="10%">{{l.skuComment}}</td>
+                                                    <td width="10%">{{l.stockQty}}</td>
+                                                    <td width="20%">{{l.asnDetail.batchNo}}</td>
+                                                    <td width="12%">{{l.specModelComment}}</td>
+                                                    <td width="10%">{{l.packComment}}</td>
                                                 </tr>
 
                                                 </tbody>
@@ -364,14 +362,10 @@
                         <!--tabs end-->
 
                         <div class="row mg-tp20">
-                            <div class="col-sm-offset-1 col-sm-1">
-                                <button class="btn btn-info">添加</button>
-                            </div>
-                            <div class="col-sm-1">
-                                <button class="btn btn-info" ng-click="btnAction.addAsn()">删除</button>
-                            </div>
-                            <div class="col-sm-1">
-                                <button class="btn btn-info" ng-click="btnAction.addAsn()">自动分配</button>
+                            <div class="col-sm-offset-1">
+                                <button class="btn btn-info" ng-click="shelvesAddModify.doAsnAddDel(0)">添加</button>
+                                <button class="btn btn-info mg-lt20" ng-click="shelvesAddModify.doAsnAddDel(1)">删除</button>
+                                <!--ANDY <button class="btn btn-info mg-lt20" ng-click="searchPtwAction.addAsn()">自动分配</button>-->
                             </div>
                         </div>
                     </div>
@@ -380,7 +374,7 @@
         </div>
 
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col-sm-7">
                 <div class="panel-group"  role="tablist" aria-multiselectable="true">
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" >
@@ -400,9 +394,11 @@
                                         <tr>
                                             <th>
                                                 <label>
-                                                    <input type="checkbox" aria-label="...">
+                                                    <input type="checkbox" ng-model="shelvesAddModify.detailSelAll"
+                                                           ng-change="shelvesAddModify.detailSelAllAction(0,shelvesAddModify.shelvesVo.listSavePutawayDetailVO)">
                                                 </label>
                                             </th>
+                                            <th>序号</th>
                                             <th>货品代码</th>
                                             <th>货品名称</th>
                                             <th>批次</th>
@@ -412,13 +408,18 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
+                                        <tr class="cursor_pointer" ng-repeat="l in shelvesAddModify.shelvesVo.listSavePutawayDetailVO track by $index" ng-click="shelvesAddModify.detailSelAllAction(1,shelvesAddModify.shelvesVo.listSavePutawayDetailVO,l,$index)"
+                                            ng-class="{danger:shelvesAddModify.selectAsnDetailIndex==$index}">
                                             <th><label>
-                                                <input type="checkbox" aria-label="...">
+                                                <input type="checkbox" ng-model="l.selectedStatus">{{l.asnDetail.asnDetailId}}
                                             </label></th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
+                                            <th>{{$index+1}}</th>
+                                            <td>{{l.skuNo}}</td>
+                                            <td>{{l.skuComment}}</td>
+                                            <td>{{l.putawayDetail.batchNo}}</td>
+                                            <td>{{l.specModelComment}}</td>
+                                            <td>{{l.putawayDetail.measureUnit}}</td>
+                                            <td>{{l.stockQty}}/{{l.stockWeight}}/{{l.stockVolume}}</td>
                                         </tr>
 
                                         </tbody>
@@ -430,15 +431,15 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-5">
                 <div class="panel-group"  role="tablist" aria-multiselectable="true">
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" >
                             <h3 class="panel-title">
                                 <div role="button" class="btn-block"  aria-expanded="true" aria-controls="collapseOne">
                                     收货详情
-                                    <i class="fa fa-minus-square pull-right color345795" aria-hidden="true"></i>
-                                    <i class="fa fa-plus-square pull-right color345795" aria-hidden="true"></i>
+                                    <i class="fa fa-minus-square pull-right color345795" aria-hidden="true" ng-click="shelvesAddModify.removePutawayLocationVO()"></i>
+                                    <i class="fa fa-plus-square pull-right color345795" aria-hidden="true" ng-click="shelvesAddModify.addPutawayLocationVO()"></i>
                                 </div>
                             </h3>
                         </div>
@@ -456,23 +457,36 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
+                                        <tr ng-repeat="l in shelvesAddModify.shelvesVo.listSavePutawayDetailVO[shelvesAddModify.selectAsnDetailIndex].listPlanLocationVO"
+                                            ng-click="shelvesAddModify.doSelPutawayLocationVOsIndex($index)"
+                                            ng-class="{info:shelvesAddModify.selPutawayLocationVOsIndex==$index}">
                                             <td>
                                                 <div class="form-group has-feedback MakeSureAsn_input">
-                                                    <input type="number" class="form-control input-sm" ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
+                                                    <input type="text" class="form-control input-sm" input-number-only  nonzero-integer="true"
+                                                           ng-blur="shelvesAddModify.sumQty()"
+                                                           max="{{shelvesAddModify.shelvesVo.listSavePutawayDetailVO[shelvesAddModify.selectAsnDetailIndex].receiveQty}}"
+                                                           ng-model="l.putawayLocation.putawayQty" aria-describedby="inputSuccess5Status">
                                                 </div>
                                             </td>
                                             <td> <div class="form-group has-feedback MakeSureAsn_input">
-                                                <input type="number" class="form-control input-sm" ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
+                                                <input type="text" class="form-control input-sm"
+                                                       input-number-only
+                                                       ng-blur="shelvesAddModify.sumQty()"
+                                                       max="{{shelvesAddModify.shelvesVo.listSavePutawayDetailVO[shelvesAddModify.selectAsnDetailIndex].putawayDetail.receiveWeight}}"
+                                                       ng-model="l.putawayLocation.putawayWeight" aria-describedby="inputSuccess5Status">
                                             </div></td>
                                             <td> <div class="form-group has-feedback MakeSureAsn_input">
-                                                <input type="number" class="form-control input-sm" ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
+                                                <input type="text" class="form-control input-sm"
+                                                       input-number-only
+                                                       ng-blur="shelvesAddModify.sumQty()"
+                                                       max="{{shelvesAddModify.shelvesVo.listSavePutawayDetailVO[shelvesAddModify.selectAsnDetailIndex].putawayDetail.receiveVolume}}"
+                                                       ng-model="l.putawayLocation.putawayVolume" aria-describedby="inputSuccess5Status">
                                             </div></td>
                                             <td>
-                                                <div class="form-group has-feedback MakeSureAsn_input">
-                                                    <input type="text" class="form-control input-sm"
-                                                           ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
-                                                    <span class="fa fa-search form-control-feedback right2" ng-click="btnAction.searchModel('select_wareLocation_searchModel')"  aria-hidden="true"></span>
+                                                <div class="form-group has-feedback MakeSureAsn_input" ng-click="shelvesAddModify.changeWareLocation($index)">
+                                                    <input type="text" class="form-control input-sm" placeholder="请选择"
+                                                           ng-model="l.locationComment" >
+                                                    <span class="fa fa-search form-control-feedback right2"  aria-hidden="true"></span>
                                                 </div>
                                             </td>
                                         </tr>
@@ -489,20 +503,20 @@
         </div>
 
         <div class="row mg-bm-50">
-            <div class="col-sm-offset-1 col-sm-1">
-                <button class="btn btn-info">保存</button>
+            <div class="col-sm-offset-1 ">
+                <button class="btn btn-info" ng-click="shelvesAddModify.temporarilySave()">暂存</button>
+                <!--ANDY <button class="btn btn-info mg-lt20" ng-click="shelvesAddModify.saveAndEffect()">保存并生效</button>-->
+                <button class="btn btn-info mg-lt20" ng-click="shelvesAddModify.backToIndex()">返回</button>
             </div>
-            <div class="col-sm-2">
-                <button class="btn btn-info" ng-click="btnAction.addAsn()">返回</button>
-            </div>
+
         </div>
     </form>
 </section>
 <!--新增和修改end-->
 
 <!--作业确认 页面-->
-<section class="animate-enter-leave posAb" ng-if="btnAction.MakeSureWork">
-    <form class="form-horizontal" name="storeSearchForm" novalidate>
+<section class="animate-enter-leave posAb" ng-if="searchPtwAction.MakeSureWork">
+    <form class="form-horizontal" name="searchPtwForm" novalidate>
 
 
         <div class="panel-group mg-tp20"  role="tablist" aria-multiselectable="true">
@@ -520,23 +534,10 @@
                         <div class="row">
                             <div class="col-sm-4 col-sm-offset-1">
                                 <div class="form-group  has-feedback">
-                                    <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>工作人员</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                               required name="ownerComment" onfocus="this.blur()" ng-click="btnAction.searchModel('select_users_searchModel')"
-                                               placeholder="请选择">
-                                        <span class="fa fa-search form-control-feedback color345795" aria-hidden="true"></span>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group  has-feedback">
-                                    <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>批量选择库位</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                               required name="ownerComment"
-                                               onfocus="this.blur()" ng-click="btnAction.searchModel('select_wareLocation_searchModel')"
+                                    <label class="col-sm-3 control-label receive-form-title">工作人员</label>
+                                    <div class="col-sm-9" ng-click="workMakeSure.selectedWorker()">
+                                        <input type="text" ng-model="putawayVO.opPersonComment" class="form-control"
+                                               name="opPersonComment" onfocus="this.blur()"
                                                placeholder="请选择">
                                         <span class="fa fa-search form-control-feedback color345795" aria-hidden="true"></span>
                                     </div>
@@ -551,7 +552,7 @@
         </div>
 
         <div class="row">
-            <div class="col-sm-7">
+            <div class="col-sm-5">
                 <div class="panel-group"  role="tablist" aria-multiselectable="true">
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" >
@@ -569,11 +570,6 @@
                                     <table class="table table-hover table-striped">
                                         <thead>
                                         <tr>
-                                            <th>
-                                                <label>
-                                                    <input type="checkbox" aria-label="...">
-                                                </label>
-                                            </th>
                                             <th>货品代码</th>
                                             <th>货品名称</th>
                                             <th>批次</th>
@@ -583,18 +579,19 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <th><label>
-                                                <input type="checkbox" aria-label="...">
-                                            </label></th>
-                                            <td>Mark</td>
-                                            <td title="asfasdfsdfasdfasfasfasfasf">啊时代发生的...</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
+                                        <tr ng-repeat="l in putawayVO.listPutawayDetailVO" class="cursor_pointer"
+                                            ng-class="{'info':workMakeSure.selectedIndex==$index}" ng-click="workMakeSure.putawayDetailVOSelect(l,$index)">
+                                            <td title="l.skuNo">{{l.skuNo|substr :8 :'...'}}</td>
+                                            <td>{{l.skuComment}}</td>
+                                            <td>{{l.putawayDetail.batchNo}}</td>
+                                            <td>{{l.specComment}}</td>
+                                            <td>{{l.putawayDetail.measureUnit}}</td>
+                                            <td>
+                                                <span>{{l.putawayDetail.planPutawayQty}}</span>/
+                                                <span>{{l.putawayDetail.planPutawayWeight}}</span>/
+                                                <span>{{l.putawayDetail.planPutawayVolume}}</span>
+                                            </td>
                                         </tr>
-
                                         </tbody>
                                     </table>
                                 </div>
@@ -627,32 +624,36 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
+                                        <tr ng-repeat="l in putawayVO.listPutawayDetailVO[workMakeSure.selectedIndex].listPlanLocationVO">
                                             <td>
-
+                                                <span>{{l.putawayLocation.putawayQty}}</span>/
+                                                <span>{{l.putawayLocation.putawayWeight | number:2}}</span>/
+                                                <span>{{l.putawayLocation.putawayVolume | number:2}}</span>
                                             </td>
-                                            <td></td>
+                                            <td>
+                                                {{l.locationComment}}
+                                            </td>
 
                                         </tr>
-
                                         </tbody>
                                     </table>
                                 </div>
                                 <!-- /表格 -->
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-5">
                 <div class="panel-group"  role="tablist" aria-multiselectable="true">
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" >
                             <h3 class="panel-title">
                                 <a role="button" class="btn-block"  aria-expanded="true" aria-controls="collapseOne">
                                     实际上架详情
-                                    <i class="fa fa-minus-square pull-right color345795" aria-hidden="true"></i>
-                                    <i class="fa fa-plus-square pull-right color345795" aria-hidden="true"></i>
+                                    <i class="fa fa-minus-square pull-right color345795" aria-hidden="true" ng-click="workMakeSure.removeRealPutaway()"></i>
+                                    <i class="fa fa-plus-square pull-right color345795" aria-hidden="true" ng-click="workMakeSure.addRealPutaway()"></i>
                                 </a>
                             </h3>
                         </div>
@@ -666,26 +667,37 @@
                                             <th>数量</th>
                                             <th>公斤</th>
                                             <th>立方</th>
-                                            <th>库位</th>
+                                            <th>库位选择</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
+                                        <tr ng-repeat="l in putawayVO.listPutawayDetailVO[workMakeSure.selectedIndex].listRealLocationVO"  ng-class="{'info':workMakeSure.selectedRealIndex==$index}" ng-click="workMakeSure.putawayRealDetailVOSelect($index)">
                                             <td>
                                                 <div class="form-group has-feedback MakeSureAsn_input">
-                                                    <input type="text" class="form-control input-sm" ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
+                                                    <input type="text" class="form-control input-sm" input-number-only nonzero-integer="true"
+                                                           max="{{putawayVO.listPutawayDetailVO[workMakeSure.selectedIndex].putawayDetail.planPutawayQty}}"
+                                                           ng-model="l.putawayLocation.putawayQty">
+
                                                 </div>
                                             </td>
                                             <td> <div class="form-group has-feedback MakeSureAsn_input">
-                                                <input type="text" class="form-control input-sm" ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
-                                            </div></td>
-                                            <td> <div class="form-group has-feedback MakeSureAsn_input">
-                                                <input type="text" class="form-control input-sm" ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
+                                                <input type="text" class="form-control input-sm"   input-number-only
+                                                       max="{{putawayVO.listPutawayDetailVO[workMakeSure.selectedIndex].putawayDetail.planPutawayWeight}}"
+                                                       ng-model="l.putawayLocation.putawayWeight">
+
                                             </div></td>
                                             <td>
                                                 <div class="form-group has-feedback MakeSureAsn_input">
-                                                    <input type="text" class="form-control input-sm"
-                                                           ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
+                                                    <input type="text" class="form-control input-sm" input-number-only
+                                                           max="{{putawayVO.listPutawayDetailVO[workMakeSure.selectedIndex].putawayDetail.planPutawayVolume}}"
+                                                           ng-model="l.putawayLocation.putawayVolume">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-group has-feedback MakeSureAsn_input"  ng-click="workMakeSure.changeWareLocation($index)">
+                                                    <input type="text" class="form-control input-sm" placeholder="请选择"
+                                                           ng-model="l.locationComment" >
+                                                    <span class="fa fa-search form-control-feedback right2"  aria-hidden="true"></span>
                                                 </div>
                                             </td>
                                         </tr>
@@ -704,10 +716,10 @@
 
         <div class="row mg-bm-50">
             <div class="col-sm-offset-1 col-sm-1">
-                <button class="btn btn-info">确认</button>
+                <button class="btn btn-info" ng-click="workMakeSure.makeSurePost()">确认</button>
             </div>
             <div class="col-sm-2">
-                <button class="btn btn-info" ng-click="btnAction.MakeSureWorkBtn()">返回</button>
+                <button class="btn btn-info" ng-click="searchPtwAction.makeSureTurnPage()">返回</button>
             </div>
         </div>
     </form>
@@ -715,8 +727,8 @@
 <!--作业确认end-->
 
 <!--或者拆分上架单-->
-<section class="animate-enter-leave posAb" ng-if="btnAction.showSplitAsn">
-    <form class="form-horizontal" name="storeSearchForm" novalidate>
+<section class="animate-enter-leave posAb" ng-if="searchPtwAction.showSplitAsn">
+    <form class="form-horizontal" name="searchPtwForm" novalidate>
         <div class="panel-group mg-tp20" role="tablist" aria-multiselectable="true">
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab">
@@ -733,39 +745,11 @@
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group  has-feedback">
-                                    <label class="col-sm-3 control-label receive-form-title">仓库</label>
+                                    <label class="col-sm-3 control-label receive-form-title">上架单号</label>
                                     <div class="col-sm-9">
                                         <label class="text-left pdTp5">{{getWarehouseId}}</label>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group  has-feedback">
-                                    <label class="col-sm-4 control-label receive-form-title">上架单号</label>
-                                    <div class="col-sm-8">
-                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mg-lf">
-                            <div class="form-group  has-feedback">
-                                <label class="col-sm-1 control-label receive-form-title">PO单号</label>
-                                <div class="col-sm-8">
-                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
-                                </div>
-                            </div>
-                            <div class="form-group  has-feedback">
-                                <label class="col-sm-1 control-label receive-form-title">ASN单号</label>
-                                <div class="col-sm-8">
-                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-sm-4">
                                 <div class="form-group  has-feedback">
                                     <label class="col-sm-3 control-label receive-form-title">订单数量</label>
                                     <div class="col-sm-9">
@@ -789,6 +773,12 @@
                             </div>
                             <div class="col-sm-4">
                                 <div class="form-group  has-feedback">
+                                    <label class="col-sm-4 control-label receive-form-title">PO单号</label>
+                                    <div class="col-sm-8">
+                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group  has-feedback">
                                     <label class="col-sm-4 control-label receive-form-title">订单公斤</label>
                                     <div class="col-sm-8">
                                         <label class="text-left pdTp5">{{getWarehouseId}}</label>
@@ -809,6 +799,12 @@
                                 </div>
                             </div>
                             <div class="col-sm-4">
+                                <div class="form-group  has-feedback">
+                                    <label class="col-sm-3 control-label receive-form-title">ASN单号</label>
+                                    <div class="col-sm-8">
+                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                    </div>
+                                </div>
                                 <div class="form-group  has-feedback">
                                     <label class="col-sm-3 control-label receive-form-title">订单立方</label>
                                     <div class="col-sm-9">
@@ -880,22 +876,22 @@
                                     <th>1</th>
                                     <td width="14rem">
                                         <div class="form-group has-feedback splitAsn_input">
-                                            <input type="number" class="form-control input-sm" ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
-                                            <span class="fa fa-times form-control-feedback right20" clear-input-btn="searchReceiveMsg.ownerComment" aria-hidden="true"></span>
+                                            <input type="number" class="form-control input-sm" ng-model="searchPtwAction.voModel.putaway." aria-describedby="inputSuccess5Status">
+                                            <span class="fa fa-times form-control-feedback right20" clear-input-btn="searchPtwAction.voModel.putaway." aria-hidden="true"></span>
                                             <span class="fa fa-repeat form-control-feedback right0" aria-hidden="true"></span>
                                         </div>
                                     </td>
                                     <td width="14rem">
                                         <div class="form-group has-feedback splitAsn_input">
-                                            <input type="number" class="form-control input-sm" ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
-                                            <span class="fa fa-times form-control-feedback right20" clear-input-btn="searchReceiveMsg.ownerComment" aria-hidden="true"></span>
+                                            <input type="number" class="form-control input-sm" ng-model="searchPtwAction.voModel.putaway." aria-describedby="inputSuccess5Status">
+                                            <span class="fa fa-times form-control-feedback right20" clear-input-btn="searchPtwAction.voModel.putaway." aria-hidden="true"></span>
                                             <span class="fa fa-repeat form-control-feedback right0" aria-hidden="true"></span>
                                         </div>
                                     </td>
                                     <td width="14rem">
                                         <div class="form-group has-feedback splitAsn_input">
-                                            <input type="number" class="form-control input-sm" ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
-                                            <span class="fa fa-times form-control-feedback right20" clear-input-btn="searchReceiveMsg.ownerComment" aria-hidden="true"></span>
+                                            <input type="number" class="form-control input-sm" ng-model="searchPtwAction.voModel.putaway." aria-describedby="inputSuccess5Status">
+                                            <span class="fa fa-times form-control-feedback right20" clear-input-btn="searchPtwAction.voModel.putaway." aria-hidden="true"></span>
                                             <span class="fa fa-repeat form-control-feedback right0" aria-hidden="true"></span>
                                         </div>
                                     </td>
@@ -921,7 +917,7 @@
                 <button class="btn btn-info">确认拆分</button>
             </div>
             <div class="col-sm-2">
-                <button class="btn btn-info" ng-click="btnAction.splitAsn()">返回</button>
+                <button class="btn btn-info" ng-click="searchPtwAction.splitAsn()">返回</button>
             </div>
         </div>
     </form>
@@ -929,8 +925,276 @@
 <!--或者拆分上架单end-->
 
  <!--查看上架单详情-->
-<section class="animate-enter-leave posAb" ng-if="btnAction.showAsnDetail">
-    <putaway-list-detail></putaway-list-detail>
+<section class="animate-enter-leave posAb" ng-if="searchPtwAction.showAsnDetail">
+    <div class="form-horizontal">
+        <div class="panel-group mg-tp20" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <h3 class="panel-title">
+                        <a role="button" ng-init="status.open=true" ng-click="status.open=!status.open" class="btn-block" data-toggle="collapse" data-target="#collapseOnes"  aria-expanded="true" aria-controls="collapseOne">
+                            查看上架单
+                            <i class="fa  pull-right" ng-class="{'fa-hand-paper-o': status.open, 'fa-hand-rock-o': !status.open}" aria-hidden="true"></i>
+                        </a>
+                    </h3>
+                </div>
+                <div id="collapseOnes" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group  has-feedback">
+                                    <label class="col-sm-3 control-label receive-form-title">上架单号</label>
+                                    <div class="col-sm-9">
+                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group  has-feedback">
+                                    <label class="col-sm-3 control-label receive-form-title">订单数量</label>
+                                    <div class="col-sm-9">
+                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group  has-feedback">
+                                    <label class="col-sm-3 control-label receive-form-title">收货数量</label>
+                                    <div class="col-sm-9">
+                                        <label class="text-left pdTp5">4444</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group  has-feedback">
+                                    <label class="col-sm-3 control-label receive-form-title">上架数量</label>
+                                    <div class="col-sm-9">
+                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group  has-feedback">
+                                    <label class="col-sm-4 control-label receive-form-title">PO单号</label>
+                                    <div class="col-sm-8">
+                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group  has-feedback">
+                                    <label class="col-sm-4 control-label receive-form-title">订单公斤</label>
+                                    <div class="col-sm-8">
+                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group  has-feedback">
+                                    <label class="col-sm-4 control-label receive-form-title">收货公斤</label>
+                                    <div class="col-sm-8">
+                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group  has-feedback">
+                                    <label class="col-sm-4 control-label receive-form-title">上架公斤</label>
+                                    <div class="col-sm-8">
+                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group  has-feedback">
+                                    <label class="col-sm-3 control-label receive-form-title">ASN单号</label>
+                                    <div class="col-sm-8">
+                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group  has-feedback">
+                                    <label class="col-sm-3 control-label receive-form-title">订单立方</label>
+                                    <div class="col-sm-9">
+                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group  has-feedback">
+                                    <label class="col-sm-3 control-label receive-form-title">收货立方</label>
+                                    <div class="col-sm-9">
+                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group  has-feedback">
+                                    <label class="col-sm-3 control-label receive-form-title">上架立方</label>
+                                    <div class="col-sm-9">
+                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row mg-lf">
+                            <div class="form-group  has-feedback">
+                                <label class="col-sm-1 control-label receive-form-title">备注</label>
+                                <div class="col-sm-8">
+                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-7">
+                <div class="panel-group"  role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" >
+                            <h3 class="panel-title">
+                                <a role="button" ng-init="status.openTwo=true" ng-click="status.openTwo=!status.openTwo" class="btn-block" data-toggle="collapse" data-target="#collapseTwoMSs"  aria-expanded="true" aria-controls="collapseOne">
+                                    货品明细
+                                    <i class="fa  pull-right" ng-class="{'fa-hand-paper-o': status.openTwo, 'fa-hand-rock-o': !status.openTwo}" aria-hidden="true"></i>
+                                </a>
+                            </h3>
+                        </div>
+                        <div id="collapseTwoMSs" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="panel-body pd5">
+                                <!--表格-->
+                                <div class="receive-table" data-example-id="hoverable-table">
+                                    <table class="table table-hover table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>
+                                                <label>
+                                                    <input type="checkbox" aria-label="...">
+                                                </label>
+                                            </th>
+
+                                            <th>PO单号<br>
+                                                ASN单号</th>
+                                            <th>货品代码</th>
+                                            <th>货品名称</th>
+                                            <th>批次</th>
+                                            <th>规格型号</th>
+                                            <th>计量单位</th>
+                                            <th>订单数量/公斤/立方</th>
+                                            <th>待上架数量/公斤/体积</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th><label>
+                                                <input type="checkbox" aria-label="...">
+                                            </label></th>
+                                            <td>Mark</td>
+                                            <td title="asfasdfsdfasdfasfasfasfasf">啊时代发生的...</td>
+                                            <td>@mdo</td>
+                                            <td>@mdo</td>
+                                            <td>@mdo</td>
+                                            <td>@mdo</td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /表格 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2 paddingLeftRight5">
+                <div class="panel-group"  role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" >
+                            <h3 class="panel-title">
+                                <a role="button" class="btn-block"  aria-expanded="true" aria-controls="collapseOne">
+                                    计划上架明细
+                                </a>
+                            </h3>
+                        </div>
+                        <div  class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="panel-body pd5">
+                                <!--表格-->
+                                <div class="receive-table" data-example-id="hoverable-table">
+                                    <table class="table table-hover table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>数量/公斤/立方</th>
+                                            <th>库位</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                250/0/0
+                                            </td>
+                                            <td>Z302</td>
+
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /表格 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="panel-group"  role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" >
+                            <h3 class="panel-title">
+                                <a role="button" class="btn-block"  aria-expanded="true" aria-controls="collapseOne">
+                                    实际上架明细
+
+                                </a>
+                            </h3>
+                        </div>
+                        <div  class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="panel-body pd5">
+                                <!--表格-->
+                                <div class="receive-table" data-example-id="hoverable-table">
+                                    <table class="table table-hover table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>数量/公斤/立方</th>
+                                            <th>库位</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>
+                                                100/0/0
+                                            </td>
+                                            <td> S11</td>
+
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /表格 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row mg-bm-50">
+            <div class="col-sm-2 col-sm-offset-1">
+                <button class="btn btn-info" ng-click="searchPtwAction.showAsnDetailAction()">返回</button>
+            </div>
+        </div>
+    </div>
+
 </section>
 <!--查看上架单详情end-->
 
+<confirm-model id="putAwayConfirm" title=" 是否继续:" content=" 以下货品计划上架和实际上架数量不符：" ok="workMakeSure.mSPost()" ok-text="继续" cancel-text="取消">
+    <span ng-repeat="l in workMakeSure._skuComment track by $index" class="label label-warning">{{l}}</span>
+</confirm-model>
+<confirm-model id="addModConfirm" title=" 是否继续:" content=" 以下序号货品计划上架数量小于暂存区库存：" ok="shelvesAddModify.temporarilySavePost()" ok-text="继续" cancel-text="取消">
+    <span ng-repeat="l in shelvesAddModify._skuComment track by $index" class="label label-warning mg-lt10">{{l}}</span>
+</confirm-model>
+
+<confirm-model id="back" title=" 友情提示:" content=" 当前页面尚未保存，是否保存！" ok="shelvesAddModify.temporarilySavePost()" no="shelvesAddModify.backToIndex()" ok-text="是" no-text="否" cancel-text="取消">
+    <span ng-repeat="l in shelvesAddModify._skuComment track by $index" class="label label-warning mg-lt10">{{l}}</span>
+</confirm-model>

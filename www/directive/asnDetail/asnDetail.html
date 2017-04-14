@@ -15,115 +15,110 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group  has-feedback">
-                                <label class="col-sm-3 control-label receive-form-title">仓库</label>
-                                <div class="col-sm-9">
-                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
-                                </div>
-                            </div>
-                            <div class="form-group  has-feedback">
-                                <label class="col-sm-3 control-label receive-form-title">相关单号1</label>
-                                <div class="col-sm-9">
-                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
-                                </div>
-                            </div>
-
-                            <div class="form-group  has-feedback">
-                                <label class="col-sm-3 control-label receive-form-title">总数量</label>
-                                <div class="col-sm-9">
-                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                <label class="col-sm-3 control-label receive-form-title">ASN单号</label>
+                                <div class="col-sm-8">
+                                    <label class="text-left form-control pdTp5" ng-bind="viewAsnAction.asnVOModel.asn.asnNo"></label>
                                 </div>
                             </div>
                             <div class="form-group has-feedback">
-                                <label for="inputPassword3" class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>订单日期</label>
-                                <div class="col-sm-9 ">
-                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                <label for="inputPassword3" class="col-sm-3 control-label receive-form-title">
+                                    <span class="color-red">*</span>订单日期</label>
+                                <div class="col-sm-8">
+                                    <label class="text-left form-control pdTp5" ng-bind="viewAsnAction.asnVOModel.asn.asnNo"></label>
+                                </div>
+                            </div>
+                            <div class="form-group  has-feedback">
+                                <label class="col-sm-3 control-label receive-form-title">总数量</label>
+                                <div class="col-sm-8">
+                                    <label class="col-sm-4 form-control" ng-bind="viewAsnAction.asnVOModel.asn.orderQty"></label>
                                 </div>
                             </div>
 
-                            <div class="form-group  has-feedback">
-                                <label class="col-sm-3 control-label receive-form-title">联系人</label>
-                                <div class="col-sm-9">
-                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                            <div class="form-group has-feedback">
+                                <label for="inputPassword3" class="col-sm-3 control-label receive-form-title">发货方</label>
+                                <div class="col-sm-8 ">
+                                    <label class="text-left form-control pdTp5" ng-bind="viewAsnAction.asnVOModel.senderComment"></label>
                                 </div>
                             </div>
+
 
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group  has-feedback">
-                                <label class="col-sm-4 control-label receive-form-title">ASN单号</label>
+                                <label class="col-sm-4 control-label receive-form-title">PO单号</label>
                                 <div class="col-sm-8">
-                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                    <label class="text-left form-control pdTp5" ng-bind="viewAsnAction.asnVOModel.asn.poNo|substr:16:'...'"></label>
                                 </div>
                             </div>
-                            <div class="form-group  has-feedback">
-                                <label class="col-sm-4 control-label receive-form-title">相关单号2</label>
-                                <div class="col-sm-8">
-                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
+
+                            <div class="form-group has-feedback">
+                                <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">
+                                    <span class="color-red">*</span>货主</label>
+                                <div class="col-sm-8 " >
+                                    <label class="text-left form-control pdTp5" ng-bind="viewAsnAction.asnVOModel.ownerComment"></label>
                                 </div>
                             </div>
 
                             <div class="form-group  has-feedback">
                                 <label class="col-sm-4 control-label receive-form-title">总重量(KG)</label>
                                 <div class="col-sm-8">
-                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
-                                </div>
-                            </div>
-                            <div class="form-group has-feedback">
-                                <label for="inputPassword3" class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>货主</label>
-                                <div class="col-sm-8 ">
-                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                    <label class="col-sm-4 form-control" ng-bind="viewAsnAction.asnVOModel.asn.orderWeight"></label>
                                 </div>
                             </div>
 
                             <div class="form-group  has-feedback">
-                                <label class="col-sm-4 control-label receive-form-title">联系电话</label>
+                                <label class="col-sm-4 control-label receive-form-title">联系人</label>
                                 <div class="col-sm-8">
-                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                    <label class="text-left form-control pdTp5" ng-bind="viewAsnAction.asnVOModel.asn.contactPerson"></label>
                                 </div>
                             </div>
+
                         </div>
                         <div class="col-sm-4">
-                            <div class="form-group  has-feedback">
-                                <label class="col-sm-3 control-label receive-form-title">PO单号</label>
-                                <div class="col-sm-8">
-                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
-                                </div>
-                            </div>
+
                             <div class="form-group  has-feedback">
                                 <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>单据类型</label>
                                 <div class="col-sm-8">
-                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                    <label class="text-left form-control pdTp5" ng-bind="viewAsnAction.asnVOModel.docTypeComment"></label>
+                                </div>
+                            </div>
+                            <div class="form-group  has-feedback">
+                                <label class="col-sm-3 control-label receive-form-title">相关单号1</label>
+                                <div class="col-sm-8">
+                                    <label class="text-left form-control pdTp5" ng-bind="viewAsnAction.asnVOModel.asn.asnNo1"></label>
+                                </div>
+                            </div>
+                            <div class="form-group  has-feedback">
+                                <label class="col-sm-3 control-label receive-form-title">总体积(CBM)</label>
+                                <div class="col-sm-8">
+                                    <label class="col-sm-4 form-control" ng-bind="viewAsnAction.asnVOModel.asn.orderVolume"></label>
                                 </div>
                             </div>
 
                             <div class="form-group  has-feedback">
-                                <label class="col-sm-3 control-label receive-form-title">总体积(CBM)</label>
+                                <label class="col-sm-3 control-label receive-form-title">联系电话</label>
                                 <div class="col-sm-8">
-                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                    <label class="text-left form-control pdTp5" ng-bind="viewAsnAction.asnVOModel.asn.contactPhone"></label>
                                 </div>
                             </div>
-                            <div class="form-group has-feedback">
-                                <label for="inputPassword3" class="col-sm-3 control-label receive-form-title">发货方</label>
-                                <div class="col-sm-8 ">
-                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                     <div class="row mg-lf">
                         <div class="form-group  has-feedback">
                             <label class="col-sm-1 control-label receive-form-title">联系地址</label>
                             <div class="col-sm-8">
-                                <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                <label class="text-left form-control pdTp5" ng-bind="viewAsnAction.asnVOModel.asn.contactAddress"></label>
                             </div>
                         </div>
                         <div class="form-group  has-feedback">
                             <label class="col-sm-1 control-label receive-form-title">备注</label>
                             <div class="col-sm-8">
-                                <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                <label class="text-left form-control pdTp5" ng-bind="viewAsnAction.asnVOModel.asn.note"></label>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -146,33 +141,27 @@
                             <div class="receive-table" data-example-id="hoverable-table">
                                 <table class="table table-hover table-striped">
                                     <thead>
-                                    <tr>
-                                        <th>
-                                            <label>
-                                                <input type="checkbox" aria-label="...">
-                                            </label>
-                                        </th>
-                                        <th>货品代码</th>
-                                        <th>货品名称</th>
-                                        <th>批次</th>
-                                        <th>规格型号</th>
-                                        <th>计量单位</th>
-                                        <th>数量/公斤/立方</th>
-                                    </tr>
+                                        <tr>
+                                            <th>货品代码</th>
+                                            <th>货品名称</th>
+                                            <th>批次</th>
+                                            <th>规格型号</th>
+                                            <th>计量单位</th>
+                                            <th>数量/公斤/立方</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <th><label>
-                                            <input type="checkbox" aria-label="...">
-                                        </label></th>
-                                        <td>Mark</td>
-                                        <td title="asfasdfsdfasdfasfasfasfasf">啊时代发生的...</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                        <td>@mdo</td>
-                                    </tr>
-
+                                        <tr ng-repeat="detailItem in viewAsnAction.asnVOModel.listAsnDetailVO track by $index"
+                                            ng-class="{'info':viewAsnAction.detailIndex==$index}" ng-click="viewAsnAction.selectTr($index)" >
+                                            <td ng-bind="detailItem.skuNo"></td>
+                                            <td ng-bind="detailItem.skuComment"></td>
+                                            <td ng-bind="detailItem.asnDetail.batchNo"></td>
+                                            <td ng-bind="detailItem.specModelComment"></td>
+                                            <td ng-bind="detailItem.asnDetail.measureUnit"></td>
+                                            <td ng-bind="detailItem.asnDetail.orderQty+'/'+detailItem.asnDetail.orderWeight+'/'+detailItem.asnDetail.orderVolume">
+                                                {{putawayItem.asnDetail.orderQty|nullIsZero:2}} / {{putawayItem.asnDetail.orderWeight|nullIsZero:2}} / {{putawayItem.asnDetail.orderVolume|nullIsZero:2}}
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -199,19 +188,19 @@
                             <div class="receive-table" data-example-id="hoverable-table">
                                 <table class="table table-hover table-striped">
                                     <thead>
-                                    <tr>
-                                        <th>数量/公斤/立方</th>
-                                        <th>库位</th>
-                                    </tr>
+                                        <tr>
+                                            <th>数量/公斤/立方</th>
+                                            <th>库位</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>
-                                            250/0/0
-                                        </td>
-                                        <td>Z302</td>
-
-                                    </tr>
+                                        <tr ng-repeat="receiveItem in viewAsnAction.asnVOModel.listAsnDetailVO track by $index"
+                                            ng-class="{'info':viewAsnAction.detailIndex==$index}" ng-click="viewAsnAction.selectTr($index)">
+                                            <td>
+                                                {{putawayItem.asnDetail.receiveQty|nullIsZero:2}} / {{putawayItem.asnDetail.receiveWeight|nullIsZero:2}} / {{putawayItem.asnDetail.receiveVolume|nullIsZero:2}}
+                                            </td>
+                                            <td ng-bind="receiveItem.locationComment"></td>
+                                        </tr>
 
                                     </tbody>
                                 </table>
@@ -239,20 +228,19 @@
                             <div class="receive-table" data-example-id="hoverable-table">
                                 <table class="table table-hover table-striped">
                                     <thead>
-                                    <tr>
-                                        <th>上架数量/公斤/立方</th>
-                                        <th>上架库位</th>
-                                    </tr>
+                                        <tr>
+                                            <th>上架数量/公斤/立方</th>
+                                            <th>上架库位</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>
-                                            100/0/0
-                                        </td>
-                                        <td> S11</td>
-
-                                    </tr>
-
+                                        <tr ng-repeat="putawayItem in viewAsnAction.asnVOModel.listAsnDetailVO[viewAsnAction.detailIndex].listPtwLocVO track by $index"
+                                            ng-class="{'info':viewAsnAction.currentSelectItems==$index&&viewAsnAction.selectedItems[$index]==true}" >
+                                            <td>
+                                                {{putawayItem.putawayLocation.putawayQty|nullIsZero:2}} / {{putawayItem.putawayLocation.putawayWeight|nullIsZero:2}} / {{putawayItem.putawayLocation.putawayVolume|nullIsZero:2}}
+                                            </td>
+                                            <td ng-bind="putawayItem.locationComment"></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -267,7 +255,7 @@
 
     <div class="row mg-bm-50">
         <div class="col-sm-2 col-sm-offset-1">
-            <button class="btn btn-info" ng-click="btnAction.showAsnDetailAction()">返回</button>
+            <button class="btn btn-info" ng-click="btnAction.backToIndex()">返回</button>
         </div>
     </div>
     </form>

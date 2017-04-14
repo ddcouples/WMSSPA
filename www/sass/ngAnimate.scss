@@ -29,3 +29,27 @@
   //color:#ddd !important;
   //background: #3d88e0 !important;
 }
+.tooltip.customClass .tooltip-inner {
+  color: #880000;
+  background-color: #ffff66;
+  box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+/* Hide arrow */
+.tooltip.customClass .tooltip-arrow {
+  display: block;
+  border-top-color: #ffff66 !important;
+}
+
+input.error,select.error{
+  -webkit-transition: border .8s,opacity .8s;
+  -moz-transition: border .8s ,opacity .8s;
+  -ms-transition: border .8s,opacity .8s;
+  -o-transition: border .8s ,opacity .8s;
+  transition: border .8s ,opacity .8s;
+  border:1px solid #FF0000;
+  opacity:1;
+}
+input.error.error-add-active,select.error.error-add-active{
+  border:6px solid #FF0000;
+  opacity:0;
+}

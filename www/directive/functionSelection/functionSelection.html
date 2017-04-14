@@ -1,0 +1,36 @@
+<div class="checkboxTable">
+    <table class="table table-hover table-striped">
+        <thead>
+        <tr>
+            <th>主模块</th>
+            <th>子模块</th>
+            <th>功能</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr  ng-repeat="(index,mains) in originDatas">
+            <td>
+                <label class="checkbox-inline">
+                    <input type="checkbox" ng-model="mains.selectStatus" ng-change="changeActions.mainsChange(index,mains)" value=""> {{mains.entity.authName}}
+                </label>
+            </td>
+            <td colspan="2">
+                <ul ng-repeat="(indexChild,mainChild) in mains.list"  class="function_selection">
+                    <li>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" ng-model="mainChild.selectStatus" value="" ng-change="changeActions.mainChildChange(indexChild,mainChild,mains)">
+                            {{mainChild.entity.authName}}
+                        </label>
+                    </li>
+                    <li>
+                        <label class="checkbox-inline" ng-repeat="(indexFunc,ChildFuns) in mainChild.list">
+                            <input type="checkbox" ng-model="ChildFuns.selectStatus" value="" ng-change="changeActions.ChildFunsChange(indexChild,ChildFuns,mainChild,mains)">
+                            {{ChildFuns.entity.authName}}
+                        </label>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

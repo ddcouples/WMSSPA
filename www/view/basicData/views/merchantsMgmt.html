@@ -1,17 +1,17 @@
-
+<!--客商列表页面-->
 <section class="animate-enter-leave"  ng-if="btnAction.showIndex">
     <div class="receive_container">
         <div class="receive_container">
-            <form class="form-horizontal" name="storeSearchForm" novalidate>
+            <form class="form-horizontal" name="searchForm" novalidate>
                 <div class="row">
                     <div class="col-sm-2 form-horizontal">
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title">代码</label>
                             <div class="col-sm-8">
-                                <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                       required name="ownerComment"
+                                <input type="text" ng-model="queryReqParam.entity.merchantNo" class="form-control"
+                                       name="merchantNo" required
                                        placeholder="代码">
-                                <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchReceiveMsg.ownerComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!searchForm.merchantNo.$error.required"  clear-input-btn="queryReqParam.entity.merchantNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
 
@@ -20,10 +20,10 @@
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title">名称</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.poNo"
-                                       name="poNo" required
+                                <input type="text" class="form-control"  ng-model="queryReqParam.entity.merchantName"
+                                       name="merchantName" required
                                        placeholder="名称">
-                                <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchReceiveMsg.asn.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!searchForm.merchantName.$error.required"  clear-input-btn="queryReqParam.entity.merchantName" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
 
@@ -32,10 +32,10 @@
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">联系人</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                       name="asnNo" required
+                                <input type="text" class="form-control"  ng-model="queryReqParam.entity.contactPerson"
+                                       name="contactPerson" required
                                        placeholder="联系人">
-                                <span ng-if="!storeSearchForm.asnNo.$error.required" clear-input-btn="searchReceiveMsg.asn.asnNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!searchForm.contactPerson.$error.required" clear-input-btn="queryReqParam.entity.contactPerson"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
 
@@ -44,9 +44,9 @@
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">状态</label>
                             <div class="col-sm-8">
-                                <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
+                                <select class="form-control" ng-model="queryReqParam.entity.merchantStatus">
                                     <option value="" selected>请选择</option>
-                                    <option value="{{l.key}}" ng-repeat="l in getOriginData.LocationStatus">{{l.value}}</option>
+                                    <option value="{{l.key}}" ng-repeat="l in getOriginData.merchantsStatus">{{l.value}}</option>
                                 </select>
                             </div>
                         </div>
@@ -69,14 +69,15 @@
         <!--按钮组-->
         <div class="row ">
             <div class="col-sm-10 col-sm-offset-1">
-                <button type="button" class="btn btn-info" ng-click="btnAction.addAsn()">新增</button>
+                <button type="button" ng-click="btnAction.addPage()" class="btn btn-info">新增</button>
 
-                <button type="button" class="btn btn-info" ng-click="btnAction.modifyAsn(11)">修改</button>
+                <button type="button" ng-click="btnAction.modifyPage(selectById.idArray[0])" class="btn btn-info">修改</button>
 
-                <button type="button" class="btn btn-info">生效</button>
+                <button type="button" ng-click="btnAction.takeEffect(selectById.idArray[0],10)" class="btn btn-info">生效</button>
 
-                <button type="button" class="btn btn-info">失效</button>
+                <button type="button" ng-click="btnAction.loseEffect(selectById.idArray[0],20)" class="btn btn-info">失效</button>
 
+                <button type="button" ng-click="btnAction.cancel(selectById.idArray[0],10)" class="btn btn-info">取消</button>
             </div>
         </div>
         <!--按钮组end-->
@@ -85,9 +86,11 @@
                 <thead>
                 <tr>
                     <th>
+                        <!--
                         <label>
-                            <input type="checkbox" aria-label="...">
+                            <input type="checkbox">
                         </label>
+                        -->
                     </th>
                     <th>序号</th>
                     <th>代码</th>
@@ -99,67 +102,76 @@
                     <th>是否货主</th>
                     <th>是否客户</th>
                     <th>是否承运商</th>
-
                     <th>是否供应商</th>
-
                     <th>状态</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
+                <tr ng-repeat="item in pageData">
                     <th><label>
-                        <input type="checkbox" aria-label="...">
+                        <input ng-model="item.selected" type="checkbox" ng-change="btnAction.slectOnly(item.entity.merchantId, item.selected, item)">
                     </label></th>
-                    <td>1</td>
-                    <td><a ng-click="btnAction.showDetailActionGetData(13)">435325345345</a></td>
-                    <td>进口产品库位1</td>
-                    <td>库区1</td>
-                    <td>6000</td>
-                    <td>转账</td>
-                    <td>按月</td>
-                    <td>按月</td>
-                    <td>15</td>
-                    <td>每天</td>
-                    <td>系统</td>
-                    <td>打开</td>
+                    <td ng-bind="$index+1"></td>
+                    <td><a ng-bind="item.entity.merchantNo|substr:6:'...'" ng-click="btnAction.showDetailActionGetData(item.entity.merchantId)"></a></td>
+                    <td ng-bind="item.entity.merchantName|substr:6:'...'"></td>
+                    <td ng-bind="item.entity.merchantShortName|substr:6:'...'"></td>
+                    <td ng-bind="item.entity.contactPerson"></td>
+                    <td ng-bind="item.entity.contactAddress|substr:6:'...'"></td>
+                    <td ng-bind="item.entity.contactPhone"></td>
+                    <td ng-bind="item.isOwner"></td>
+                    <td ng-bind="item.isCustomer"></td>
+                    <td ng-bind="item.isCarrier"></td>
+                    <td ng-bind="item.isProvider"></td>
+                    <td ng-bind="item.merchantStatus"></td>
                 </tr>
 
                 </tbody>
             </table>
         </div>
         <!-- /example -->
-
-
-        <page></page>
+        <!-- 分页列表数据显示 page-data用来绑定表格数据的别名 page-model-query查询参数别名 -->
+        <page page-data="pageData" url="/merchant/list" page-model-query="queryParam"></page>
     </div>
     <footer></footer>
 </section>
+<!--客商列表页面-->
 
-<!--新增/修改客商-->
+<!--新增/修改客商页面-->
 <section class="animate-enter-leave posAb" ng-if="btnAction.showAddOrModify">
-    <form class="form-horizontal" name="storeSearchForm" novalidate>
+    <form class="form-horizontal" name="addForm" novalidate>
         <panel title="{{btnAction.showText.firstTitle}}">
             <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>代码</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="代码">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
-                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            <input type="text" ng-model="addModifyReqParam.entity.merchantNo" class="form-control"
+                                   id="merchantNo" name="merchantNo" placeholder="代码" required
+                                   ng-minlength="6" ng-maxlength="18" ng-pattern="/[a-zA-Z0-9]/"
+                                   ng-class="{'error':addForm.merchantNo.$invalid && addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="请输入正确的代码" tooltip-trigger="'focus'"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.merchantNo.$invalid" >
+                            <span ng-if="!addForm.merchantNo.$error.required"
+                                   clear-input-btn="addModifyReqParam.entity.merchantNo"
+                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">国家</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="国家">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.country"
+                                   ng-maxlength="18"
+                                   ng-class="{'error':addForm.country.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入正确的国家"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.skuBarCode.$invalid"
+                                   name="country" placeholder="国家">
+                            <span ng-if="addForm.country.$invalid||addModifyReqParam.entity.country!=null&&addModifyReqParam.entity.country!=''"
+                                  clear-input-btn="addModifyReqParam.entity.country"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -168,22 +180,33 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>名称</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="名称">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
-                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            <input type="text" ng-model="addModifyReqParam.entity.merchantName" class="form-control"
+                                   id="merchantName" name="merchantName" placeholder="名称" required
+                                   ng-maxlength="18"
+                                   ng-class="{'error':addForm.merchantName.$invalid && addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="请输入正确的名称" tooltip-trigger="'focus'"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.merchantName.$invalid" >
+                            <span ng-if="!addForm.merchantName.$error.required"
+                                   clear-input-btn="addModifyReqParam.entity.merchantName"
+                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">省份</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="省份">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.province"
+                                   ng-maxlength="18"
+                                   ng-class="{'error':addForm.province.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入正确的省份"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.province.$invalid"
+                                   name="province" placeholder="省份">
+                            <span ng-if="addForm.province.$invalid||addModifyReqParam.entity.province!=null&&addModifyReqParam.entity.province!=''"
+                                  clear-input-btn="addModifyReqParam.entity.province"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -192,22 +215,34 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">简称</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="简称">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.merchantShortName"
+                                   ng-maxlength="18"
+                                   ng-class="{'error':addForm.merchantShortName.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入正确的简称"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.merchantShortName.$invalid"
+                                   name="merchantShortName" placeholder="简称">
+                            <span ng-if="addForm.merchantShortName.$invalid||addModifyReqParam.entity.merchantShortName!=null&&addModifyReqParam.entity.merchantShortName!=''"
+                                  clear-input-btn="addModifyReqParam.entity.merchantShortName"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">城市</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="城市">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.city"
+                                   ng-maxlength="18"
+                                   ng-class="{'error':addForm.city.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入正确的城市"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.city.$invalid"
+                                   name="city" placeholder="城市">
+                            <span ng-if="addForm.city.$invalid||addModifyReqParam.entity.city!=null&&addModifyReqParam.entity.city!=''"
+                                  clear-input-btn="addModifyReqParam.entity.city"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -220,11 +255,17 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">联系人</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="联系人">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.contactPerson"
+                                   ng-maxlength="18"
+                                   ng-class="{'error':addForm.contactPerson.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入正确的联系人"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.contactPerson.$invalid"
+                                   name="contactPerson" placeholder="联系人">
+                            <span ng-if="addForm.contactPerson.$invalid||addModifyReqParam.entity.contactPerson!=null&&addModifyReqParam.entity.contactPerson!=''"
+                                  clear-input-btn="addModifyReqParam.entity.contactPerson"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -234,11 +275,17 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">联系电话</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="联系电话">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.contactPhone"
+                                   ng-maxlength="18"
+                                   ng-class="{'error':addForm.contactPhone.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入正确的联系电话"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.contactPhone.$invalid"
+                                   name="contactPhone" placeholder="联系电话">
+                            <span ng-if="addForm.contactPhone.$invalid||addModifyReqParam.entity.contactPhone!=null&&addModifyReqParam.entity.contactPhone!=''"
+                                  clear-input-btn="addModifyReqParam.entity.contactPhone"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -247,11 +294,17 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">手机号</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="手机号">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.mobile"
+                                   ng-maxlength="18"
+                                   ng-class="{'error':addForm.mobile.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入正确的手机号"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.mobile.$invalid"
+                                   name="mobile" placeholder="手机号">
+                            <span ng-if="addForm.mobile.$invalid||addModifyReqParam.entity.mobile!=null&&addModifyReqParam.entity.mobile!=''"
+                                  clear-input-btn="addModifyReqParam.entity.mobile"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -260,11 +313,17 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">邮箱</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="邮箱">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <input type="email" class="form-control"  ng-model="addModifyReqParam.entity.email"
+                                   ng-maxlength="64"
+                                   ng-class="{'error':addForm.email.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入正确的邮箱"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.email.$invalid"
+                                   name="email" placeholder="邮箱">
+                            <span ng-if="addForm.email.$invalid||addModifyReqParam.entity.email!=null&&addModifyReqParam.entity.email!=''"
+                                  clear-input-btn="addModifyReqParam.entity.email"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -276,11 +335,17 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">传真</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="传真">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.fax"
+                                   ng-maxlength="18"
+                                   ng-class="{'error':addForm.fax.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入正确的传真"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.fax.$invalid"
+                                   name="fax" placeholder="传真">
+                            <span ng-if="addForm.fax.$invalid||addModifyReqParam.entity.fax!=null&&addModifyReqParam.entity.fax!=''"
+                                  clear-input-btn="addModifyReqParam.entity.fax"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -290,83 +355,120 @@
                     <div class="form-group has-feedback">
                         <label class="col-sm-2 control-label receive-form-title">联系地址</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="传真">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.contactAddress"
+                                   ng-maxlength="64"
+                                   ng-class="{'error':addForm.contactAddress.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入正确的联系地址"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.contactAddress.$invalid"
+                                   name="contactAddress" placeholder="联系地址">
+                            <span ng-if="addForm.contactAddress.$invalid||addModifyReqParam.entity.contactAddress!=null&&addModifyReqParam.entity.contactAddress!=''"
+                                  clear-input-btn="addModifyReqParam.entity.contactAddress"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="headline"></div>
+
             <div class="row mg-tp10">
                 <div class="col-sm-3">
                     <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>货主</label>
+                        <label class="col-sm-4 control-label receive-form-title">货主</label>
                         <div class="col-sm-2">
-                            <input type="checkbox" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo">
+                            <input type="checkbox" value="1" class="form-control"  ng-model="addModifyReqParam.entity.isOwner">
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>客户</label>
+                        <label class="col-sm-4 control-label receive-form-title">客户</label>
                         <div class="col-sm-2">
-                            <input type="checkbox" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo">
+                            <input type="checkbox" value="1" class="form-control"  ng-model="addModifyReqParam.entity.isCustomer">
                         </div>
                     </div>
                 </div>
+
                 <div class="col-sm-3">
                     <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>承运商</label>
+                        <label class="col-sm-4 control-label receive-form-title">承运商</label>
                         <div class="col-sm-2">
-                            <input type="checkbox" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>供应商</label>
-                        <div class="col-sm-2">
-                            <input type="checkbox" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo">
+                            <input type="checkbox" value="1" class="form-control"  ng-model="addModifyReqParam.entity.isCarrier">
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div class="row mg-tp10">
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">供应商</label>
+                        <div class="col-sm-2">
+                            <input type="checkbox" value="1" class="form-control"  ng-model="addModifyReqParam.entity.isProvider">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">发货方</label>
+                        <div class="col-sm-2">
+                            <input type="checkbox" value="1" class="form-control"  ng-model="addModifyReqParam.entity.isSender">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">收货方</label>
+                        <div class="col-sm-2">
+                            <input type="checkbox" value="1" class="form-control"  ng-model="addModifyReqParam.entity.isReceiver">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="form-group  has-feedback">
-                <label class="col-sm-1 control-label receive-form-title"><span class="color-red">*</span>备注</label>
+                <label class="col-sm-1 control-label receive-form-title">备注</label>
                 <div class="col-sm-8">
-                    <textarea class="form-control" rows="3" placeholder="备注"></textarea>
+                    <textarea class="form-control" rows="3" ng-model="addModifyReqParam.entity.note"
+                              ng-maxlength="128"
+                              ng-class="{'error':addForm.note.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                              uib-tooltip="必须输入正确的备注"
+                              tooltip-placement="top" tooltip-class="customClass"
+                              tooltip-trigger="'none'"
+                              tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                              tooltip-enable="addForm.note.$invalid"
+                              placeholder="备注" ></textarea>
                 </div>
             </div>
+
         </panel>
         <div class="mg-bm-50 mg-lt20">
-            <button class="btn btn-info mg-lt20">暂存</button>
-            <button class="btn btn-info mg-lt20">保存并返回</button>
-            <button class="btn btn-info mg-lt20" ng-click="btnAction.addAsn()">返回</button>
+            <button class="btn btn-info mg-lt20" ng-click="addModifyBtnAction.temporarilySave(addForm)">暂存</button>
+            <button class="btn btn-info mg-lt20" ng-click="addModifyBtnAction.saveEffectBack(addForm)">保存并返回</button>
+            <button class="btn btn-info mg-lt20" ng-click="btnAction.addPage()">返回</button>
         </div>
     </form>
 </section>
-<!--/新增/修改客商-->
+<!--/新增/修改客商页面-->
 
-<!--查看客商-->
+<!--查看客商详情页面-->
 <section class="animate-enter-leave posAb" ng-if="btnAction.showDetail">
-    <div class="form-horizontal" name="storeSearchForm" novalidate>
+    <div class="form-horizontal" name="viewForm" novalidate>
         <panel title="查看客商">
             <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>代码</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.merchantNo"></label>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">国家</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.country"></label>
                         </div>
                     </div>
                 </div>
@@ -374,13 +476,13 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>名称</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.merchantName"></label>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">省份</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.province"></label>
                         </div>
                     </div>
                 </div>
@@ -388,25 +490,25 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">简称</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.merchantShortName"></label>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">城市</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.city"></label>
                         </div>
                     </div>
-
                 </div>
             </div>
+
             <div class="headline"></div>
             <div class="row mg-tp20">
                 <div class="col-sm-3">
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">联系人</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.contactPerson"></label>
                         </div>
                     </div>
 
@@ -415,7 +517,7 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">联系电话</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.contactPhone"></label>
                         </div>
                     </div>
                 </div>
@@ -423,7 +525,7 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">手机号</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.mobile"></label>
                         </div>
                     </div>
                 </div>
@@ -431,7 +533,7 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">邮箱</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.email"></label>
                         </div>
                     </div>
                 </div>
@@ -442,7 +544,7 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">传真</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.fax"></label>
                         </div>
                     </div>
                 </div>
@@ -451,61 +553,71 @@
                     <div class="form-group has-feedback">
                         <label class="col-sm-2 control-label receive-form-title">联系地址</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.contactAddress"></label>
                         </div>
                     </div>
                 </div>
             </div>
+
             <div class="headline"></div>
-            <div class="row mg-tp10">
+            <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>货主</label>
-                        <div class="col-sm-2 pdTp7">
-                            <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                        <label class="col-sm-4 control-label receive-form-title">货主</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.isOwner"></label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">供应商</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.isProvider"></label>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>客户</label>
-                        <div class="col-sm-2 pdTp7">
-                            <i class="fa fa-square-o" aria-hidden="true"></i>
+                        <label class="col-sm-4 control-label receive-form-title">客户</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.isCustomer"></label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">发货方</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.isSender"></label>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>承运商</label>
-                        <div class="col-sm-2 pdTp7">
-                            <i class="fa fa-square-o" aria-hidden="true"></i>
+                        <label class="col-sm-4 control-label receive-form-title">承运商</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.isCarrier"></label>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-3">
                     <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>供应商</label>
-                        <div class="col-sm-2 pdTp7">
-                            <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                        <label class="col-sm-4 control-label receive-form-title">收货方</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.isReceiver"></label>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div class="headline"></div>
             <div class="form-group  has-feedback">
-                <label class="col-sm-1 control-label receive-form-title"><span class="color-red">*</span>备注</label>
+                <label class="col-sm-1 control-label receive-form-title">备注</label>
                 <div class="col-sm-8">
-                    <label class="form-control text-left pdTp5">林安物流园</label>
+                    <textarea class="form-control" rows="3" placeholder="备注" ng-bind="viewRspParam.entity.note"></textarea>
                 </div>
             </div>
         </panel>
+
         <div class="mg-bm-50 mg-lt20">
-            <button class="btn btn-info mg-lt20">暂存</button>
-            <button class="btn btn-info mg-lt20">保存并返回</button>
-            <button class="btn btn-info mg-lt20" ng-click="btnAction.turnShowDetail()">返回</button>
+            <button class="btn btn-info mg-lt20" ng-click="btnAction.showDetailAction()">返回</button>
         </div>
     </div>
 
 </section>
-<!--/查看客商-->
-
-
+<!--/查看客商详情页面-->

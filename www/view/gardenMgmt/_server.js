@@ -16,6 +16,7 @@ module.exports = angular.module('app.gardenMgmt', []).config(['$urlRouterProvide
         onEnter:function(){
           console.log('gardenMgmt');
         },
+
         resolve: {
             'app.gardenMgmt': function($q, $ocLazyLoad) {
                 var deferred = $q.defer();

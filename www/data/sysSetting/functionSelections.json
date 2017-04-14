@@ -1,0 +1,376 @@
+
+{
+  "status":1,
+  "result": {
+    "list": [
+      {
+        "currentPage": 0,
+        "pageSize": 8,
+        "entity": {
+          "createTime": "2017/03/06 02:48:49",
+          "updateTime": "2017/03/25 06:12:27",
+          "createPerson": "384D873241D341B282253346CA481DCE",
+          "updatePerson": "tphe06",
+          "authId": "53A2DEAB02854A28AE6D9915344C807A",
+          "authNo": "main.menu",
+          "authName": "首页",
+          "authShortname": "首页",
+          "authUrl": "/main/list",
+          "authStatus": 20,
+          "parentId": "0",
+          "authType": 1,
+          "authLevel": 1,
+          "authId2": 9
+        },
+        "selectStatus":true,
+        "list": [
+          {
+            "currentPage": 0,
+            "pageSize": 8,
+            "entity": {
+              "createTime": "2017/03/06 02:44:36",
+              "updateTime": "2017/03/25 06:27:44",
+              "createPerson": "384D873241D341B282253346CA481DCE",
+              "updatePerson": "tphe06",
+              "authId": "5DB86899447D4D198E6F1225D643158D",
+              "authNo": "system.menu",
+              "authName": "系统管理",
+              "authShortname": "系统管理",
+              "authUrl": "/system/list",
+              "authStatus": 20,
+              "parentId": "53A2DEAB02854A28AE6D9915344C807A",
+              "authType": 1,
+              "authLevel": 1,
+              "authId2": 6
+            },
+            "list": [
+              {
+                "currentPage": 0,
+                "pageSize": 8,
+                "entity": {
+                  "createTime": "2017/03/08 09:44:25",
+                  "updateTime": "2017/03/08 09:45:20",
+                  "createPerson": "384D873241D341B282253346CA481DCE",
+                  "updatePerson": "384D873241D341B282253346CA481DCE",
+                  "authId": "567435572B4E4FC1AD5F49CE7370B4BF",
+                  "authNo": "account.system.menu",
+                  "authName": "帐号管理",
+                  "authShortname": "帐号管理",
+                  "authUrl": "/account/list",
+                  "authStatus": 10,
+                  "parentId": "5DB86899447D4D198E6F1225D643158D",
+                  "authType": 2,
+                  "authLevel": 1,
+                  "authId2": 12
+                },
+                "list": []
+              },
+              {
+                "currentPage": 0,
+                "pageSize": 8,
+                "entity": {
+                  "createTime": "2017/03/06 02:50:25",
+                  "updateTime": "2017/03/06 02:50:25",
+                  "createPerson": "384D873241D341B282253346CA481DCE",
+                  "updatePerson": "tphe06",
+                  "authId": "5DBFAE00C4FB458BA38B26E543094378",
+                  "authNo": "user.system.menu",
+                  "authName": "用户管理",
+                  "authShortname": "用户管理",
+                  "authUrl": "/user/list",
+                  "authStatus": 20,
+                  "parentId": "5DB86899447D4D198E6F1225D643158D",
+                  "authType": 2,
+                  "authLevel": 1,
+                  "authId2": 10
+                },
+                "list": []
+              }
+            ]
+          },
+          {
+            "currentPage": 0,
+            "pageSize": 8,
+            "entity": {
+              "createTime": "2017/03/06 02:44:36",
+              "updateTime": "2017/03/25 06:27:44",
+              "createPerson": "384D873241D341B282253346CA481DCE",
+              "updatePerson": "tphe06",
+              "authId": "5DB86899447D4D198E6F1225D643158D",
+              "authNo": "system.menu",
+              "authName": "系统管理",
+              "authShortname": "系统管理",
+              "authUrl": "/system/list",
+              "authStatus": 20,
+              "parentId": "53A2DEAB02854A28AE6D9915344C807A",
+              "authType": 1,
+              "authLevel": 1,
+              "authId2": 6
+            },
+            "list": [
+              {
+                "currentPage": 0,
+                "pageSize": 8,
+                "entity": {
+                  "createTime": "2017/03/08 09:44:25",
+                  "updateTime": "2017/03/08 09:45:20",
+                  "createPerson": "384D873241D341B282253346CA481DCE",
+                  "updatePerson": "384D873241D341B282253346CA481DCE",
+                  "authId": "567435572B4E4FC1AD5F49CE7370B4BF",
+                  "authNo": "account.system.menu",
+                  "authName": "帐号管理",
+                  "authShortname": "帐号管理",
+                  "authUrl": "/account/list",
+                  "authStatus": 10,
+                  "parentId": "5DB86899447D4D198E6F1225D643158D",
+                  "authType": 2,
+                  "authLevel": 1,
+                  "authId2": 12
+                },
+                "list": []
+              },
+              {
+                "currentPage": 0,
+                "pageSize": 8,
+                "entity": {
+                  "createTime": "2017/03/06 02:50:25",
+                  "updateTime": "2017/03/06 02:50:25",
+                  "createPerson": "384D873241D341B282253346CA481DCE",
+                  "updatePerson": "tphe06",
+                  "authId": "5DBFAE00C4FB458BA38B26E543094378",
+                  "authNo": "user.system.menu",
+                  "authName": "用户管理",
+                  "authShortname": "用户管理",
+                  "authUrl": "/user/list",
+                  "authStatus": 20,
+                  "parentId": "5DB86899447D4D198E6F1225D643158D",
+                  "authType": 2,
+                  "authLevel": 1,
+                  "authId2": 10
+                },
+                "list": []
+              },
+              {
+                "currentPage": 0,
+                "pageSize": 8,
+                "entity": {
+                  "createTime": "2017/03/06 02:46:25",
+                  "updateTime": "2017/03/06 02:47:17",
+                  "createPerson": "384D873241D341B282253346CA481DCE",
+                  "updatePerson": "tphe06",
+                  "authId": "942DF0F95F924B00BB9DC2DF384C77A0",
+                  "authNo": "auth.system.menu",
+                  "authName": "权限管理",
+                  "authShortname": "权限管理",
+                  "authUrl": "/auth/list",
+                  "authStatus": 20,
+                  "parentId": "5DB86899447D4D198E6F1225D643158D",
+                  "authType": 2,
+                  "authLevel": 1,
+                  "authId2": 7
+                },
+                "list": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "currentPage": 0,
+        "pageSize": 8,
+        "entity": {
+          "createTime": "2017/03/06 02:48:49",
+          "updateTime": "2017/03/25 06:12:27",
+          "createPerson": "384D873241D341B282253346CA481DCE",
+          "updatePerson": "tphe06",
+          "authId": "53A2DEAB02854A28AE6D9915344C807A",
+          "authNo": "main.menu",
+          "authName": "首页",
+          "authShortname": "首页",
+          "authUrl": "/main/list",
+          "authStatus": 20,
+          "parentId": "0",
+          "authType": 1,
+          "authLevel": 1,
+          "authId2": 9
+        },
+        "ts2":{
+          "dsf":"sdf"
+        },
+        "list": [
+          {
+            "currentPage": 0,
+            "pageSize": 8,
+            "entity": {
+              "createTime": "2017/03/06 02:44:36",
+              "updateTime": "2017/03/25 06:27:44",
+              "createPerson": "384D873241D341B282253346CA481DCE",
+              "updatePerson": "tphe06",
+              "authId": "5DB86899447D4D198E6F1225D643158D",
+              "authNo": "system.menu",
+              "authName": "系统管理",
+              "authShortname": "系统管理",
+              "authUrl": "/system/list",
+              "authStatus": 20,
+              "parentId": "53A2DEAB02854A28AE6D9915344C807A",
+              "authType": 1,
+              "authLevel": 1,
+              "authId2": 6
+            },
+            "list": [
+              {
+                "currentPage": 0,
+                "pageSize": 8,
+                "entity": {
+                  "createTime": "2017/03/08 09:44:25",
+                  "updateTime": "2017/03/08 09:45:20",
+                  "createPerson": "384D873241D341B282253346CA481DCE",
+                  "updatePerson": "384D873241D341B282253346CA481DCE",
+                  "authId": "567435572B4E4FC1AD5F49CE7370B4BF",
+                  "authNo": "account.system.menu",
+                  "authName": "帐号管理",
+                  "authShortname": "帐号管理",
+                  "authUrl": "/account/list",
+                  "authStatus": 10,
+                  "parentId": "5DB86899447D4D198E6F1225D643158D",
+                  "authType": 2,
+                  "authLevel": 1,
+                  "authId2": 12
+                },
+                "list": []
+              },
+              {
+                "currentPage": 0,
+                "pageSize": 8,
+                "entity": {
+                  "createTime": "2017/03/06 02:50:25",
+                  "updateTime": "2017/03/06 02:50:25",
+                  "createPerson": "384D873241D341B282253346CA481DCE",
+                  "updatePerson": "tphe06",
+                  "authId": "5DBFAE00C4FB458BA38B26E543094378",
+                  "authNo": "user.system.menu",
+                  "authName": "用户管理",
+                  "authShortname": "用户管理",
+                  "authUrl": "/user/list",
+                  "authStatus": 20,
+                  "parentId": "5DB86899447D4D198E6F1225D643158D",
+                  "authType": 2,
+                  "authLevel": 1,
+                  "authId2": 10
+                },
+                "list": []
+              },
+              {
+                "currentPage": 0,
+                "pageSize": 8,
+                "entity": {
+                  "createTime": "2017/03/06 02:46:25",
+                  "updateTime": "2017/03/06 02:47:17",
+                  "createPerson": "384D873241D341B282253346CA481DCE",
+                  "updatePerson": "tphe06",
+                  "authId": "942DF0F95F924B00BB9DC2DF384C77A0",
+                  "authNo": "auth.system.menu",
+                  "authName": "权限管理",
+                  "authShortname": "权限管理",
+                  "authUrl": "/auth/list",
+                  "authStatus": 20,
+                  "parentId": "5DB86899447D4D198E6F1225D643158D",
+                  "authType": 2,
+                  "authLevel": 1,
+                  "authId2": 7
+                },
+                "list": []
+              }
+            ]
+          },
+          {
+            "currentPage": 0,
+            "pageSize": 8,
+            "entity": {
+              "createTime": "2017/03/06 02:44:36",
+              "updateTime": "2017/03/25 06:27:44",
+              "createPerson": "384D873241D341B282253346CA481DCE",
+              "updatePerson": "tphe06",
+              "authId": "5DB86899447D4D198E6F1225D643158D",
+              "authNo": "system.menu",
+              "authName": "系统管理",
+              "authShortname": "系统管理",
+              "authUrl": "/system/list",
+              "authStatus": 20,
+              "parentId": "53A2DEAB02854A28AE6D9915344C807A",
+              "authType": 1,
+              "authLevel": 1,
+              "authId2": 6
+            },
+            "list": [
+              {
+                "currentPage": 0,
+                "pageSize": 8,
+                "entity": {
+                  "createTime": "2017/03/08 09:44:25",
+                  "updateTime": "2017/03/08 09:45:20",
+                  "createPerson": "384D873241D341B282253346CA481DCE",
+                  "updatePerson": "384D873241D341B282253346CA481DCE",
+                  "authId": "567435572B4E4FC1AD5F49CE7370B4BF",
+                  "authNo": "account.system.menu",
+                  "authName": "帐号管理",
+                  "authShortname": "帐号管理",
+                  "authUrl": "/account/list",
+                  "authStatus": 10,
+                  "parentId": "5DB86899447D4D198E6F1225D643158D",
+                  "authType": 2,
+                  "authLevel": 1,
+                  "authId2": 12
+                },
+                "list": []
+              },
+              {
+                "currentPage": 0,
+                "pageSize": 8,
+                "entity": {
+                  "createTime": "2017/03/06 02:50:25",
+                  "updateTime": "2017/03/06 02:50:25",
+                  "createPerson": "384D873241D341B282253346CA481DCE",
+                  "updatePerson": "tphe06",
+                  "authId": "5DBFAE00C4FB458BA38B26E543094378",
+                  "authNo": "user.system.menu",
+                  "authName": "用户管理",
+                  "authShortname": "用户管理",
+                  "authUrl": "/user/list",
+                  "authStatus": 20,
+                  "parentId": "5DB86899447D4D198E6F1225D643158D",
+                  "authType": 2,
+                  "authLevel": 1,
+                  "authId2": 10
+                },
+                "list": []
+              },
+              {
+                "currentPage": 0,
+                "pageSize": 8,
+                "entity": {
+                  "createTime": "2017/03/06 02:46:25",
+                  "updateTime": "2017/03/06 02:47:17",
+                  "createPerson": "384D873241D341B282253346CA481DCE",
+                  "updatePerson": "tphe06",
+                  "authId": "942DF0F95F924B00BB9DC2DF384C77A0",
+                  "authNo": "auth.system.menu",
+                  "authName": "权限管理",
+                  "authShortname": "权限管理",
+                  "authUrl": "/auth/list",
+                  "authStatus": 20,
+                  "parentId": "5DB86899447D4D198E6F1225D643158D",
+                  "authType": 2,
+                  "authLevel": 1,
+                  "authId2": 7
+                },
+                "list": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
+

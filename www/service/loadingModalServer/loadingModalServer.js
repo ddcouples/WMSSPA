@@ -12,6 +12,7 @@ module.exports = angular.module('app.loadingModalServer', []).factory('loadingMo
             //$('#loadingModal').remove();
         }
     };
-}).name/**
+}).name
+/**
  * Created by yangl on 2017/3/10.
  */

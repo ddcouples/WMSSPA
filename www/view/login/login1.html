@@ -1,0 +1,74 @@
+<section class="loginBg">
+   <div class="logo">
+   </div>
+   <div class="center">
+       <div class="left logo_title">
+         <h1>WMS <br/> 仓库管理系统 </h1>
+       </div>
+       <div class="border1dotted"></div>
+       <div class="right login_form">
+          <div class="login_form_content">
+            <form class="form-horizontal" name="loginForm" novalidate>
+                <div class="relative" focus-change-logo selector=":input" class-name="enterprise_code_focus" toggle-selector="span.enterprise_code" >
+                  <input type="text" placeholder="请输入企业编码" name="enterprise"
+                         ng-model="loginCtrller.info.orgId"
+                          required>
+                  <span class="enterprise_code"></span>
+                </div>
+                <div class="relative" focus-change-logo selector=":input" class-name="login_user_focus" toggle-selector="span.login_user">
+                    <input type="text" placeholder="请输入用户名"
+                           name="login_user" ng-model="loginCtrller.info.username"
+                           required>
+                    <span class="login_user"></span>
+                </div>
+                <div class="relative" focus-change-logo selector=":input" class-name="login_key_focus" toggle-selector="span.login_key">
+                    <input type="password" placeholder="请输入密码" name="login_key"
+                           ng-model="loginCtrller.info.password"
+                           required>
+                    <span class="login_key"></span>
+                </div>
+
+                <div class="relative" focus-change-logo selector=":input" class-name="login_key_focus" toggle-selector="span.login_key">
+                    <select class="form-control" required ng-model="loginCtrller.info.loginType">
+                        <option value="" selected>请选择角色</option>
+                        <option value="3" >企业用户</option>
+                        <option value="2" >企业管理员</option>
+                    </select>
+                </div>
+
+                <p ng-if="(loginForm.$invalid&&submit)||error.show" class="color-red">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> &nbsp;{{error.text}} </p>
+                <p ng-if="loginForm.$valid&&(loginCtrller.info.loginType==null||loginCtrller.info.loginType=='')" class="color-red">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> &nbsp;请选择角色 </p>
+
+                <button class="btn btn-login" ng-click="loginCtrller.submitLogin()">登陆</button>
+            </form>
+          </div>
+       </div>
+   </div>
+    <!-- Small modal -->
+
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog"
+         aria-labelledby="mySmallModalLabel"
+         data-backdrop="static"
+         data-keyboard="false" id="storModel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title text-center" id="exampleModalLabel">请选择登陆仓库</h3>
+                </div>
+                <div class="modal-body">
+                    <form >
+                        <div class="form-group">
+                            <select class="form-control" ng-model="store.warehouse.warehouseId" ng-options="l.warehouseId as l.warehouseName for l in store.list" >
+
+                            </select>
+                        </div>
+                        <button class="btn btn-success btn-block" ng-click="changeStore()">确定</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

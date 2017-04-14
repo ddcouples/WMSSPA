@@ -7,10 +7,10 @@
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title">租赁企业</label>
                             <div class="col-sm-8">
-                                <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                       required name="ownerComment"
+                                <input type="text" ng-model="parkRentReqparam.orgName" class="form-control"
+                                       required name="orgName"
                                        placeholder="租赁企业">
-                                <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchReceiveMsg.ownerComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!parkRentReqparam.orgName.$error.required"  clear-input-btn="parkRentReqparam.orgName"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
 
@@ -19,22 +19,22 @@
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title">租赁客商</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.poNo"
-                                       name="poNo" required
+                                <input type="text" class="form-control"  ng-model="parkRentReqparam.merchantName"
+                                       name="merchantName" required
                                        placeholder="租赁客商">
-                                <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchReceiveMsg.asn.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!parkRentReqparam.merchantName.$error.required"  clear-input-btn="parkRentReqparam.merchantName" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
 
                     </div>
                     <div class="col-sm-2 form-horizontal">
                         <div class="form-group  has-feedback">
-                            <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">出租仓库</label>
+                            <label class="col-sm-4 control-label receive-form-title">出租仓库</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                       name="asnNo" required
+                                <input type="text" class="form-control"  ng-model="parkRentReqparam.warehouseName"
+                                       name="warehouseName" required
                                        placeholder="出租仓库">
-                                <span ng-if="!storeSearchForm.asnNo.$error.required" clear-input-btn="searchReceiveMsg.asn.asnNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!parkRentReqparam.warehouseName.$error.required" clear-input-btn="parkRentReqparam.warehouseName"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
 
@@ -43,9 +43,9 @@
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">状态</label>
                             <div class="col-sm-8">
-                                <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
+                                <select class="form-control" ng-model="parkRentReqparam.rentStatus">
                                     <option value="" selected>请选择</option>
-                                    <option value="{{l.key}}" ng-repeat="l in getOriginData.rentalStatus">{{l.value}}</option>
+                                    <option value="{{l.key}}" ng-repeat="l in getOriginData.STATUS">{{l.value}}</option>
                                 </select>
                             </div>
                         </div>
@@ -54,8 +54,8 @@
 
                         <div class="row">
                             <div class=" col-sm-offset-2">
-                                <button type="button" class="btn btn-info" ng-click="searchformAction.search()">查询</button>
-                                <button type="button" class="btn btn-info" ng-click="searchformAction.reset()">重置</button>
+                                <button type="button" class="btn btn-info" ng-click="searchAction.search()">查询</button>
+                                <button type="button" class="btn btn-info" ng-click="searchAction.reset()">重置</button>
                             </div>
                         </div>
                     </div>
@@ -67,13 +67,13 @@
         <!--按钮组-->
         <div class="row ">
             <div class="col-sm-10 col-sm-offset-1">
-                <button type="button"  class="btn btn-info" ng-click="btnAction.addAsn()">新增</button>
+                <button type="button"  class="btn btn-info" ng-click="btnAction.toAdd()">新增</button>
 
-                <button type="button" class="btn btn-info" ng-click="btnAction.modifyAsn(11)">修改</button>
+                <button type="button" class="btn btn-info" ng-click="btnAction.toModify()">修改</button>
 
-                <button type="button" class="btn btn-info">生效</button>
+                <button type="button" class="btn btn-info" ng-click="btnAction.enable()">生效</button>
 
-                <button type="button" class="btn btn-info">失效</button>
+                <button type="button" class="btn btn-info" ng-click="btnAction.disable()">失效</button>
 
             </div>
         </div>
@@ -84,13 +84,13 @@
                 <tr>
                     <th>
                         <label>
-                            <input type="checkbox" aria-label="...">
+                            <input type="checkbox" aria-label="..." ng-model="searchAction.selectedAll" ng-change="searchAction.chkSelectAll(searchAction.selectedAll)">
                         </label>
                     </th>
                     <th>序号</th>
                     <th>租赁企业</th>
                     <th>租赁客商</th>
-                    <th>租赁客商</th>
+                    <th>出租仓库</th>
                     <th>租期</th>
                     <th>租金收取方式</th>
                     <th>计费方式</th>
@@ -102,32 +102,30 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
+                <tr ng-repeat="l in searchAction.dataList track by $index"
+                    ng-click="searchAction.selectOne($index,$event)">
                     <th><label>
-                        <input type="checkbox" aria-label="...">
+                        <input type="checkbox" aria-label="..."  ng-model="searchAction.selectedItems[$index]" ng-change="searchAction.selectOne($index,$event)">
                     </label></th>
-                    <td>1</td>
-                    <td>林安物流园</td>
-                    <td>跨越物流</td>
-                    <td><a ng-click="btnAction.showDetailActionGetData(13)">435325345345</a></td>
-                    <td>2017-01-01~2017-12-31</td>
-                    <td>转账</td>
-                    <td>按月</td>
-                    <td>按月</td>
-                    <td>15</td>
-                    <td>每天</td>
-                    <td>系统</td>
-                    <td>打开</td>
-
+                    <td>{{$index+1}}</td>
+                    <td>{{l.orgName}}</td>
+                    <td>{{l.merchantName}}</td>
+                    <td><a  ng-bind="l.warehouseName" ng-click="btnAction.view(l.parkRent.rentId)"></a></td>
+                    <td>{{l.parkRent.startTime}}~{{l.parkRent.endTime}}</td>
+                    <td>{{l.rentStyleComment}}</td>
+                    <td>{{l.feeStyleComment}}</td>
+                    <td>{{l.settleCycleComment}}</td>
+                    <td>{{l.parkRent.warnDays}}</td>
+                    <td>{{l.warnFrequencyComment}}</td>
+                    <td>{{l.warnStyleComment}}</td>
+                    <td>{{l.rentStatusComment}}</td>
                 </tr>
 
                 </tbody>
             </table>
         </div>
         <!-- /example -->
-
-
-        <page></page>
+        <page page-data="searchAction.dataList" url="/parkRent/qryList" page-model-query="ParkRentModelQuery"></page>
 
 
     </div>
@@ -143,7 +141,7 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">租赁企业</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                            <input type="text" class="form-control"  ng-model="addOrModifyAction.parkRentVo.parkRent.orgId"
                                    name="asnNo" required
                                    placeholder="租赁企业">
                             <span ng-if="!storeSearchForm.asnNo.$error.required"
@@ -154,20 +152,20 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">租金(万元)</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
+                            <input type="text" class="form-control"  ng-model="addOrModifyAction.parkRentVo.parkRent.rentMoney"
+                                   name="rentMoney" required
                                    placeholder="租金(万元)">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <span ng-if="!addOrModifyAction.parkRentVo.parkRent.rentMoney.$error.required"
+                                  clear-input-btn="addOrModifyAction.parkRentVo.parkRent.rentMoney"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">结算周期</label>
                         <div class="col-sm-8">
-                            <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
+                            <select class="form-control" ng-model="addOrModifyAction.parkRentVo.parkRent.settleCycle">
                                 <option value="" selected>请选择</option>
-                                <option value="{{l.key}}" ng-repeat="l in getOriginData.AdjustStatus">{{l.value}}</option>
+                                <option value="{{l.key}}" ng-repeat="l in getOriginData.PARKSETTLECYCLE">{{l.value}}</option>
                             </select>
                     </div>
                 </div>
@@ -176,33 +174,33 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">租赁客商</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
+                            <input type="text" class="form-control"  ng-model="addOrModifyAction.parkRentVo.parkRent.merchantId"
+                                   name="merchantId" required
                                    placeholder="租赁客商">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <span ng-if="!addOrModifyAction.parkRentVo.parkRent.merchantId.$error.required"
+                                  clear-input-btn="addOrModifyAction.parkRentVo.parkRent.merchantId"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">押金(元)</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
+                            <input type="text" class="form-control"  ng-model="addOrModifyAction.parkRentVo.parkRent.deposit"
+                                   name="deposit" required
                                    placeholder="押金(元)">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <span ng-if="!addOrModifyAction.parkRentVo.parkRent.deposit.$error.required"
+                                  clear-input-btn="addOrModifyAction.parkRentVo.parkRent.deposit"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">预警提前(天)</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
+                            <input type="text" class="form-control"  ng-model="addOrModifyAction.parkRentVo.parkRent.warnDays"
+                                   name="warnDays" required
                                    placeholder="预警提前(天)">
                             <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                                  clear-input-btn="addOrModifyAction.parkRentVo.parkRent.warnDays"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -211,83 +209,83 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">出租仓库</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
+                            <input type="text" class="form-control"  ng-model="addOrModifyAction.parkRentVo.parkRent.warehouseId"
+                                   name="warehouseId" required
                                    placeholder="出租仓库">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <span ng-if="!addOrModifyAction.parkRentVo.parkRent.warehouseId.$error.required"
+                                  clear-input-btn="addOrModifyAction.parkRentVo.parkRent.warehouseId"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">租金收取方式</label>
                         <div class="col-sm-8">
-                            <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
+                            <select class="form-control" ng-model="addOrModifyAction.parkRentVo.parkRent.rentStyle">
                                 <option value="" selected>请选择</option>
-                                <option value="{{l.key}}" ng-repeat="l in getOriginData.AdjustStatus">{{l.value}}</option>
+                                <option value="{{l.key}}" ng-repeat="l in getOriginData.PARKRENTSTYLE">{{l.value}}</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">预警频率</label>
                         <div class="col-sm-8">
-                            <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
+                            <select class="form-control" ng-model="addOrModifyAction.parkRentVo.parkRent.warnFrequency">
                                 <option value="" selected>请选择</option>
-                                <option value="{{l.key}}" ng-repeat="l in getOriginData.AdjustStatus">{{l.value}}</option>
+                                <option value="{{l.key}}" ng-repeat="l in getOriginData.WARNFREQUENCY">{{l.value}}</option>
                             </select>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group  has-feedback">
-                        <label class="col-sm-3 control-label receive-form-title" for="exampleInputName2">租期</label>
+                        <label class="col-sm-3 control-label receive-form-title" >租期</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo2"
-                                   name="asnNo" required date-pick-select
-                                   placeholder="ASN单号">
+                            <input type="text" class="form-control"  ng-model="addOrModifyAction.parkRentVo.parkRent.startTime"
+                                   name="startTime" required date-pick-select
+                                   placeholder="开始时间">
                             <span  class="fa fa-calendar form-control-feedback" aria-hidden="true"></span>
                         </div>
                         <label class="col-sm-1 col-sm-3-1-label">-</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo3"
-                                   name="asnNo" required date-pick-select
-                                   placeholder="ASN单号">
+                            <input type="text" class="form-control"  ng-model="addOrModifyAction.parkRentVo.parkRent.endTime"
+                                   name="endTime" required date-pick-select
+                                   placeholder="结束时间">
                             <span  class="fa fa-calendar form-control-feedback" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-3 control-label receive-form-title">计费方式</label>
                         <div class="col-sm-9">
-                            <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
+                            <select class="form-control" ng-model="addOrModifyAction.parkRentVo.parkRent.feeStyle">
                                 <option value="" selected>请选择</option>
-                                <option value="{{l.key}}" ng-repeat="l in getOriginData.AdjustStatus">{{l.value}}</option>
+                                <option value="{{l.key}}" ng-repeat="l in getOriginData.PARKFEESTYLE">{{l.value}}</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-3 control-label receive-form-title">预警方式</label>
                         <div class="col-sm-9">
-                            <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
+                            <select class="form-control" ng-model="addOrModifyAction.parkRentVo.parkRent.warnStyle">
                                 <option value="" selected>请选择</option>
-                                <option value="{{l.key}}" ng-repeat="l in getOriginData.AdjustStatus">{{l.value}}</option>
+                                <option value="{{l.key}}" ng-repeat="l in getOriginData.WARNSTYLE">{{l.value}}</option>
                             </select>
                         </div>
                     </div>
                 </div>
             </div>
-
+            <!--<span class="color-red">*</span>-->
                 <div class="form-group  has-feedback">
-                    <label class="col-sm-1 control-label receive-form-title"><span class="color-red">*</span>处理意见</label>
+                    <label class="col-sm-1 control-label receive-form-title">处理意见</label>
                     <div class="col-sm-8">
-                        <textarea class="form-control" rows="3" placeholder="处理意见"></textarea>
+                        <textarea class="form-control" rows="3" placeholder="处理意见" ng-model="addOrModifyAction.parkRentVo.parkRent.remark"></textarea>
                     </div>
                 </div>
 
         </panel>
         <div class="mg-bm-50 mg-lt20">
-            <button class="btn btn-info mg-lt20">暂存</button>
-            <button class="btn btn-info mg-lt20">保存并返回</button>
-            <button class="btn btn-info mg-lt20" ng-click="btnAction.addAsn()">返回</button>
+            <button class="btn btn-info mg-lt20" ng-click="addOrModifyAction.save()">暂存</button>
+            <button class="btn btn-info mg-lt20" ng-click="addOrModifyAction.saveAndBack()">保存并返回</button>
+            <button class="btn btn-info mg-lt20" ng-click="addOrModifyAction.back()">返回</button>
         </div>
     </form>
 </section>
@@ -302,19 +300,19 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">租赁企业</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5">{{addOrModifyAction.parkRentVo.orgName}}</label>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">租金(万元)</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5">{{addOrModifyAction.parkRentVo.parkRent.rentMoney}}</label>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">结算周期</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5">{{addOrModifyAction.parkRentVo.settleCycleComment}}</label>
                         </div>
                     </div>
                 </div>
@@ -322,19 +320,19 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">租赁客商</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5">{{addOrModifyAction.parkRentVo.merchantName}}</label>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">押金(元)</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5">{{addOrModifyAction.parkRentVo.parkRent.deposit}}</label>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">预警提前(天)</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5">{{addOrModifyAction.parkRentVo.parkRent.warnDays}}</label>
                         </div>
                     </div>
                 </div>
@@ -342,19 +340,19 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">出租仓库</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5">{{addOrModifyAction.parkRentVo.warehouseName}}</label>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">租金收取方式</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5">{{addOrModifyAction.parkRentVo.rentStyleComment}}</label>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">预警频率</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5">{{addOrModifyAction.parkRentVo.warnFrequencyComment}}</label>
                         </div>
                     </div>
                 </div>
@@ -362,19 +360,19 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-3 control-label receive-form-title" for="exampleInputName2">租期</label>
                         <div class="col-sm-9">
-                            <label class="form-control text-left pdTp5">1990-3-3 ~ 2930-3-3  </label>
+                            <label class="form-control text-left pdTp5">{{addOrModifyAction.parkRentVo.parkRent.startTime}} ~ {{addOrModifyAction.parkRentVo.parkRent.endTime}}  </label>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-3 control-label receive-form-title">计费方式</label>
                         <div class="col-sm-9">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5">{{addOrModifyAction.parkRentVo.feeStyleComment}}</label>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-3 control-label receive-form-title">预警方式</label>
                         <div class="col-sm-9">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5">{{addOrModifyAction.parkRentVo.warnStyleComment}}</label>
                         </div>
                     </div>
                 </div>
@@ -383,7 +381,7 @@
             <div class="form-group  has-feedback">
                 <label class="col-sm-1 control-label receive-form-title"><span class="color-red">*</span>处理意见</label>
                 <div class="col-sm-8">
-                    <label class="form-control text-left pdTp5">林安物流园</label>
+                    <label class="form-control text-left pdTp5">{{addOrModifyAction.parkRentVo.parkRent.remark}}</label>
                 </div>
             </div>
 

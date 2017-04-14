@@ -27,6 +27,11 @@
                            required>
                     <span class="login_key"></span>
                 </div>
+                <div class="checkbox_remember">
+                    <label>
+                        <input type="checkbox" ng-model="loginCtrller.info.loginType"> 管理员
+                    </label>
+                </div>
                 <p ng-if="(loginForm.$invalid&&submit)||error.show" class="color-red">
                     <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> &nbsp;{{error.text}} </p>
                 <button class="btn btn-login" ng-click="loginCtrller.submitLogin()">登陆</button>

@@ -1,5 +1,5 @@
 
-<section class="animate-enter-leave"  ng-if="btnAction.showIndex">
+<section class="animate-enter-leave"  ng-if="searchWrhAction.showIndex">
     <div class="receive_container">
         <div class="receive_container">
             <form class="form-horizontal" name="storeSearchForm" novalidate>
@@ -8,10 +8,11 @@
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title">仓库名称</label>
                             <div class="col-sm-8">
-                                <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
+                                <input type="text" ng-model="searchWrhAction.wrhVOModel.likeWrhName" class="form-control"
                                        required name="ownerComment"
                                        placeholder="仓库名称">
-                                <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchReceiveMsg.ownerComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchWrhAction.wrhVOModel.likeWrhName"
+                                      class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
 
@@ -20,10 +21,10 @@
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title">联系地址</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.poNo"
+                                <input type="text" class="form-control"  ng-model="searchWrhAction.wrhVOModel.likeContactAddress"
                                        name="poNo" required
                                        placeholder="联系地址">
-                                <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchReceiveMsg.asn.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchWrhAction.wrhVOModel.likeContactAddress" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
 
@@ -32,10 +33,10 @@
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">联系人</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
+                                <input type="text" class="form-control"  ng-model="searchWrhAction.wrhVOModel.likeContactPerson"
                                        name="asnNo" required
                                        placeholder="联系人">
-                                <span ng-if="!storeSearchForm.asnNo.$error.required" clear-input-btn="searchReceiveMsg.asn.asnNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!storeSearchForm.asnNo.$error.required" clear-input-btn="searchWrhAction.wrhVOModel.likeContactPerson"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
 
@@ -44,9 +45,9 @@
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">状态</label>
                             <div class="col-sm-8">
-                                <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
+                                <select class="form-control" ng-model="searchWrhAction.wrhVOModel.wrhStatusComment">
                                     <option value="" selected>请选择</option>
-                                    <option value="{{l.key}}" ng-repeat="l in getOriginData.storStatus">{{l.value}}</option>
+                                    <option value="{{l.value}}" ng-repeat="l in getOriginData.WAREHOUSESTATUS">{{l.value}}</option>
                                 </select>
                             </div>
                         </div>
@@ -55,8 +56,8 @@
 
                         <div class="row">
                             <div class=" col-sm-offset-2 btn-mr16">
-                                <button type="button" class="btn btn-info" ng-click="searchformAction.search()">查询</button>
-                                <button type="button" class="btn btn-info" ng-click="searchformAction.reset()">重置</button>
+                                <button type="button" class="btn btn-info" ng-click="searchWrhAction.search()">查询</button>
+                                <button type="button" class="btn btn-info" ng-click="searchWrhAction.reset()">重置</button>
                             </div>
                         </div>
                     </div>
@@ -68,13 +69,13 @@
         <!--按钮组-->
         <div class="row ">
             <div class="col-sm-10 col-sm-offset-1">
-                <button type="button" class="btn btn-info"  ng-click="btnAction.addAsn()">新增</button>
+                <button type="button" class="btn btn-info"  ng-click="searchWrhAction.add()">新增</button>
 
-                <button type="button" class="btn btn-info" ng-click="btnAction.modifyAsn(11)">修改</button>
+                <button type="button" class="btn btn-info" ng-click="searchWrhAction.modify()">修改</button>
 
-                <button type="button" class="btn btn-info">生效</button>
+                <button type="button" class="btn btn-info" ng-click="searchWrhAction.active()">生效</button>
 
-                <button type="button" class="btn btn-info">失效</button>
+                <button type="button" class="btn btn-info" ng-click="searchWrhAction.inactive()">失效</button>
 
             </div>
         </div>
@@ -85,10 +86,9 @@
                 <tr>
                     <th>
                         <label>
-                            <input type="checkbox" aria-label="...">
+                            <!--<input type="checkbox" aria-label="..." ng-model="searchWrhAction.selectedAll" ng-change="searchWrhAction.selectAll()" />-->
                         </label>
                     </th>
-                    <th>序号</th>
                     <th>仓库代码</th>
                     <th>仓库名称</th>
                     <th>联系地址</th>
@@ -101,20 +101,30 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th><label>
-                        <input type="checkbox" aria-label="...">
-                    </label></th>
-
-                </tr>
-
+                    <tr ng-repeat="pageItem in searchWrhAction.listWrhVO"  ng-click="searchWrhAction.selectModify($index,$event)"
+                        ng-class="{'info':searchWrhAction.currentSelectItems==$index&&searchWrhAction.selectedItems[$index]==true}" >
+                        <th>
+                            <label>
+                                <input type="checkbox" class="chk_selectItem" aria-label="..."  ng-model="searchWrhAction.selectedItems[$index]" ng-change="searchWrhAction.selectModify($index,$event)" />
+                            </label>
+                        </th>
+                        <td ng-bind="pageItem.warehouse.warehouseNo"></td>
+                        <td ng-bind="pageItem.warehouse.warehouseName"></td>
+                        <td ng-bind="pageItem.warehouse.contactAddress"></td>
+                        <td ng-bind="pageItem.warehouse.contactPerson"></td>
+                        <td ng-bind="pageItem.warehouse.contactPhone"></td>
+                        <td ng-bind="pageItem.warehouse.fax"></td>
+                        <td ng-bind="pageItem.warehouse.email"></td>
+                        <td ng-bind="pageItem.warehouse.note"></td>
+                        <td ng-bind="pageItem.wrhStatusComment"></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
         <!-- /example -->
 
 
-        <page></page>
+        <page page-data="searchWrhAction.listWrhVO" url="{{listWrh_url}}" page-model-query="pageModelQuery"></page>
 
 
     </div>
@@ -122,41 +132,41 @@
 </section>
 
 <!--新增/修改仓库-->
-<section class="animate-enter-leave posAb" ng-if="btnAction.showAddOrModify">
+<section class="animate-enter-leave posAb" ng-if="searchWrhAction.showAddOrModify">
     <form class="form-horizontal" name="storeSearchForm" novalidate>
-        <panel title="{{btnAction.showText.firstTitle}}">
+        <panel title="{{searchWrhAction.showText.firstTitle}}">
             <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>仓库代码</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
+                            <input type="text" class="form-control"  ng-model="addWrhAction.wrhVOModel.warehouse.warehouseNo"
+                                   name="warehouseNo" required
                                    placeholder="仓库代码">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <span ng-if="!storeSearchForm.warehouseNo.$error.required"
+                                  clear-input-btn="addWrhAction.wrhVOModel.warehouse.warehouseNo"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">联系人</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="租金(万元)">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <input type="text" class="form-control"  ng-model="addWrhAction.wrhVOModel.warehouse.contactPerson"
+                                   name="contactPerson" required
+                                   placeholder="联系人">
+                            <span ng-if="!storeSearchForm.contactPerson.$error.required"
+                                  clear-input-btn="addWrhAction.wrhVOModel.warehouse.contactPerson"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">经度</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="租金(万元)">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <input type="text" class="form-control"  ng-model="addWrhAction.wrhVOModel.warehouse.longitude"
+                                   name="longitude" required
+                                   placeholder="经度">
+                            <span ng-if="!storeSearchForm.longitude.$error.required"
+                                  clear-input-btn="addWrhAction.wrhVOModel.warehouse.longitude"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -165,33 +175,33 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>仓库名称</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
+                            <input type="text" class="form-control"  ng-model="addWrhAction.wrhVOModel.warehouse.warehouseName"
+                                   name="warehouseName" required
                                    placeholder="仓库名称">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <span ng-if="!storeSearchForm.warehouseName.$error.required"
+                                  clear-input-btn="addWrhAction.wrhVOModel.warehouse.warehouseName"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">联系电话</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
+                            <input type="text" class="form-control"  ng-model="addWrhAction.wrhVOModel.warehouse.contactPhone"
+                                   name="contactPhone" required
                                    placeholder="联系电话">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <span ng-if="!storeSearchForm.contactPhone.$error.required"
+                                  clear-input-btn="addWrhAction.wrhVOModel.warehouse.contactPhone"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">纬度</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
+                            <input type="text" class="form-control"  ng-model="addWrhAction.wrhVOModel.warehouse.latitude"
+                                   name="latitude" required
                                    placeholder="纬度">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <span ng-if="!storeSearchForm.latitude.$error.required"
+                                  clear-input-btn="addWrhAction.wrhVOModel.warehouse.latitude"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -200,20 +210,20 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">仓库类型</label>
                         <div class="col-sm-8">
-                            <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
+                            <select class="form-control" ng-model="addWrhAction.wrhVOModel.warehouse.warehouseType">
                                 <option value="" selected>请选择</option>
-                                <option value="{{l.key}}" ng-repeat="l in getOriginData.AdjustStatus">{{l.value}}</option>
+                                <option value="{{l.key}}" ng-repeat="l in getOriginData.WAREHOUSETYPE">{{l.value}}</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">传真</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
+                            <input type="text" class="form-control"  ng-model="addWrhAction.wrhVOModel.warehouse.fax"
+                                   name="fax" required
                                    placeholder="传真">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <span ng-if="!storeSearchForm.fax.$error.required"
+                                  clear-input-btn="addWrhAction.wrhVOModel.warehouse.fax"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -222,22 +232,22 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-3 control-label receive-form-title">使用人</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="传真">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <input type="text" class="form-control"  ng-model="addWrhAction.wrhVOModel.warehouse.usePerson"
+                                   name="usePerson" required
+                                   placeholder="使用人">
+                            <span ng-if="!storeSearchForm.usePerson.$error.required"
+                                  clear-input-btn="addWrhAction.wrhVOModel.warehouse.usePerson"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-3 control-label receive-form-title">Email</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="传真">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <input type="text" class="form-control"  ng-model="addWrhAction.wrhVOModel.warehouse.email"
+                                   name="email" required
+                                   placeholder="Email">
+                            <span ng-if="!storeSearchForm.email.$error.required"
+                                  clear-input-btn="addWrhAction.wrhVOModel.warehouse.email"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -247,26 +257,26 @@
             <div class="form-group  has-feedback">
                 <label class="col-sm-1 control-label receive-form-title">联系地址</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                           name="asnNo" required
+                    <input type="text" class="form-control"  ng-model="addWrhAction.wrhVOModel.warehouse.contactAddress"
+                           name="contactAddress" required
                            placeholder="联系地址">
-                    <span ng-if="!storeSearchForm.asnNo.$error.required"
-                          clear-input-btn="searchReceiveMsg.asn.asnNo"
+                    <span ng-if="!storeSearchForm.contactAddress.$error.required"
+                          clear-input-btn="addWrhAction.wrhVOModel.warehouse.contactAddress"
                           class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                 </div>
             </div>
             <div class="form-group  has-feedback">
-                <label class="col-sm-1 control-label receive-form-title"><span class="color-red">*</span>备注</label>
+                <label class="col-sm-1 control-label receive-form-title">备注</label>
                 <div class="col-sm-9">
-                    <textarea class="form-control" rows="3" placeholder="备注"></textarea>
+                    <textarea class="form-control" rows="3" placeholder="备注" ng-model="addWrhAction.wrhVOModel.warehouse.note"></textarea>
                 </div>
             </div>
 
         </panel>
         <div class="mg-bm-50 mg-lt20">
-            <button class="btn btn-info mg-lt20">暂存</button>
-            <button class="btn btn-info mg-lt20">保存并返回</button>
-            <button class="btn btn-info mg-lt20" ng-click="btnAction.addAsn()">返回</button>
+            <button class="btn btn-info mg-lt20" ng-click="addWrhAction.save()" >暂存</button>
+            <!-- ANDY <button class="btn btn-info mg-lt20" ng-click="addWrhAction.saveAndBack()">保存并返回</button>-->
+            <button class="btn btn-info mg-lt20" ng-click="searchWrhAction.backToIndex()">返回</button>
         </div>
     </form>
 </section>

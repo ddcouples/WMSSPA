@@ -1,0 +1,143 @@
+{
+  "status": 1,
+  "result": {
+    "list": [
+      {
+        "entity": {
+          "createTime": "2017/03/20 11:54:35",
+          "updateTime": "2017/03/22 05:42:39",
+          "skuId": "DCC7888941114A1D91EDE09E8ADE47F4",
+          "skuNo": "121",
+          "skuName": "评估",
+          "skuStatus": 1,
+          "orgId": "1",
+          "warehouseId": "1",
+          "measureUnit": "计量单位",
+          "specModel": "规格型号",
+          "skuId2": 27
+        }
+      },
+      {
+        "entity": {
+          "createTime": "2017/03/20 10:12:39",
+          "updateTime": "2017/03/22 05:42:39",
+          "skuId": "762D92667AD44635BF4B4C094CFCCDEE",
+          "skuNo": "1212",
+          "skuName": "货品CCDEE",
+          "owner": "762D92667AD44635BF4B4C094CFCCDEE",
+          "skuStatus": 1,
+          "orgId": "1",
+          "warehouseId": "1",
+          "measureUnit": "计量单位",
+          "specModel": "规格型号",
+          "skuId2": 26
+        }
+      },
+      {
+        "entity": {
+          "createTime": "2017/03/16 01:26:04",
+          "updateTime": "2017/03/22 05:42:39",
+          "createPerson": "384D873241D341B282253346CA481DCE",
+          "skuId": "3B79B70329424C6A9A6DE83E61D0174A",
+          "skuNo": "341177",
+          "skuName": "笔记本",
+          "skuStatus": 10,
+          "orgId": "1",
+          "warehouseId": "1",
+          "measureUnit": "计量单位",
+          "specModel": "规格型号",
+          "skuId2": 25
+        }
+      },
+      {
+        "entity": {
+          "createTime": "2017/03/15 07:07:24",
+          "updateTime": "2017/03/22 05:42:39",
+          "skuId": "4",
+          "skuNo": "test04",
+          "skuName": "水壶04",
+          "owner": "8D8CC8F7B51B41739F4A9F6378CBABB1",
+          "skuStatus": 1,
+          "measureUnit": "计量单位",
+          "specModel": "规格型号",
+          "perVolume": 1,
+          "skuId2": 23
+        }
+      },
+      {
+        "entity": {
+          "createTime": "2017/03/15 07:07:11",
+          "updateTime": "2017/03/22 05:42:39",
+          "skuId": "3",
+          "skuNo": "test03",
+          "skuName": "水壶03",
+          "owner": "8D8CC8F7B51B41739F4A9F6378CBABB1",
+          "skuStatus": 1,
+          "measureUnit": "计量单位",
+          "specModel": "规格型号",
+          "perVolume": 1,
+          "skuId2": 22
+        }
+      },
+      {
+        "entity": {
+          "createTime": "2017/03/15 07:06:53",
+          "updateTime": "2017/03/22 05:42:39",
+          "skuId": "2",
+          "skuNo": "test02",
+          "skuName": "水壶02",
+          "owner": "8D8CC8F7B51B41739F4A9F6378CBABB1",
+          "skuStatus": 1,
+          "measureUnit": "计量单位",
+          "specModel": "规格型号",
+          "perVolume": 1,
+          "skuId2": 21
+        }
+      },
+      {
+        "entity": {
+          "createTime": "2017/03/15 01:37:59",
+          "updateTime": "2017/03/22 05:42:39",
+          "createPerson": "1",
+          "updatePerson": "1",
+          "skuId": "1",
+          "skuNo": "test01",
+          "skuName": "水壶",
+          "owner": "8D8CC8F7B51B41739F4A9F6378CBABB1",
+          "skuStatus": 1,
+          "orgId": "1",
+          "warehouseId": "1",
+          "measureUnit": "计量单位",
+          "specModel": "规格型号",
+          "minSafetyStock": 20,
+          "maxSafetyStock": 90,
+          "perVolume": 2,
+          "perWeight": 1,
+          "skuId2": 20
+        }
+      },
+      {
+        "entity": {
+          "createTime": "2017/03/09 12:19:02",
+          "updateTime": "2017/03/22 05:42:39",
+          "skuId": "0",
+          "skuNo": "0",
+          "skuName": "货品0000",
+          "skuStatus": 1,
+          "orgId": "1",
+          "warehouseId": "1",
+          "measureUnit": "计量单位",
+          "specModel": "规格型号",
+          "minSafetyStock": 100,
+          "maxSafetyStock": 500,
+          "perVolume": 2.5,
+          "perWeight": 1,
+          "skuId2": 19
+        }
+      }
+    ],
+    "totalCount": 24
+  },
+  "message": "",
+  "success": true
+}

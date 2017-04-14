@@ -37,7 +37,20 @@ module.exports = angular.module('app.sysSetting', []).config(['$urlRouterProvide
             return deferred.promise;
         },
         controller: 'epManagementCtrl',
-        controllerAs: 'epManagementController'
+        controllerAs: 'epManagementController',
+        resolve: {
+            'app.sysSetting': function($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure(['./controllers/epManagementCtrl.js'], function() {
+                    var mod = require('./controllers/epManagementCtrl.js');
+                    $ocLazyLoad.load({
+                        name: 'app.sysSetting'
+                    });
+                    deferred.resolve(mod.controller);
+                }, 'sysSetting-ctl');
+                return deferred.promise;
+            }
+        }
     }).state('warehouse.sysSetting.rightsMgmt', {
         url: '/rightsMgmt',
         templateProvider: function($q) {
@@ -49,7 +62,20 @@ module.exports = angular.module('app.sysSetting', []).config(['$urlRouterProvide
             return deferred.promise;
         },
         controller: 'rightsMgmtCtrl',
-        controllerAs: 'rightsMgmtController'
+        controllerAs: 'rightsMgmtController',
+        resolve: {
+            'app.sysSetting': function($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure(['./controllers/rightsMgmtCtrl.js'], function() {
+                    var mod = require('./controllers/rightsMgmtCtrl.js');
+                    $ocLazyLoad.load({
+                        name: 'app.sysSetting'
+                    });
+                    deferred.resolve(mod.controller);
+                }, 'sysSetting-ctl');
+                return deferred.promise;
+            }
+        }
     }).state('warehouse.sysSetting.roleMgmt', {
         url: '/roleMgmt',
         templateProvider: function($q) {
@@ -61,7 +87,21 @@ module.exports = angular.module('app.sysSetting', []).config(['$urlRouterProvide
             return deferred.promise;
         },
         controller: 'roleMgmtCtrl',
-        controllerAs: 'roleMgmtController'
+        controllerAs: 'roleMgmtController',
+        resolve: {
+            'app.sysSetting': function($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure(['./controllers/roleMgmtCtrl.js'], function() {
+                    var mod = require('./controllers/roleMgmtCtrl.js');
+                    $ocLazyLoad.load({
+                        name: 'app.sysSetting'
+                    });
+                    deferred.resolve(mod.controller);
+                }, 'sysSetting-ctl');
+                return deferred.promise;
+            }
+        }
+
     }).state('warehouse.sysSetting.usersMgmt', {
         url: '/usersMgmt',
         templateProvider: function($q) {
@@ -73,7 +113,20 @@ module.exports = angular.module('app.sysSetting', []).config(['$urlRouterProvide
             return deferred.promise;
         },
         controller: 'usersMgmtCtrl',
-        controllerAs: 'usersMgmtController'
+        controllerAs: 'usersMgmtController',
+        resolve: {
+            'app.sysSetting': function($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure(['./controllers/usersMgmtCtrl.js'], function() {
+                    var mod = require('./controllers/usersMgmtCtrl.js');
+                    $ocLazyLoad.load({
+                        name: 'app.sysSetting'
+                    });
+                    deferred.resolve(mod.controller);
+                }, 'sysSetting-ctl');
+                return deferred.promise;
+            }
+        }
     }).state('warehouse.sysSetting.peopleMgmt', {
         url: '/peopleMgmt',
         templateProvider: function($q) {
@@ -85,7 +138,20 @@ module.exports = angular.module('app.sysSetting', []).config(['$urlRouterProvide
             return deferred.promise;
         },
         controller: 'peopleMgmtCtrl',
-        controllerAs: 'peopleMgmtController'
+        controllerAs: 'peopleMgmtController',
+        resolve: {
+            'app.sysSetting': function($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure(['./controllers/peopleMgmtCtrl.js'], function() {
+                    var mod = require('./controllers/peopleMgmtCtrl.js');
+                    $ocLazyLoad.load({
+                        name: 'app.sysSetting'
+                    });
+                    deferred.resolve(mod.controller);
+                }, 'sysSetting-ctl');
+                return deferred.promise;
+            }
+        }
     }).state('warehouse.sysSetting.reportConfig', {
         url: '/reportConfig',
         templateProvider: function($q) {
@@ -97,7 +163,20 @@ module.exports = angular.module('app.sysSetting', []).config(['$urlRouterProvide
             return deferred.promise;
         },
         controller: 'reportConfigCtrl',
-        controllerAs: 'reportConfigController'
+        controllerAs: 'reportConfigController',
+        resolve: {
+            'app.sysSetting': function($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure(['./controllers/reportConfigCtrl.js'], function() {
+                    var mod = require('./controllers/reportConfigCtrl.js');
+                    $ocLazyLoad.load({
+                        name: 'app.sysSetting'
+                    });
+                    deferred.resolve(mod.controller);
+                }, 'sysSetting-ctl');
+                return deferred.promise;
+            }
+        }
     }).state('warehouse.sysSetting.globalParameter', {
         url: '/globalParameter',
         templateProvider: function($q) {
@@ -109,7 +188,20 @@ module.exports = angular.module('app.sysSetting', []).config(['$urlRouterProvide
             return deferred.promise;
         },
         controller: 'globalParameterCtrl',
-        controllerAs: 'globalParameterController'
+        controllerAs: 'globalParameterController',
+        resolve: {
+            'app.sysSetting': function($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure(['./controllers/globalParameterCtrl.js'], function() {
+                    var mod = require('./controllers/globalParameterCtrl.js');
+                    $ocLazyLoad.load({
+                        name: 'app.sysSetting'
+                    });
+                    deferred.resolve(mod.controller);
+                }, 'sysSetting-ctl');
+                return deferred.promise;
+            }
+        }
     }).state('warehouse.sysSetting.interfaceMgmt', {
         url: '/interfaceMgmt',
         templateProvider: function($q) {
@@ -121,7 +213,20 @@ module.exports = angular.module('app.sysSetting', []).config(['$urlRouterProvide
             return deferred.promise;
         },
         controller: 'interfaceMgmtCtrl',
-        controllerAs: 'interfaceMgmtController'
+        controllerAs: 'interfaceMgmtController',
+        resolve: {
+            'app.sysSetting': function($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure(['./controllers/interfaceMgmtCtrl.js'], function() {
+                    var mod = require('./controllers/interfaceMgmtCtrl.js');
+                    $ocLazyLoad.load({
+                        name: 'app.sysSetting'
+                    });
+                    deferred.resolve(mod.controller);
+                }, 'sysSetting-ctl');
+                return deferred.promise;
+            }
+        }
     }).state('warehouse.sysSetting.operationLog', {
         url: '/operationLog',
         templateProvider: function($q) {
@@ -133,7 +238,20 @@ module.exports = angular.module('app.sysSetting', []).config(['$urlRouterProvide
             return deferred.promise;
         },
         controller: 'operationLogCtrl',
-        controllerAs: 'operationLogController'
+        controllerAs: 'operationLogController',
+        resolve: {
+            'app.sysSetting': function($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure(['./controllers/operationLogCtrl.js'], function() {
+                    var mod = require('./controllers/operationLogCtrl.js');
+                    $ocLazyLoad.load({
+                        name: 'app.sysSetting'
+                    });
+                    deferred.resolve(mod.controller);
+                }, 'sysSetting-ctl');
+                return deferred.promise;
+            }
+        }
     }).state('warehouse.sysSetting.inventoryLog', {
         url: '/inventoryLog',
         templateProvider: function($q) {
@@ -145,6 +263,19 @@ module.exports = angular.module('app.sysSetting', []).config(['$urlRouterProvide
             return deferred.promise;
         },
         controller: 'inventoryLogCtrl',
-        controllerAs: 'inventoryLogController'
+        controllerAs: 'inventoryLogController',
+        resolve: {
+            'app.sysSetting': function($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure(['./controllers/inventoryLogCtrl.js'], function() {
+                    var mod = require('./controllers/inventoryLogCtrl.js');
+                    $ocLazyLoad.load({
+                        name: 'app.sysSetting'
+                    });
+                    deferred.resolve(mod.controller);
+                }, 'sysSetting-ctl');
+                return deferred.promise;
+            }
+        }
     })
 }]).name;

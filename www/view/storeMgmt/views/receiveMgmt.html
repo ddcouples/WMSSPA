@@ -1,23 +1,25 @@
 
 <section >
     <section class="animate-enter-leave"  ng-if="btnAction.showIndex">
+
+<!-- 查询ASN单列表 查询条件-->
         <div class="receive_container">
-            <form class="form-horizontal" name="storeSearchForm" novalidate>
+            <form class="form-horizontal" name="addAsnForm" novalidate>
                 <div class="row">
                     <div class="col-sm-2 form-horizontal">
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title">货主</label>
                             <div class="col-sm-8">
-                                <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                       required name="ownerComment"
+                                <input type="text" ng-model="searchAsnAction.searchAsnModel.likeOwner" class="form-control"
+                                       required name="likeOwner"
                                        placeholder="货主">
-                                <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchReceiveMsg.ownerComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!addAsnForm.likeOwner.$error.required"  clear-input-btn="searchAsnAction.searchAsnModel.likeOwner"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
                         <div class="form-group has-feedback">
                             <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">订单日期</label>
                             <div class="col-sm-8 ">
-                                <input type="text" ng-model="searchReceiveMsg.asn.orderDate" class="form-control"  date-pick-select  placeholder="订单日期">
+                                <input type="text" ng-model="searchAsnAction.searchAsnModel.asn.orderDate" class="form-control"  date-pick-select  placeholder="订单日期">
                                 <span  class="fa fa-calendar form-control-feedback" aria-hidden="true"></span>
                             </div>
                         </div>
@@ -26,19 +28,18 @@
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title">PO单号</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.poNo"
-                                       name="poNo" required
+                                <input type="text" class="form-control"  ng-model="searchAsnAction.searchAsnModel.likePoNo"
+                                       name="searchLikePoNo" required
                                        placeholder="PO单号">
-                                <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchReceiveMsg.asn.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!addAsnForm.searchLikePoNo.$error.required"  clear-input-btn="searchAsnAction.searchAsnModel.likePoNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">单据来源</label>
                             <div class="col-sm-8">
-                                <select class="form-control" ng-model="searchReceiveMsg.asn.dataFrom" ng-options="l.value as l.value for l in getOriginData.dataFromLists">
-                                    <!--<option value="0" selected>请选择</option>-->
-                                    <!--<option value="10">手动录入</option>-->
-                                    <!--<option value="20">批量导入</option>-->
+                                <select class="form-control" ng-model="searchAsnAction.searchAsnModel.dataFromComment" >
+                                    <option value="" selected>请选择</option>
+                                    <option value="{{d.value}}" ng-repeat="d in getOriginData.ASNDATAFROM">{{d.value}}</option>
                                 </select>
                             </div>
                         </div>
@@ -47,19 +48,19 @@
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">ASN单号</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                       name="asnNo" required
+                                <input type="text" class="form-control"  ng-model="searchAsnAction.searchAsnModel.likeAsnNo"
+                                       name="likeAsnNo" required
                                        placeholder="ASN单号">
-                                <span ng-if="!storeSearchForm.asnNo.$error.required" clear-input-btn="searchReceiveMsg.asn.asnNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!addAsnForm.likeAsnNo.$error.required" clear-input-btn="searchAsnAction.searchAsnModel.likeAsnNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
                         <div class="form-group has-feedback">
                             <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">创建人</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control"  ng-model="searchReceiveMsg.createPersonComment"
-                                       name="createPerson" required
+                                <input type="text" class="form-control"  ng-model="searchAsnAction.searchAsnModel.likeCreatePerson"
+                                       name="likeCreatePerson" required
                                        placeholder="创建人">
-                                <span ng-if="!storeSearchForm.createPerson.$error.required" clear-input-btn="searchReceiveMsg.createPersonComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!addAsnForm.likeCreatePerson.$error.required" clear-input-btn="searchAsnAction.searchAsnModel.likeCreatePerson"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
                     </div>
@@ -67,27 +68,21 @@
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">状态</label>
                             <div class="col-sm-8">
-                                <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus" ng-options="l.value as l.value for l in getOriginData.asnStatusLists">
-                                    <!--<option value="0">请选择</option>-->
-                                    <!--<option value="10">打开</option>-->
-                                    <!--<option value="11">生效</option>-->
-                                    <!--<option value="12">取消</option>-->
-                                    <!--<option value="13">部分收货</option>-->
-                                    <!--<option value="14">已收货</option>-->
-                                    <!--<option value="15">部分上架</option>-->
-                                    <!--<option value="16">已上架</option>-->
+                                <select class="form-control" ng-model="searchAsnAction.searchAsnModel.asnStatusComment" >
+                                    <option value="" selected>请选择</option>
+                                    <option value="{{d.value}}" ng-repeat="d in getOriginData.ASNSTATUS">{{d.value}}</option>
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-4 form-horizontal">
                         <!--历史查询指令-->
-                        <history-message sources="historyMessages" select-history="searchReceiveMsg" ></history-message>
+                        <history-message sources="searchAsnAction.historyMessages" select-history="searchAsnAction.searchAsnModel" ></history-message>
                         <!--历史查询指令end-->
                         <div class="row">
                             <div class=" col-sm-offset-2">
-                                <button type="button" class="btn btn-info" ng-click="searchformAction.search()">查询</button>
-                                <button type="button" class="btn btn-info" ng-click="searchformAction.reset()">重置</button>
+                                <button type="button" class="btn btn-info" ng-click="searchAsnAction.searchAsn()">查询</button>
+                                <button type="button" class="btn btn-info" ng-click="searchAsnAction.reset()">重置</button>
                             </div>
                         </div>
                     </div>
@@ -97,6 +92,8 @@
 
 
         <div class="recevive_tables receive_btns">
+
+<!-- 查询ASN单列表 表格-->
             <!--按钮组-->
             <div class="row ">
                 <div class="col-sm-10 col-sm-offset-1">
@@ -104,436 +101,450 @@
 
                     <button type="button" ng-click="btnAction.modifyAsn()" class="btn btn-info">修改</button>
 
-                    <button type="button"  class="btn btn-info">生效</button>
+                    <button type="button" ng-click="searchAsnAction.activeAsn()"  class="btn btn-info">生效</button>
 
-                    <button type="button" class="btn btn-info">失效</button>
+                    <button type="button" ng-click="searchAsnAction.inactiveAsn()" class="btn btn-info">失效</button>
 
-                    <button type="button" class="btn btn-info">取消</button>
+                    <button type="button" ng-click="searchAsnAction.cancelAsn()" class="btn btn-info">取消</button>
 
                     <button type="button" ng-click="btnAction.MakeSureGetGoodsBtn()"  class="btn btn-info">收货确认</button>
 
-                    <button type="button"  ng-click="btnAction.searchModel('bulkGoodsModal')" class="btn btn-info">批量收货</button>
+                    <button type="button"  ng-click="searchAsnAction.showBatchConfirm()" class="btn btn-info">批量收货</button>
 
                     <button type="button" ng-click="btnAction.splitAsn()" class="btn btn-info">拆分</button>
 
-                    <button type="button" class="btn btn-info">取消拆分</button>
+                    <button type="button" ng-click="searchAsnAction.unsplitAsn()" class="btn btn-info">取消拆分</button>
+                    <!--ANDY<button type="button" ng-click="btnAction.showImportPg()" class="btn btn-info">导入</button>-->
                 </div>
             </div>
             <!--按钮组end-->
 
+<!-- 查询ASN单列表 表格-->
             <!--表格-->
             <div class="receive-table" data-example-id="hoverable-table">
                 <table class="table table-hover table-striped">
                     <thead>
-                    <tr>
-                        <th>
-                            <label>
-                                <input type="checkbox" aria-label="...">
-                            </label>
-                        </th>
+                        <tr>
+                            <th>
+                                <label>
+                                    <input type="checkbox" aria-label="..." ng-model="searchAsnAction.selectedAll" ng-change="searchAsnAction.selectAll()">
+                                </label>
+                            </th>
 
-                        <th>货主</th>
-                        <th>仓库</th>
-                        <th>ASN单号</th>
-                        <th>父编码</th>
-                        <th>订单类型</th>
-                        <th>单据来源</th>
-                        <th>PO单号<br>
-                            相关单号1<br>
-                            相关单号2</th>
-                        <th>订单日期</th>
-                        <th>订单数量/公斤/立方</th>
-                        <th>收货数量/公斤/立方</th>
-                        <th>上架数量/公斤/立方</th>
-                        <th>状态</th>
-                        <th>创建人<br>
-                            创建时间</th>
-                        <th>最后修改人<br>
-                            修改时间</th>
-                    </tr>
+                            <th>货主</th>
+                            <th>ASN单号</th>
+                            <th>父编码</th>
+                            <th>订单类型</th>
+                            <th>单据来源</th>
+                            <th>订单日期</th>
+                            <th>订单数量/公斤/立方</th>
+                            <th>收货数量/公斤/立方</th>
+                            <th>上架数量/公斤/立方</th>
+                            <th>状态</th>
+                            <th>PO单号</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th><label>
-                            <input type="checkbox" aria-label="...">
-                        </label></th>
-                        <td>联想</td>
-                        <td>广州RDC</td>
-                        <td><a ng-click="btnAction.showAsnDetailActionGetData(12)">87656899644</a></td>
-                        <td></td>
-                        <td>采购订单</td>
-                        <td>Excel导入</td>
-                        <td>151515121<br>
-                            A616-1200<br>
-                            B516100</td>
-                        <td>2016/10/10</td>
-                        <td>100/0/0</td>
-                        <td>100/0/0</td>
-                        <td>100/0/0</td>
-                        <td>生效</td>
-                        <td>张三<br>
-                            2016/10/10<br>
-                            22:22:22</td>
-                        <td>张三<br>
-                            2016/10/10<br>
-                            22:22:22</td>
-
-                    </tr>
+                        <tr ng-repeat="pageItem in searchAsnAction.listAsn track by $index"
+                            ng-click="searchAsnAction.selectModify($index,$event)" ng-class="{'info':searchAsnAction.currentSelectItems==$index}" >
+                            <td><label>
+                                <input type="checkbox" class="chk_selectItem" aria-label="..."  ng-model="searchAsnAction.selectedItems[$index]" ng-change="searchAsnAction.selectModify($index,$event)" />
+                            </label></td>
+                            <td title="{{pageItem.ownerComment}}" ng-bind="pageItem.ownerComment | substr:8:'...'"></td>
+                            <td title="{{pageItem.asn.asnNo}}">
+                                <a  ng-click="btnAction.showDetail(pageItem.asn.asnId)" ng-bind="pageItem.asn.asnNo | substr:17:'...'">123</a>
+                            </td>
+                            <td title="{{pageItem.parentAsnComment}}" ng-bind="pageItem.parentAsnComment | substr:17:'...'" ></td>
+                            <td ng-bind="pageItem.docTypeComment"></td>
+                            <td ng-bind="pageItem.dataFromComment"></td>
+                            <td ng-bind="pageItem.asn.orderDate | date:'yyyy-MM-dd'"></td>
+                            <td><span ng-bind="pageItem.asn.orderQty"></span>/<span ng-bind="pageItem.asn.orderWeight"></span>/<span ng-bind="pageItem.asn.orderVolume"></span></td>
+                            <td><span ng-bind="pageItem.asn.receiveQty"></span>/<span ng-bind="pageItem.asn.receiveWeight"></span>/<span ng-bind="pageItem.asn.receiveVolume"></span></td>
+                            <td><span ng-bind="pageItem.sumRealPtwQty"></span>/<span ng-bind="pageItem.sumRealPtwWeight"></span>/<span ng-bind="pageItem.sumRealPtwVolume"></span></td>
+                            <td ng-bind="pageItem.asnStatusComment"></td>
+                            <td ng-bind="pageItem.asn.poNo | substr:8:'...'"></td>
+                        </tr>
 
                     </tbody>
                 </table>
             </div>
             <!-- /表格 -->
-            <page></page>
-        </div>
+            <!--page用法-->
 
+<!-- 查询ASN单列表 分页-->
+            <page page-data="searchAsnAction.listAsn" url="{{listASN_url}}" func="searchAsnAction.clearSelect()" page-model-query="pageModelQuery"></page>
+        </div>
         <footer></footer>
     </section>
 
+    <!--查询ASN单列表-->
+
     <!--新增ASN和修改ASN调用 -->
     <section class="animate-enter-leave posAb" ng-if="btnAction.showAddOrModify">
-        <form class="form-horizontal" name="storeSearchForm" novalidate>
-        <div class="panel-group mg-tp20" role="tablist" aria-multiselectable="true">
-            <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingOne">
-                    <h3 class="panel-title">
-                        <a role="button" ng-init="status.open=true" ng-click="status.open=!status.open" class="btn-block" data-toggle="collapse" data-target="#collapseOne"  aria-expanded="true" aria-controls="collapseOne">
-                           {{btnAction.showText.firstTitle}}
-                            <i class="fa  pull-right" ng-class="{'fa-hand-paper-o': status.open, 'fa-hand-rock-o': !status.open}" aria-hidden="true"></i>
-                        </a>
-                    </h3>
-                </div>
-                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="form-group  has-feedback">
-                                    <label class="col-sm-3 control-label receive-form-title">仓库</label>
-                                    <div class="col-sm-9">
-                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
-                                    </div>
-                                </div>
-                                <div class="form-group  has-feedback">
-                                    <label class="col-sm-3 control-label receive-form-title">相关单号1</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                               required name="ownerComment"
-                                               placeholder="相关单号1">
-                                        <span ng-if="!storeSearchForm.ownerComment.$error.required"
-                                              clear-input-btn="searchReceiveMsg.ownerComment"
-                                              class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
-                                    </div>
-                                </div>
+        <form class="form-horizontal" name="addAsnForm" novalidate><!--addAsnForm改为addAsnForm-->
 
-                                <div class="form-group  has-feedback">
-                                    <label class="col-sm-3 control-label receive-form-title">总数量</label>
-                                    <div class="col-sm-9">
-                                        <label class="col-sm-4 control-label"></label>
-                                    </div>
-                                </div>
-                                <div class="form-group has-feedback">
-                                    <label for="inputPassword3" class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>订单日期</label>
-                                    <div class="col-sm-9 ">
-                                        <input type="text" ng-model="searchReceiveMsg.asn.orderDate" class="form-control"  date-pick-select  placeholder="订单日期">
-                                        <span  class="fa fa-calendar form-control-feedback" aria-hidden="true"></span>
-                                    </div>
-                                </div>
 
-                                <div class="form-group  has-feedback">
-                                    <label class="col-sm-3 control-label receive-form-title">联系人</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                               required name="ownerComment"
-                                               placeholder="联系人">
-                                        <span ng-if="!storeSearchForm.ownerComment.$error.required"
-                                              clear-input-btn="searchReceiveMsg.ownerComment"
-                                              class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group  has-feedback">
-                                    <label class="col-sm-4 control-label receive-form-title">ASN单号</label>
-                                    <div class="col-sm-8">
-                                        <label class="col-sm-4 control-label"></label>
-                                    </div>
-                                </div>
-                                <div class="form-group  has-feedback">
-                                    <label class="col-sm-4 control-label receive-form-title">相关单号2</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                               required name="ownerComment"
-                                               placeholder="相关单号2">
-                                        <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchReceiveMsg.ownerComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group  has-feedback">
-                                    <label class="col-sm-4 control-label receive-form-title">总重量(KG)</label>
-                                    <div class="col-sm-8">
-                                        <label class="col-sm-4 control-label"></label>
-                                    </div>
-                                </div>
-                                <div class="form-group has-feedback">
-                                    <label for="inputPassword3" class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>货主</label>
-                                    <div class="col-sm-8 ">
-                                        <input type="text" ng-model="searchReceiveMsg.asn.orderDate" class="form-control"  date-pick-select  placeholder="货主">
-                                        <span ng-if="!storeSearchForm.ownerComment.$error.required"
-                                              clear-input-btn="searchReceiveMsg.ownerComment"
-                                              class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group  has-feedback">
-                                    <label class="col-sm-4 control-label receive-form-title">联系电话</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                               required name="ownerComment"
-                                               placeholder="联系电话">
-                                        <span ng-if="!storeSearchForm.ownerComment.$error.required"
-                                              clear-input-btn="searchReceiveMsg.ownerComment"
-                                              class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group  has-feedback">
-                                    <label class="col-sm-3 control-label receive-form-title">PO单号</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                               required name="ownerComment"
-                                               placeholder="PO单号">
-                                        <span ng-if="!storeSearchForm.ownerComment.$error.required"
-                                              clear-input-btn="searchReceiveMsg.ownerComment"
-                                              class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
-                                    </div>
-                                </div>
-                                <div class="form-group  has-feedback">
-                                    <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>单据类型</label>
-                                    <div class="col-sm-8">
-                                        <select class="form-control" ng-model="searchReceiveMsg.asn.dataFrom" ng-options="l.value as l.value for l in getOriginData.dataFromLists">
-                                            <!--<option value="0" selected>请选择</option>-->
-                                            <!--<option value="10">手动录入</option>-->
-                                            <!--<option value="20">批量导入</option>-->
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group  has-feedback">
-                                    <label class="col-sm-3 control-label receive-form-title">总体积(CBM)</label>
-                                    <div class="col-sm-8">
-                                        <label class="col-sm-4 control-label"></label>
-                                    </div>
-                                </div>
-                                <div class="form-group has-feedback">
-                                    <label for="inputPassword3" class="col-sm-3 control-label receive-form-title">发货方</label>
-                                    <div class="col-sm-8 ">
-                                        <input type="text" ng-model="searchReceiveMsg.asn.orderDate" class="form-control"   placeholder="发货方">
-                                        <span ng-if="!storeSearchForm.ownerComment.$error.required"
-                                              clear-input-btn="searchReceiveMsg.ownerComment"
-                                              class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mg-lf">
-                            <div class="form-group  has-feedback">
-                                <label class="col-sm-1 control-label receive-form-title">联系地址</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.poNo"
-                                           name="poNo" required
-                                           placeholder="联系地址">
-                                    <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchReceiveMsg.asn.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
-                                </div>
-                            </div>
-                            <div class="form-group  has-feedback">
-                                <label class="col-sm-1 control-label receive-form-title">备注</label>
-                                <div class="col-sm-8">
-                                    <textarea class="form-control" rows="3" placeholder="备注"></textarea>
-                                </div>
-                            </div>
-                        </div>
-
+<!-- 新增/修改 ASN单 主体信息-->
+            <div class="panel-group mg-tp20" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                        <h3 class="panel-title">
+                            <a role="button" ng-init="status.open=true" ng-click="status.open=!status.open" class="btn-block" data-toggle="collapse" data-target="#collapseOne"  aria-expanded="true" aria-controls="collapseOne">
+                               {{btnAction.showText.firstTitle}}
+                                <i class="fa  pull-right" ng-class="{'fa-hand-paper-o': status.open, 'fa-hand-rock-o': !status.open}" aria-hidden="true"></i>
+                            </a>
+                        </h3>
                     </div>
-                </div>
-            </div>
-        </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body">
 
-        <div class="panel-group"  role="tablist2" aria-multiselectable="true">
-            <div class="panel panel-default">
-                <div class="panel-heading" role="tab" >
-                    <h3 class="panel-title">
-                        <a role="button" ng-init="status.openTwo=true" ng-click="status.openTwo=!status.openTwo" class="btn-block" data-toggle="collapse" data-target="#collapseTwo"  aria-expanded="true" aria-controls="collapseOne">
-                            货品明细
-                            <i class="fa  pull-right" ng-class="{'fa-hand-paper-o': status.openTwo, 'fa-hand-rock-o': !status.openTwo}" aria-hidden="true"></i>
-                        </a>
-                    </h3>
-                </div>
-                <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body">
-                        <div>
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group  has-feedback">
-                                        <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>货品代码</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                                   required name="ownerComment" onfocus="this.blur()" ng-click="btnAction.searchModel('searchModel')"
-                                                   placeholder="货品代码">
-                                            <span ng-if="!storeSearchForm.ownerComment.$error.required"
-                                                  clear-input-btn="searchReceiveMsg.ownerComment"
-                                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                        <label class="col-sm-3 control-label receive-form-title">ASN单号</label>
+                                        <div class="col-sm-8">
+                                            <label class="text-left form-control pdTp5" ng-bind="addAsnAction.addAsnModel.asn.asnNo"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group has-feedback">
+                                        <label for="inputPassword3" class="col-sm-3 control-label receive-form-title">
+                                            <span class="color-red">*</span>订单日期</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" name="orderDate" id="orderDate" class="form-control"
+                                                   ng-model="addAsnAction.addAsnModel.asn.orderDate"
+                                                   ng-class="{'error':addAsnForm.orderDate.$invalid&&addAsnAction.tooltipIsOpen}"
+                                                   uib-tooltip="必须选择订单日期"
+                                                   date-pick-select required   placeholder="订单日期"
+                                                   tooltip-placement="top" tooltip-class="customClass"
+                                                   tooltip-trigger="'none'"
+                                                   tooltip-is-open="addAsnAction.tooltipIsOpen"
+                                                   tooltip-enable="addAsnForm.orderDate.$invalid">
+                                            <span  class="fa fa-calendar form-control-feedback" aria-hidden="true"></span>
                                         </div>
                                     </div>
                                     <div class="form-group  has-feedback">
-                                        <label class="col-sm-3 control-label receive-form-title">规格型号</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                                   required name="ownerComment"
-                                                   placeholder="规格型号">
-                                            <span ng-if="!storeSearchForm.ownerComment.$error.required"
-                                                  clear-input-btn="searchReceiveMsg.ownerComment"
-                                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                        <label class="col-sm-3 control-label receive-form-title">总数量</label>
+                                        <div class="col-sm-8">
+                                            <label class="col-sm-4 form-control " ng-bind="addAsnAction.addAsnModel.asn.orderQty"></label>
                                         </div>
                                     </div>
 
-                                    <div class="form-group  has-feedback">
-                                        <label class="col-sm-3 control-label receive-form-title">公斤</label>
-                                        <div class="col-sm-9 ">
-                                            <input type="number" ng-model="searchReceiveMsg.asn.orderDate" class="form-control"  placeholder="公斤">
-                                            <span ng-if="!storeSearchForm.ownerComment.$error.required"
-                                                  clear-input-btn="searchReceiveMsg.ownerComment"
-                                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                    <div class="form-group has-feedback">
+                                        <label for="inputPassword3" class="col-sm-3 control-label receive-form-title">发货方</label>
+                                        <div class="col-sm-8 "  ng-click="addAsnAction.selectSender()">
+                                            <input type="text" ng-model="addAsnAction.addAsnModel.senderComment" class="form-control"
+                                                   onfocus="this.blur()"
+                                                   placeholder="发货方">
                                         </div>
                                     </div>
+
+
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group  has-feedback">
-                                        <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>货品名称</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                                   required name="ownerComment" disabled  value="国际A货"
-                                                   placeholder="货品名称">
-                                            <span ng-if="!storeSearchForm.ownerComment.$error.required"
-                                                  clear-input-btn="searchReceiveMsg.ownerComment"
-                                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group  has-feedback">
-                                        <label class="col-sm-3 control-label receive-form-title">计量单位</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                                   required name="ownerComment"
-                                                   placeholder="计量单位 如：件">
-                                            <span ng-if="!storeSearchForm.ownerComment.$error.required"
-                                                  clear-input-btn="searchReceiveMsg.ownerComment"
+                                        <label class="col-sm-4 control-label receive-form-title">PO单号</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" ng-model="addAsnAction.addAsnModel.asn.poNo" class="form-control"
+                                                   required name="poNo"
+                                                   placeholder="PO单号" />
+                                            <span ng-if="!addAsnForm.poNo.$error.required"
+                                                  clear-input-btn="addAsnAction.addAsnModel.asn.poNo"
                                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                                         </div>
                                     </div>
 
-                                    <div class="form-group  has-feedback">
-                                        <label class="col-sm-3 control-label receive-form-title">立方</label>
-                                        <div class="col-sm-9 ">
-                                            <input type="number" ng-model="searchReceiveMsg.asn.orderDate" class="form-control"  placeholder="立方">
-                                            <span ng-if="!storeSearchForm.ownerComment.$error.required"
-                                                  clear-input-btn="searchReceiveMsg.ownerComment"
-                                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                    <div class="form-group has-feedback">
+                                        <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">
+                                            <span class="color-red">*</span>货主</label>
+                                        <div class="col-sm-8 " ng-click="addAsnAction.selectOwner()">
+                                            <input type="text" ng-model="addAsnAction.addAsnModel.ownerComment"
+                                                   id="ownerComment"
+                                                   ng-class="{'error':addAsnForm.ownerComment.$invalid&&addAsnAction.tooltipIsOpen}"
+                                                   uib-tooltip="必须选择货主"
+                                                   tooltip-placement="top" tooltip-class="customClass"
+                                                   tooltip-trigger="'none'"
+                                                   tooltip-is-open="addAsnAction.tooltipIsOpen"
+                                                   tooltip-enable="addAsnForm.ownerComment.$invalid"
+                                                   required name="ownerComment"
+                                                   onfocus="this.blur()" class="form-control"  placeholder="请选择">
+                                            <span class="fa fa-search form-control-feedback color345795" aria-hidden="true"></span>
                                         </div>
                                     </div>
+
+                                    <div class="form-group  has-feedback">
+                                        <label class="col-sm-4 control-label receive-form-title">总重量(KG)</label>
+                                        <div class="col-sm-8">
+                                            <label class="col-sm-4 form-control " ng-bind="addAsnAction.addAsnModel.asn.orderWeight"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group  has-feedback">
+                                        <label class="col-sm-4 control-label receive-form-title">联系人</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" ng-model="addAsnAction.addAsnModel.asn.contactPerson" class="form-control"
+                                                   required name="contactPerson"
+                                                   placeholder="联系人">
+                                        </div>
+                                    </div>
+
                                 </div>
                                 <div class="col-sm-4">
-                                    <div class="form-group  has-feedback">
-                                        <label class="col-sm-3 control-label receive-form-title">批次</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                                   required name="ownerComment"
-                                                   placeholder="批次">
-                                            <span ng-if="!storeSearchForm.ownerComment.$error.required"
-                                                  clear-input-btn="searchReceiveMsg.ownerComment"
-                                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group  has-feedback">
-                                        <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>数量</label>
-                                        <div class="col-sm-9">
-                                            <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                                   required name="ownerComment"
-                                                   placeholder="数量">
-                                            <span ng-if="!storeSearchForm.ownerComment.$error.required"
-                                                  clear-input-btn="searchReceiveMsg.ownerComment"
-                                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-offset-1 col-sm-1">
-                                    <button class="btn btn-info">新增</button>
-                                </div>
-                                <div class="col-sm-1">
-                                    <button class="btn btn-info" ng-click="btnAction.addAsn()">修改</button>
-                                </div>
-                                <div class="col-sm-1">
-                                    <button class="btn btn-info" ng-click="btnAction.addAsn()">删除</button>
-                                </div>
-                            </div>
-                        </div>
-                        <!--表格-->
-                        <div class="receive-table" data-example-id="hoverable-table">
-                            <table class="table table-hover table-striped">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        <label>
-                                            <input type="checkbox" aria-label="...">
-                                        </label>
-                                    </th>
-                                    <th>序号</th>
-                                    <th>货品代码</th>
-                                    <th>货品名称</th>
-                                    <th>批次</th>
-                                    <th>规格型号</th>
-                                    <th>计量单位</th>
-                                    <th>数量/公斤/立方</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th><label>
-                                        <input type="checkbox" aria-label="...">
-                                    </label></th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
 
-                                </tbody>
-                            </table>
+                                    <div class="form-group  has-feedback">
+                                        <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>单据类型</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control" id="addAsnDocType" name="addAsnDocType"
+                                                    ng-class="{'error':addAsnAction.addAsnModel.asn.docType==''&&addAsnAction.tooltipIsOpen}"
+                                                    uib-tooltip="必须选择单据类型"
+                                                    tooltip-placement="top" tooltip-class="customClass"
+                                                    tooltip-trigger="'none'"
+                                                    tooltip-is-open="addAsnAction.tooltipIsOpen"
+                                                    tooltip-enable="addAsnAction.addAsnModel.asn.docType==''"
+                                                    ng-model="addAsnAction.addAsnModel.asn.docType">
+                                                <option value="" >请选择</option>
+                                                <option value="{{d.key}}" ng-repeat="d in getOriginData.ASNDOCTYPE">{{d.value}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group  has-feedback">
+                                        <label class="col-sm-3 control-label receive-form-title">相关单号1</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" ng-model="addAsnAction.addAsnModel.asn.asnNo1" class="form-control"
+                                                   required name="asnNo1"
+                                                   placeholder="相关单号1">
+                                        </div>
+                                    </div>
+                                    <div class="form-group  has-feedback">
+                                        <label class="col-sm-3 control-label receive-form-title">总体积(CBM)</label>
+                                        <div class="col-sm-8">
+                                            <label class="col-sm-4 form-control " ng-bind="addAsnAction.addAsnModel.asn.orderVolume"></label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group  has-feedback">
+                                        <label class="col-sm-3 control-label receive-form-title">联系电话</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" ng-model="addAsnAction.addAsnModel.asn.contactPhone" class="form-control"
+                                                   required name="contactPhone"
+                                                   placeholder="联系电话">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row mg-lf">
+                                <div class="form-group  has-feedback">
+                                    <label class="col-sm-1 control-label receive-form-title">联系地址</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control"  ng-model="addAsnAction.addAsnModel.asn.contactAddress"
+                                               name="contactAddress" required
+                                               placeholder="联系地址">
+                                        <span ng-if="!addAsnForm.contactAddress.$error.required"
+                                              clear-input-btn="addAsnAction.addAsnModel.asn.contactAddress"
+                                              class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group  has-feedback">
+                                    <label class="col-sm-1 control-label receive-form-title">备注</label>
+                                    <div class="col-sm-8">
+                                        <textarea class="form-control" rows="3" placeholder="备注" ng-model="addAsnAction.addAsnModel.asn.note"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
-                        <!-- /表格 -->
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row mg-bm-50">
-            <div class="col-sm-offset-1 col-sm-1">
-                <button class="btn btn-info">保存</button>
+<!-- 新增/修改 ASN单 货品明细-->
+            <div class="panel-group"  role="tablist2" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" >
+                        <h3 class="panel-title">
+                            <a role="button" ng-init="status.openTwo=true" ng-click="status.openTwo=!status.openTwo" class="btn-block" data-toggle="collapse" data-target="#collapseTwo"  aria-expanded="true" aria-controls="collapseOne">
+                                货品明细
+                                <i class="fa  pull-right" ng-class="{'fa-hand-paper-o': status.openTwo, 'fa-hand-rock-o': !status.openTwo}" aria-hidden="true"></i>
+                            </a>
+                        </h3>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <ng-form name="addAsnDetailForm">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group  has-feedback">
+                                            <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>货品代码</label>
+                                            <div class="col-sm-9" ng-click="addAsnAction.selectSku()">
+                                                <input type="text" ng-model="addAsnDetailAction.addAsnDetailModel.skuNo" class="form-control"
+                                                       required name="addAsnSkuNo" onfocus="this.blur()"
+                                                       if="addAsnSkuNo"
+                                                       ng-class="{'error':addAsnDetailForm.addAsnSkuNo.$invalid&&addAsnDetailAction.tooltipIsOpen}"
+                                                       uib-tooltip="必须选择货品代码！"
+                                                       tooltip-placement="top" tooltip-class="customClass"
+                                                       tooltip-trigger="'none'"
+                                                       tooltip-is-open="addAsnDetailAction.tooltipIsOpen"
+                                                       tooltip-enable="addAsnDetailForm.addAsnSkuNo.$invalid"
+                                                       placeholder="货品代码">
+                                                <span class="fa fa-search form-control-feedback color345795"
+                                                      aria-hidden="true"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group  has-feedback">
+                                            <label class="col-sm-3 control-label receive-form-title">规格型号</label>
+                                            <div class="col-sm-9">
+                                                <label class="col-sm-4 form-control" ng-bind="addAsnDetailAction.addAsnDetailModel.asnDetail.specModel"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group  has-feedback">
+                                            <label class="col-sm-3 control-label receive-form-title">公斤</label>
+                                            <div class="col-sm-9 ">
+                                                <input type="number" ng-model="addAsnDetailAction.addAsnDetailModel.asnDetail.orderWeight"
+                                                       input-number-only class="form-control"  placeholder="公斤">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group  has-feedback">
+                                            <label class="col-sm-3 control-label receive-form-title">货品名称</label>
+                                            <div class="col-sm-9">
+                                                <label class="col-sm-4 form-control" ng-bind="addAsnDetailAction.addAsnDetailModel.skuComment"></label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group  has-feedback">
+                                            <label class="col-sm-3 control-label receive-form-title">计量单位</label>
+                                            <div class="col-sm-9">
+                                                <label class="col-sm-4 form-control" ng-bind="addAsnDetailAction.addAsnDetailModel.asnDetail.measureUnit"></label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group  has-feedback">
+                                            <label class="col-sm-3 control-label receive-form-title">立方</label>
+                                            <div class="col-sm-9 ">
+                                                <input type="number" input-number-only
+                                                       ng-model="addAsnDetailAction.addAsnDetailModel.asnDetail.orderVolume" class="form-control"
+                                                       placeholder="立方">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group  has-feedback">
+                                            <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>批次</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" name="addAsnBatchNo" id="addAsnBatchNo"
+                                                       required ng-model="addAsnDetailAction.addAsnDetailModel.asnDetail.batchNo"
+                                                       ng-class="{'error':addAsnDetailAction.addAsnDetailModel.asnDetail.batchNo==null&&addAsnDetailAction.tooltipIsOpen}"
+                                                       uib-tooltip="请填写批次！"
+                                                       tooltip-placement="top" tooltip-class="customClass"
+                                                       tooltip-trigger="'none'"
+                                                       tooltip-is-open="addAsnDetailAction.tooltipIsOpen"
+                                                       tooltip-enable="addAsnDetailAction.addAsnDetailModel.asnDetail.batchNo==null"
+                                                       placeholder="批次">
+                                            </div>
+                                        </div>
+                                        <div class="form-group  has-feedback">
+                                            <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>数量</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control"
+                                                       id="addAsnQty"
+                                                       required name="addAsnOrderQty"
+                                                       ng-model="addAsnDetailAction.addAsnDetailModel.asnDetail.orderQty"
+                                                       ng-class="{'error':addAsnDetailAction.addAsnDetailModel.asnDetail.orderQty<=0&&addAsnDetailAction.tooltipIsOpen}"
+                                                       uib-tooltip="请填写正确的货品数量！"
+                                                       tooltip-placement="top" tooltip-class="customClass"
+                                                       tooltip-trigger="'none'" input-number-only nonzero-integer="true"
+                                                       tooltip-is-open="addAsnDetailAction.tooltipIsOpen"
+                                                       tooltip-enable="addAsnDetailAction.addAsnDetailModel.asnDetail.orderQty<=0"
+                                                       placeholder="数量">
+                                            </div>
+                                        </div>
+                                        <div class="form-group  has-feedback">
+                                            <label class="col-sm-3 control-label receive-form-title">单重/单体</label>
+                                            <div class="col-sm-9">
+                                                <label class="col-sm-4 form-control control-label" ng-bind="addAsnDetailAction.addAsnDetailModel.perVolume+'/'+addAsnDetailAction.addAsnDetailModel.perWeight"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-offset-1 col-sm-1">
+                                        <button class="btn btn-info" ng-click="addAsnDetailAction.addAsnDetailList(addAsnDetailForm)">加入列表</button>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <button class="btn btn-info" ng-click="addAsnDetailAction.updateAsnDetailList()">确认修改</button>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <button class="btn btn-info" ng-click="addAsnDetailAction.delAsnDetailList()">删除</button>
+                                    </div>
+                                </div>
+                            </ng-form>
+                            <!--表格-->
+                            <div class="receive-table" data-example-id="hoverable-table">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <label>
+                                                <input type="checkbox" aria-label="...">
+                                            </label>
+                                        </th>
+                                        <th>序号</th>
+                                        <th>货品代码</th>
+                                        <th>货品名称</th>
+                                        <th>批次</th>
+                                        <th>规格型号</th>
+                                        <th>计量单位</th>
+                                        <th>数量/公斤/立方</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-if="addAsnAction.addAsnDetailListModel.length===0"><td colspan="8"><h4>无内容</h4></td></tr>
+                                    <tr class="cursor_pointer" ng-repeat="detailItem in addAsnAction.addAsnDetailListModel track by $index"
+                                        ng-click="addAsnDetailAction.selectModify($index,$event)"
+                                        ng-class="{'success':addAsnDetailAction.currentSelectItems==$index}">
+                                        <td><label>
+                                            <input type="checkbox" ng-model="addAsnDetailAction.selectedItems[$index]" ng-change="addAsnDetailAction.selectModify($index,$event)" />
+                                        </label></td>
+                                        <td ng-bind="$index+1"></td>
+                                        <td ng-bind="detailItem.skuNo"></td>
+                                        <td ng-bind="detailItem.skuComment"></td>
+                                        <td ng-bind="detailItem.asnDetail.batchNo"></td>
+                                        <td ng-bind="detailItem.specModelComment"></td>
+                                        <td ng-bind="detailItem.asnDetail.measureUnit"></td>
+                                        <td ng-bind="detailItem.asnDetail.orderQty+'/'+detailItem.asnDetail.orderWeight+'/'+detailItem.asnDetail.orderVolume">
+
+                                        </td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /表格 -->
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-2">
-                <button class="btn btn-info" ng-click="btnAction.addAsn()">返回</button>
+
+            <div class="row mg-bm-50">
+                <div class="col-sm-offset-1 col-sm-1">
+                    <button class="btn btn-info" ng-click="addAsnAction.save(addAsnForm)">暂存</button>
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-info" ng-click="addAsnAction.saveAndActive(addAsnForm)" >保存并生效</button>
+                </div>
+                <div class="col-sm-2">
+                    <!--ng-click="addModifyBtnAction.backToIndex()"-->
+                    <button class="btn btn-info" ng-click="btnAction.backToIndex()" >返回</button>
+                </div>
             </div>
-        </div>
         </form>
     </section>
     <!--新增ASN和修改ASN调用end-->
 
     <!--收货确认 页面-->
     <section class="animate-enter-leave posAb" ng-if="btnAction.showMakeSureGetGoods">
-        <form class="form-horizontal" name="storeSearchForm" novalidate>
-
-
+        <form class="form-horizontal" name="addAsnForm" novalidate>
             <div class="panel-group mg-tp20"  role="tablist" aria-multiselectable="true">
                 <div class="panel panel-default">
                     <div class="panel-heading" role="tab" >
@@ -552,21 +563,20 @@
                                     <div class="form-group  has-feedback">
                                         <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>工作人员</label>
                                         <div class="col-sm-9">
-                                            <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                                   required name="ownerComment" onfocus="this.blur()" ng-click="btnAction.searchModel('select_users_searchModel')"
+                                            <input type="text" ng-model="confirmAsnAction.asnVOModel.opPersonComment" class="form-control"
+                                                   required name="confirmAsnOpPerson" onfocus="this.blur()" ng-click="confirmAsnAction.selectOpPerson()"
                                                    placeholder="请选择">
                                             <span class="fa fa-search form-control-feedback color345795" aria-hidden="true"></span>
                                         </div>
                                     </div>
-
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group  has-feedback">
                                         <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>批量选择库位</label>
                                         <div class="col-sm-8">
-                                            <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                                   required name="ownerComment"
-                                                   onfocus="this.blur()" ng-click="btnAction.searchModel('select_wareLocation_searchModel')"
+                                            <input type="text" ng-model="confirmAsnAction.asnVOModel.locationComment" class="form-control"
+                                                   required name="confirmAsnLocation"
+                                                   onfocus="this.blur()" ng-click="confirmAsnAction.selectLocation()"
                                                    placeholder="请选择">
                                             <span class="fa fa-search form-control-feedback color345795" aria-hidden="true"></span>
                                         </div>
@@ -581,7 +591,7 @@
             </div>
             <!--发货明细 和收货详情-->
             <div class="row">
-                <div class="col-sm-8">
+                <div class="col-sm-12">
                     <div class="panel-group"  role="tablist" aria-multiselectable="true">
                         <div class="panel panel-default">
                             <div class="panel-heading" role="tab" >
@@ -599,85 +609,49 @@
                                         <table class="table table-hover table-striped">
                                             <thead>
                                             <tr>
-                                                <th>
-                                                    <label>
-                                                        <input type="checkbox" aria-label="...">
-                                                    </label>
-                                                </th>
-                                                <th>货品代码</th>
-                                                <th>货品名称</th>
-                                                <th>批次</th>
-                                                <th>规格型号</th>
-                                                <th>包装单位</th>
-                                                <th>数量/公斤/立方</th>
+                                                <th width="3%">序号</th>
+                                                <th width="6%">货品代码</th>
+                                                <th width="14%">货品名称</th>
+                                                <th width="10%">批次</th>
+                                                <th width="10%">规格型号</th>
+                                                <th width="6%">包装单位</th>
+                                                <th width="10%">数量/公斤/立方</th>
+                                                <th width="10%">收货数量</th>
+                                                <th width="10%">收货公斤</th>
+                                                <th width="10%">收货立方</th>
+                                                <th width="10%">收货库位</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <th><label>
-                                                    <input type="checkbox" aria-label="...">
-                                                </label></th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>@mdo</td>
-                                            </tr>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <!-- /表格 -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="panel-group"  role="tablist" aria-multiselectable="true">
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" >
-                                <h3 class="panel-title">
-                                    <div role="button" class="btn-block"  aria-expanded="true" aria-controls="collapseOne">
-                                        收货详情
-                                        <i class="fa fa-minus-square pull-right color345795" aria-hidden="true"></i>
-                                        <i class="fa fa-plus-square pull-right color345795" aria-hidden="true"></i>
-                                    </div>
-                                </h3>
-                            </div>
-                            <div id="collapseThrMS" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                                <div class="panel-body pd5">
-                                    <!--表格-->
-                                    <div class="receive-table" data-example-id="hoverable-table">
-                                        <table class="table table-hover table-striped">
-                                            <thead>
-                                            <tr>
-                                                <th>收货数量</th>
-                                                <th>收货公斤</th>
-                                                <th>收货立方</th>
-                                                <th>收货库位</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
+                                            <tr ng-repeat="pageItem in confirmAsnAction.asnVOModel.listAsnDetailVO"  ng-click="confirmAsnAction.selectModify($index,$event)"
+                                            ng-class="{'info':confirmAsnAction.currentSelectItems==$index}">
+                                                <td ng-bind="$index+1"></td>
+                                                <td title="{{pageItem.skuNo}}" ng-bind="pageItem.skuNo|substr:8:'...'"></td>
+                                                <td title="{{pageItem.skuComment}}" ng-bind="pageItem.skuComment|substr:8:'...'"></td>
+                                                <td ng-bind="pageItem.asnDetail.batchNo"></td>
+                                                <td ng-bind="pageItem.specModelComment"></td>
+                                                <td ng-bind="pageItem.packComment"></td>
+                                                <td ng-bind="pageItem.asnDetail.orderQty + '/' + pageItem.asnDetail.orderWeight + '/' +  pageItem.asnDetail.orderVolume"></td>
                                                 <td>
                                                     <div class="form-group has-feedback MakeSureAsn_input">
-                                                        <input type="number" class="form-control input-sm" ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
+                                                        <input type="number" class="form-control input-sm" ng-model="pageItem.asnDetail.receiveQty" aria-describedby="inputSuccess5Status">
                                                     </div>
                                                 </td>
                                                 <td> <div class="form-group has-feedback MakeSureAsn_input">
-                                                    <input type="number" class="form-control input-sm" ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
+                                                    <input type="number" class="form-control input-sm" ng-model="pageItem.asnDetail.receiveWeight" aria-describedby="inputSuccess5Status">
                                                 </div></td>
                                                 <td> <div class="form-group has-feedback MakeSureAsn_input">
-                                                    <input type="number" class="form-control input-sm" ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
+                                                    <input type="number" class="form-control input-sm" ng-model="pageItem.asnDetail.receiveVolume" aria-describedby="inputSuccess5Status">
                                                 </div></td>
                                                 <td>
-                                                    <div class="form-group has-feedback MakeSureAsn_input">
-                                                    <input type="text" class="form-control input-sm"
-                                                           ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
-                                                    <span class="fa fa-search form-control-feedback right2" ng-click="btnAction.searchModel('select_wareLocation_searchModel')"  aria-hidden="true"></span>
+                                                    <div class="form-group has-feedback MakeSureAsn_input" ng-click="confirmAsnAction.selectDetailLocation($index)" >
+                                                        <input type="text" class="form-control input-sm" onfocus="this.blur()"
+                                                               ng-model="pageItem.locationComment" aria-describedby="inputSuccess5Status">
+                                                        <span class="fa fa-search form-control-feedback right2"  aria-hidden="true"></span>
                                                     </div>
                                                 </td>
-                                            </tr>
 
+                                            </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -692,7 +666,7 @@
 
             <div class="row mg-bm-50">
                 <div class="col-sm-offset-1 col-sm-1">
-                    <button class="btn btn-info">确认收货</button>
+                    <button class="btn btn-info" ng-click="confirmAsnAction.confirmAsn()">确认收货</button>
                 </div>
                 <div class="col-sm-2">
                     <button class="btn btn-info" ng-click="btnAction.MakeSureGetGoodsBtn()">返回</button>
@@ -704,7 +678,7 @@
 
     <!--或者拆分ASN单-->
     <section class="animate-enter-leave posAb" ng-if="btnAction.showSplitAsn">
-        <form class="form-horizontal" name="storeSearchForm" novalidate>
+        <form class="form-horizontal" name="addAsnForm" novalidate>
             <div class="panel-group mg-tp20" role="tablist" aria-multiselectable="true">
                 <div class="panel panel-default">
                     <div class="panel-heading" role="tab" >
@@ -720,112 +694,106 @@
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group  has-feedback">
-                                        <label class="col-sm-3 control-label receive-form-title">仓库</label>
-                                        <div class="col-sm-9">
-                                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group  has-feedback">
-                                        <label class="col-sm-3 control-label receive-form-title">相关单号1</label>
-                                        <div class="col-sm-9">
-                                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group  has-feedback">
-                                        <label class="col-sm-3 control-label receive-form-title">总数量</label>
-                                        <div class="col-sm-9">
-                                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                        <label class="col-sm-3 control-label receive-form-title">ASN单号</label>
+                                        <div class="col-sm-8">
+                                            <label class="text-left form-control pdTp5" ng-bind="splitAsnAction.asnVOModel.asn.asnNo"></label>
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback">
-                                        <label for="inputPassword3" class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>订单日期</label>
-                                        <div class="col-sm-9 ">
-                                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                        <label for="inputPassword3" class="col-sm-3 control-label receive-form-title">
+                                            订单日期</label>
+                                        <div class="col-sm-8">
+                                            <label class="text-left form-control pdTp5" ng-bind="splitAsnAction.asnVOModel.asn.orderDate"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group  has-feedback">
+                                        <label class="col-sm-3 control-label receive-form-title">总数量</label>
+                                        <div class="col-sm-8">
+                                            <label class="col-sm-4 form-control" ng-bind="splitAsnAction.asnVOModel.asn.orderQty"></label>
                                         </div>
                                     </div>
 
-                                    <div class="form-group  has-feedback">
-                                        <label class="col-sm-3 control-label receive-form-title">联系人</label>
-                                        <div class="col-sm-9">
-                                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                    <div class="form-group has-feedback">
+                                        <label for="inputPassword3" class="col-sm-3 control-label receive-form-title">发货方</label>
+                                        <div class="col-sm-8 ">
+                                            <label class="text-left form-control pdTp5" ng-bind="splitAsnAction.asnVOModel.senderComment"></label>
                                         </div>
                                     </div>
+
 
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group  has-feedback">
-                                        <label class="col-sm-4 control-label receive-form-title">ASN单号</label>
+                                        <label class="col-sm-4 control-label receive-form-title">PO单号</label>
                                         <div class="col-sm-8">
-                                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                            <label class="text-left form-control pdTp5" ng-bind="splitAsnAction.asnVOModel.asn.poNo"></label>
                                         </div>
                                     </div>
-                                    <div class="form-group  has-feedback">
-                                        <label class="col-sm-4 control-label receive-form-title">相关单号2</label>
-                                        <div class="col-sm-8">
-                                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
+
+                                    <div class="form-group has-feedback">
+                                        <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">
+                                            货主</label>
+                                        <div class="col-sm-8 ">
+                                            <label class="text-left form-control pdTp5" ng-bind="splitAsnAction.asnVOModel.ownerComment"></label>
                                         </div>
                                     </div>
 
                                     <div class="form-group  has-feedback">
                                         <label class="col-sm-4 control-label receive-form-title">总重量(KG)</label>
                                         <div class="col-sm-8">
-                                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group has-feedback">
-                                        <label for="inputPassword3" class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>货主</label>
-                                        <div class="col-sm-8 ">
-                                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                            <label class="col-sm-4 form-control" ng-bind="splitAsnAction.asnVOModel.asn.orderWeight"></label>
                                         </div>
                                     </div>
 
                                     <div class="form-group  has-feedback">
-                                        <label class="col-sm-4 control-label receive-form-title">联系电话</label>
+                                        <label class="col-sm-4 control-label receive-form-title">联系人</label>
                                         <div class="col-sm-8">
-                                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                            <label class="text-left form-control pdTp5" ng-bind="splitAsnAction.asnVOModel.asn.contactPerson"></label>
                                         </div>
                                     </div>
+
                                 </div>
                                 <div class="col-sm-4">
-                                    <div class="form-group  has-feedback">
-                                        <label class="col-sm-3 control-label receive-form-title">PO单号</label>
-                                        <div class="col-sm-8">
-                                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group  has-feedback">
-                                        <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>单据类型</label>
-                                        <div class="col-sm-8">
-                                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
-                                        </div>
-                                    </div>
 
+                                    <div class="form-group  has-feedback">
+                                        <label class="col-sm-3 control-label receive-form-title">单据类型</label>
+                                        <div class="col-sm-8">
+                                            <label class="text-left form-control pdTp5" ng-bind="splitAsnAction.asnVOModel.docTypeComment"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group  has-feedback">
+                                        <label class="col-sm-3 control-label receive-form-title">相关单号1</label>
+                                        <div class="col-sm-8">
+                                            <label class="text-left form-control pdTp5" ng-bind="splitAsnAction.asnVOModel.asn.asnNo1"></label>
+                                        </div>
+                                    </div>
                                     <div class="form-group  has-feedback">
                                         <label class="col-sm-3 control-label receive-form-title">总体积(CBM)</label>
                                         <div class="col-sm-8">
-                                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                            <label class="col-sm-4 form-control " ng-bind="splitAsnAction.asnVOModel.asn.orderVolume"></label>
                                         </div>
                                     </div>
-                                    <div class="form-group has-feedback">
-                                        <label for="inputPassword3" class="col-sm-3 control-label receive-form-title">发货方</label>
-                                        <div class="col-sm-8 ">
-                                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
+
+                                    <div class="form-group  has-feedback">
+                                        <label class="col-sm-3 control-label receive-form-title">联系电话</label>
+                                        <div class="col-sm-8">
+                                            <label class="text-left form-control pdTp5" ng-bind="splitAsnAction.asnVOModel.asn.contactPhone"></label>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                             <div class="row mg-lf">
                                 <div class="form-group  has-feedback">
                                     <label class="col-sm-1 control-label receive-form-title">联系地址</label>
                                     <div class="col-sm-8">
-                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                        <label class="text-left form-control pdTp5" ng-bind="splitAsnAction.asnVOModel.asn.contactAddress"></label>
                                     </div>
                                 </div>
                                 <div class="form-group  has-feedback">
                                     <label class="col-sm-1 control-label receive-form-title">备注</label>
                                     <div class="col-sm-8">
-                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                        <label class="text-left form-control pdTp5" ng-bind="splitAsnAction.asnVOModel.asn.note"></label>
                                     </div>
                                 </div>
                             </div>
@@ -847,7 +815,6 @@
                     </div>
                     <div id="splitAsnTable" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                         <div class="panel-body pd5">
-
                             <!--表格-->
                             <div class="receive-table" data-example-id="hoverable-table">
                                 <table class="table table-hover table-striped">
@@ -866,37 +833,45 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <th>1</th>
+                                    <tr ng-repeat="pageItem in splitAsnAction.pageListAsnDetailVO track by $index">
+                                        <th ng-bind="$index+1"></th>
                                         <td width="14rem">
                                             <div class="form-group has-feedback splitAsn_input">
-                                                <input type="number" class="form-control input-sm" ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
-                                                <span class="fa fa-times form-control-feedback right20" clear-input-btn="searchReceiveMsg.ownerComment" aria-hidden="true"></span>
-                                                <span class="fa fa-repeat form-control-feedback right0" aria-hidden="true"></span>
-                                            </div>
-                                        </td>
-                                        <td width="14rem">
-                                            <div class="form-group has-feedback splitAsn_input">
-                                                <input type="number" class="form-control input-sm" ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
-                                                <span class="fa fa-times form-control-feedback right20" clear-input-btn="searchReceiveMsg.ownerComment" aria-hidden="true"></span>
-                                                <span class="fa fa-repeat form-control-feedback right0" aria-hidden="true"></span>
-                                            </div>
-                                        </td>
-                                        <td width="14rem">
-                                            <div class="form-group has-feedback splitAsn_input">
-                                                <input type="number" class="form-control input-sm" ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
-                                                <span class="fa fa-times form-control-feedback right20" clear-input-btn="searchReceiveMsg.ownerComment" aria-hidden="true"></span>
-                                                <span class="fa fa-repeat form-control-feedback right0" aria-hidden="true"></span>
-                                            </div>
-                                        </td>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>Otto</td>
-                                    </tr>
+                                                <input type="number" class="form-control input-sm" max="{{pageItem.asnDetail.orderQty}}" ng-model="splitAsnAction.asnVOModel.listAsnDetailVO[$index].splitQty" aria-describedby="inputSuccess5Status">
+                                                <span ng-if="splitAsnAction.asnVOModel.listAsnDetailVO[$index].splitQty!=''" min="0"
+                                                      class="fa fa-times-circle  form-control-feedback right20" turn-to-min="splitAsnAction.asnVOModel.listAsnDetailVO[$index].splitQty" aria-hidden="true"></span>
 
+                                                <span class="fa fa-repeat form-control-feedback right0"  max="{{pageItem.asnDetail.orderQty}}"
+                                                      turn-to-max="splitAsnAction.asnVOModel.listAsnDetailVO[$index].splitQty"  aria-hidden="true"></span>
+                                            </div>
+                                        </td>
+                                        <td width="14rem">
+                                            <div class="form-group has-feedback splitAsn_input">
+                                                <input type="number" class="form-control input-sm" max="{{pageItem.asnDetail.orderWeight}}" ng-model="splitAsnAction.asnVOModel.listAsnDetailVO[$index].splitWeight" aria-describedby="inputSuccess5Status">
+                                                <span ng-if="splitAsnAction.asnVOModel.listAsnDetailVO[$index].splitWeight!=''" min="0"
+                                                      class="fa fa-times-circle  form-control-feedback right20" turn-to-min="splitAsnAction.asnVOModel.listAsnDetailVO[$index].splitWeight" aria-hidden="true"></span>
+                                                <span class="fa fa-repeat form-control-feedback right0"  max="{{pageItem.asnDetail.orderWeight}}"
+                                                      turn-to-max="splitAsnAction.asnVOModel.listAsnDetailVO[$index].splitWeight"  aria-hidden="true"></span>
+
+                                            </div>
+                                        </td>
+                                        <td width="14rem">
+                                            <div class="form-group has-feedback splitAsn_input">
+                                                <input type="number" class="form-control input-sm" max="{{pageItem.asnDetail.orderVolume}}" ng-model="splitAsnAction.asnVOModel.listAsnDetailVO[$index].splitVolume" aria-describedby="inputSuccess5Status">
+
+                                                <span ng-if="splitAsnAction.asnVOModel.listAsnDetailVO[$index].splitVolume!=''" min="0"
+                                                      class="fa fa-times-circle  form-control-feedback right20" turn-to-min="splitAsnAction.asnVOModel.listAsnDetailVO[$index].splitVolume" aria-hidden="true"></span>
+                                                <span class="fa fa-repeat form-control-feedback right0"  max="{{pageItem.asnDetail.orderVolume}}"
+                                                      turn-to-max="splitAsnAction.asnVOModel.listAsnDetailVO[$index].splitVolume"  aria-hidden="true"></span>
+                                            </div>
+                                        </td>
+                                        <td ng-bind="pageItem.asnDetail.orderQty+'/'+ pageItem.asnDetail.orderWeight +'/'+pageItem.asnDetail.orderVolume"></td>
+                                        <td ng-bind="pageItem.skuNo"></td>
+                                        <td ng-bind="pageItem.skuComment"></td>
+                                        <td ng-bind="pageItem.asnDetail.batchNo"></td>
+                                        <td ng-bind="pageItem.specModelComment"></td>
+                                        <td ng-bind="pageItem.asnDetail.measureUnit"></td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -908,10 +883,10 @@
 
             <div class="row mg-bm-50">
                 <div class="col-sm-offset-1 col-sm-1">
-                    <button class="btn btn-info">确认拆分</button>
+                    <button class="btn btn-info" ng-click="splitAsnAction.splitAsn()">确认拆分</button>
                 </div>
                 <div class="col-sm-2">
-                    <button class="btn btn-info" ng-click="btnAction.splitAsn()">返回</button>
+                    <button class="btn btn-info" ng-click="btnAction.backToIndex()">返回</button>
                 </div>
             </div>
         </form>
@@ -923,5 +898,99 @@
         <asn-detail></asn-detail>
     </section>
     <!--查看ASN单指令end-->
+
+    <!--批量收货按钮弹框-->
+    <search-modal  id="bulkGoodsModal">
+        <div class="modal-body">
+            <div class="row modal_row">
+                <div class="col-sm-5 col-sm-offset-1">
+                    <div class="form-group">
+                        <label  class="col-sm-5 control-label receive-form-title modal_label"><span class="color-red">*</span>收货库位 </label>
+                        <div class="col-sm-7 ">
+                            <input type="text" ng-model="batchConfirmAsnAction.asnVOModel.locationComment"
+                                   class="form-control"   onfocus="this.blur()" ng-click="batchConfirmAsnAction.selectLocation()"
+                                   placeholder="收货库位">
+                            <span  class="fa fa-search form-control-feedback modal_search" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="form-group has-feedback">
+                        <label  class="col-sm-5 control-label receive-form-title modal_label"><span class="color-red">*</span>作业人员 </label>
+                        <div class="col-sm-7 ">
+                            <input type="text" ng-model="batchConfirmAsnAction.asnVOModel.opPersonComment"
+                                   class="form-control"   onfocus="this.blur()" ng-click="batchConfirmAsnAction.selectOpPerson()"
+                                   placeholder="作业人员">
+                            <span  class="fa fa-search form-control-feedback modal_search" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <div class="row">
+                <div class="col-sm-2 col-sm-offset-3">
+                    <button type="button" class="btn btn-info" ng-click="batchConfirmAsnAction.batchConfirmAsn()" >批量收货</button>
+                </div>
+                <div class="col-sm-2 col-sm-offset-2">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+                </div>
+            </div>
+
+
+        </div>
+    </search-modal>
+    <!--批量收货按钮弹框end-->
+
+    <!--库存导入调用 -->
+    <section class="animate-enter-leave posAb" ng-if="btnAction.showImport">
+        <form class="form-horizontal" name="storeSearchForm" novalidate>
+            <div class="panel-group mg-tp20" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab">
+                        <h3 class="panel-title">
+                            <a role="button" ng-init="status.open=true" ng-click="status.open=!status.open" class="btn-block" data-toggle="collapse" data-target="#collapseOness"  aria-expanded="true" aria-controls="collapseOne">
+                                库存导入
+                                <i class="fa  pull-right" ng-class="{'fa-hand-paper-o': status.open, 'fa-hand-rock-o': !status.open}" aria-hidden="true"></i>
+                            </a>
+                        </h3>
+                    </div>
+                    <div id="collapseOness" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-3 col-sm-offset-1">
+                                    <div class="form-group  has-feedback">
+                                        <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>库存导入</label>
+                                        <div class="col-sm-8">
+                                            <input type="file" ng-model="searchReceiveMsg.ownerComment" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <div class="form-group  has-feedback">
+                                        <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>库存导入</label>
+                                        <div class="col-sm-8">
+                                            <label class="text-left pdTp5"><a href="/1.txt">库存导入模板.xls</a></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-offset-2 col-sm-2">
+                                    <button class="btn btn-info">导入</button>
+                                </div>
+                                <div class="col-sm-2">
+                                    <button class="btn btn-info" ng-click="btnAction.backToIndex()">返回</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+    <!--库存导入end-->
 
 </section>

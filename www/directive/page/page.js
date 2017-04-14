@@ -7,9 +7,10 @@
  * 2016年8月17日-下午13:39:30
  */
 require('./page.css');
-module.exports = angular.module('directive.page', []).directive('page', ['$http','webroot','queryString','tooltip',function ($http, webroot, queryString, tooltip) {
+module.exports = angular.module('directive.page', []).directive('page', ['$http','webroot','queryString','tooltip','loadingModalServer',function ($http, webroot, queryString, tooltip,loadingModalServer) {
     return {
-        template: '<div class="page-main" ng-show="pageData.length >= 0">' +
+        template: '<div class="page-container">' +
+                   '<div class="page-main" ng-show="pageData.length >= 0">' +
                       '<ul class="page-num">' +
                         ' <li ng-class="{disabled: pageConfig.currentPage == 0}" ng-click="getPage(0);">首页</li>' +
                          '<li ng-click="getPagePrev();" ng-class="{disabled: pageConfig.currentPage == 0}">‹</li>' +
@@ -22,19 +23,26 @@ module.exports = angular.module('directive.page', []).directive('page', ['$http'
                           '<div class="input-group-btn open">' +
                                '<button ng-click="vm.visible = !vm.visible" class="btn btn-info dropdown-toggle">' +
                                '<span class="caret"></span></button>' + '<ul ng-show="vm.visible" class="dropdown-menu dropdown-menu-left">' +
-        '<li ng-click="selectPageSize(item);" ng-repeat="item in pageConfig.pageSizeData"><a>{{item}} 条/页</a></li>' +
-        '</ul>' +
-        '</div>' +
+                                  '<li ng-click="selectPageSize(item);" ng-repeat="item in pageConfig.pageSizeData"><a>{{item}} 条/页</a></li>' +
+                                '</ul>' +
+                           '</div>' +
                        '</div>' +
                        '<div class="page-last">' +
                             '到 <input ng-blur="getPage(currentPage - 1);" ng-model="currentPage" type="text"> 页' +
                              ' <button ng-click="getPage(currentPage - 1);" type="button" class="btn btn-info">确定</button> &nbsp;&nbsp;' +
                             '共{{pageConfig.currentPage + 1}}/{{pageConfig.totalPage}}页' +
                         '</div>{{vm.selectPageSize}}' +
-                      '</div>'
-        ,
+                      '</div>'+
+                    '</div>',
         replace: false,
         restrict: "AE",
+        scope:{
+            pageModelQuery:'=', //page-model-query 是page指令 需要的查询条件 绑定到用户输入  用户点击查询 然后把值传给它
+            pageData:'=',//page-data 是指令 page查询之后 输出的数据 绑定到对应的 table里
+            url:'@',
+            defaultSearch:'@',
+            func:'&'
+        },
         link: function (scope, element, attrs) {
             scope.vm = {
                 'visible':false
@@ -49,18 +57,18 @@ module.exports = angular.module('directive.page', []).directive('page', ['$http'
                 pageLength: 10, //分页显示的长度
                 pageSizeData:[10,20,40,60,80,100], //选择每页显示条数数据
                 url:'',
-                headerType:'application/json'
+                headerType:'application/json;charset=UTF-8'//,
             };
             if (scope.pageConfig.pageLength) {
                 scope.pageConfig.pageLength = scope.pageConfig.pageLength;
             } else {
                 scope.pageConfig.pageLength = 16;
             }
-
             scope.pageModel = { //分页查询model
                 currentPage:scope.pageConfig.currentPage,
                 pageSize:scope.pageConfig.pageSize
             };
+
 
             //计算分页数
             function totalPage() {
@@ -92,7 +100,7 @@ module.exports = angular.module('directive.page', []).directive('page', ['$http'
                     }
                 }
             }
-
+            var pageModel={};
             //设置每页显示条数
             scope.setPageSize = function (e,type) {
                 e = e || event;
@@ -129,38 +137,94 @@ module.exports = angular.module('directive.page', []).directive('page', ['$http'
             };
 
             //获取分页数据
-            // scope.pageData = [];
-            scope.getPageByJson = function (url) {
-                if(url != '' && url != null){
-                    scope.pageConfig.url = url;
-                    scope.pageConfig.currentPage = 0;
-                    scope.pageModel.currentPage = 0;
-                }
 
+            if(!scope.defaultSearch||scope.defaultSearch=='true'){
+               scope.$watch('pageModelQuery',function(event,data){
+                    scope.pageModel = { //分页查询model
+                        currentPage:0,
+                        pageSize:8
+                    };
+                   scope.pageConfig.currentPage = 0;
+                    scope.getPageByJson();
+                });
+            }else{
+                scope.$on('pageModelQuery',function(event,data){
+                    scope.pageModel = { //分页查询model
+                        currentPage:0,
+                        pageSize:8
+                    };
+                    scope.pageConfig.currentPage = 0;
+                    if(scope.url&&data==scope.url){
+                        scope.getPageByJson();
+                    }
+                })
+            }
+
+            if(scope.url){
+                scope.pageConfig.url = scope.url;
+                scope.pageConfig.currentPage = 0;
+                scope.pageModel.currentPage = 0;
+            }else{
+                console.error('你没有绑定url属性，需要绑定并初始化你绑定的数据')
+            }
+            scope.getPageByJson = function () {
+                if(scope.pageModelQuery) {
+                    Object.assign(pageModel,scope.pageModel,scope.pageModelQuery);
+                }else{
+                    console.error('你没有绑定pageModelQuery属性，需要绑定并初始化你绑定的数据')
+                }
+                loadingModalServer.show();
+                scope.pageData = [];
                 $http({
                     method: 'POST',
-                    // url: webroot + scope.pageConfig.url,
-                    url:  scope.pageConfig.url,
-                    data: scope.pageConfig.headerType == 'application/x-www-form-urlencoded' ? queryString(scope.pageModel) : scope.pageModel,
+                    url: webroot + scope.pageConfig.url, //192.168.0.1/wms/act/ab;192.168.0.1/wms/act/cs/sdfs
+                    data: scope.pageConfig.headerType == 'application/x-www-form-urlencoded' ? queryString(pageModel) : pageModel,
                     headers: {
                         'Content-Type': scope.pageConfig.headerType
                     }
                 }).then(function (res) {
-                    if (data != "" && data != null && data.status == 0) {
+                    setTimeout(function(){
+                        loadingModalServer.hide();
+                    },0);
+                    var data;
+                    if(res.data){
+                        data=res.data;
+                    }
+                    if (data != "" && data != null && data.status ==1) {
                         if((data.result.list != [] && data.result.list != null) && data.result.list.length <= 0 && scope.pageModel.currentPage > 0){
                             scope.pageConfig.currentPage--;
                             scope.pageModel.currentPage--;
                             scope.getPageByJson();
                             return;
                         }
-                        scope.pageData = res.data.result.list;
+                        if(scope.pageData){
+                            scope.pageData = res.data.result.list;
+                        }else{
+                            console.error('你没有绑定pageData属性，需要绑定并初始化你绑定的数据')
+                        }
+
+
                         scope.pageConfig.total = res.data.result.totalCount; //获取总记录数
                         totalPage(); //计算分页数
                     } else {
                         scope.pageData = [];
                         scope.pageConfig.totalPage = 0;
-                        tooltip(data.message);
+                        if(data.message){
+                            tooltip(data.message);
+                        }
                     }
+                    if(scope.func){
+                        scope.func();
+                    }
+                },function(response){
+                    if (response.data&&response.data.message ) {
+                        tooltip(response.data.message);
+                    } else {
+                        tooltip('网络错误，请稍后再试！');
+                    }
+                    setTimeout(function(){
+                        loadingModalServer.hide();
+                    },800);
                 });
                 scope.logic.checked = false;
             };
@@ -170,7 +234,6 @@ module.exports = angular.module('directive.page', []).directive('page', ['$http'
                 scope.pageConfig.headerType = 'application/x-www-form-urlencoded';
                 scope.getPageByJson(url);
             };
-
             //点击分页加载数据
             scope.getPage = function (currentPage) {
                 if (currentPage == scope.pageConfig.currentPage) { //如果index等于当前页，不执行任何操作
@@ -217,9 +280,10 @@ module.exports = angular.module('directive.page', []).directive('page', ['$http'
                 }
                 scope.pageModel.currentPage = scope.pageConfig.currentPage;
                 scope.getPageByJson();//获取分页数据
-            }
-
-            angular.element(document).click(function(e){
+            };
+            console.log("page link了 开始查询了");
+            //scope.getPageByJson(scope.url);
+            $(element).click(function(e){
                 if(e.target.className != 'btn btn-info dropdown-toggle'){
                     setTimeout(function(){
                         scope.vm.visible = false;

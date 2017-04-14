@@ -259,32 +259,32 @@ module.exports = angular.module('app.basicData', []).config(['$urlRouterProvider
             }
         })
             // 库容量设置模块 已经被卡掉
-        // .state('warehouse.basicData.databaseSetup', {
-        //     url: '/databaseSetup',
-        //     templateProvider: function($q) {
-        //         var deferred = $q.defer();
-        //         require.ensure(['./views/databaseSetup.html'], function(require) {
-        //             var template = require('./views/databaseSetup.html');
-        //             deferred.resolve(template);
-        //         }, 'databaseSetup-tpl');
-        //         return deferred.promise;
-        //     },
-        //     controller: 'databaseSetupCtrl',
-        //     controllerAs: 'databaseSetupController',
-        //     resolve: {
-        //         'app.basicData': function($q, $ocLazyLoad) {
-        //             var deferred = $q.defer();
-        //             require.ensure(['./controllers/databaseSetupCtrl.js'], function() {
-        //                 var mod = require('./controllers/databaseSetupCtrl.js');
-        //                 $ocLazyLoad.load({
-        //                     name: 'app.basicData'
-        //                 });
-        //                 deferred.resolve(mod.controller);
-        //             }, 'basicData-ctl');
-        //             return deferred.promise;
-        //         }
-        //     }
-        // })
+        .state('warehouse.basicData.databaseSetup', {
+            url: '/databaseSetup',
+            templateProvider: function($q) {
+                var deferred = $q.defer();
+                require.ensure(['./views/databaseSetup.html'], function(require) {
+                    var template = require('./views/databaseSetup.html');
+                    deferred.resolve(template);
+                }, 'databaseSetup-tpl');
+                return deferred.promise;
+            },
+            controller: 'databaseSetupCtrl',
+            controllerAs: 'databaseSetupController',
+            resolve: {
+                'app.basicData': function($q, $ocLazyLoad) {
+                    var deferred = $q.defer();
+                    require.ensure(['./controllers/databaseSetupCtrl.js'], function() {
+                        var mod = require('./controllers/databaseSetupCtrl.js');
+                        $ocLazyLoad.load({
+                            name: 'app.basicData'
+                        });
+                        deferred.resolve(mod.controller);
+                    }, 'basicData-ctl');
+                    return deferred.promise;
+                }
+            }
+        })
         .state('warehouse.basicData.equipmentMgmt', {
             url: '/equipmentMgmt',
             templateProvider: function($q) {

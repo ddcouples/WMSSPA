@@ -7,10 +7,10 @@
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title">货主</label>
                             <div class="col-sm-8">
-                                <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                       required name="ownerComment"
+                                <input type="text" ng-model="searchPickForm.ownerName" class="form-control"
+                                       required name="ownerName"
                                        placeholder="货主">
-                                <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchReceiveMsg.ownerComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!searchPickForm.ownerName.$error.required"  clear-input-btn="searchPickForm.ownerName"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
 
@@ -19,10 +19,10 @@
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title">发货单号</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.poNo"
-                                       name="poNo" required
+                                <input type="text" class="form-control"  ng-model="searchPickForm.deliveryNo"
+                                       name="deliveryNo" required
                                        placeholder="发货单号">
-                                <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchReceiveMsg.asn.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!searchPickForm.deliveryNo.$error.required"  clear-input-btn="searchPickForm.deliveryNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
 
@@ -31,10 +31,10 @@
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">波次单号</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                       name="asnNo" required
+                                <input type="text" class="form-control"  ng-model="searchPickForm.waveNo"
+                                       name="waveNo" required
                                        placeholder="发货单号">
-                                <span ng-if="!storeSearchForm.asnNo.$error.required" clear-input-btn="searchReceiveMsg.asn.asnNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!searchPickForm.waveNo.$error.required" clear-input-btn="searchPickForm.waveNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
 
@@ -43,9 +43,9 @@
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">状态</label>
                             <div class="col-sm-8">
-                                <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
+                                <select class="form-control" ng-model="searchPickForm.sendPick.pickStatus">
                                     <option value="" selected>请选择</option>
-                                    <option value="{{l.key}}" ng-repeat="l in getOriginData.asnStatusLists">{{l.value}}</option>
+                                    <option value="{{l.key}}" ng-repeat="l in getOriginData.PICKSTATUS">{{l.value}}</option>
                                 </select>
                             </div>
                         </div>
@@ -68,23 +68,21 @@
         <!--按钮组-->
         <div class="row ">
             <div class="col-sm-10 col-sm-offset-1">
-                <button type="button" ng-click="btnAction.addAsn()" class="btn btn-info">新增</button>
+                <button type="button" ng-click="btnAction.newPick()" class="btn btn-info">新增</button>
 
-                <button type="button" ng-click="btnAction.modifyAsn()" class="btn btn-info">修改</button>
+                <button type="button" ng-click="btnAction.modify()" class="btn btn-info">修改</button>
 
-                <button type="button" class="btn btn-info">生效</button>
+                <button type="button" class="btn btn-info" ng-click="btnAction.active()">生效</button>
 
-                <button type="button" class="btn btn-info">失效</button>
+                <button type="button" class="btn btn-info" ng-click="btnAction.disable()">失效</button>
 
-                <button type="button" class="btn btn-info">取消</button>
-
-                <button type="button" class="btn btn-info">作业</button>
+                <button type="button" class="btn btn-info" ng-click="btnAction.abolish()">取消</button>
 
                 <button type="button" ng-click="btnAction.MakeSureWorkBtn()" class="btn btn-info">作业确认</button>
 
-                <button type="button" ng-click="btnAction.splitAsn()" class="btn btn-info">拆分</button>
+                <button type="button" ng-click="btnAction.split()" class="btn btn-info">拆分</button>
 
-                <button type="button" class="btn btn-info">取消拆分</button>
+                <button type="button" class="btn btn-info" ng-click="btnAction.removeSplit()">取消拆分</button>
 
 
             </div>
@@ -96,67 +94,50 @@
                 <tr>
                     <th>
                         <label>
-                            <input type="checkbox" aria-label="...">
+                            <input type="checkbox" ng-model="searchAction.selectedAll" ng-change="searchAction.chkSelectAll(searchAction.selectedAll)">
                         </label>
                     </th>
                     <th>序号</th>
                     <th>货主</th>
-                    <th>仓库</th>
                     <th>拣货单号</th>
                     <th>发货单号</th>
                     <th>波次单号</th>
-                    <th>父编码</th>
-                    <th>
-                        单据类型
-                    </th>
+                    <th>父编号</th>
+                    <th>单据类型</th>
                     <th>订单数量/公斤/立方</th>
-                    <th>分配数量/公斤/立方</th>
                     <th>拣货数量/公斤/立方</th>
                     <th>状态</th>
                     <th>作业人员<br>
                         作业时间
                     </th>
-                    <th>创建人<br>
-                        创建时间</th>
-                    <th>最后修改人<br/>
-                        修改时间</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                <tr>
+                <tr ng-repeat="item in searchAction.dataList track by $index"
+                    ng-click="searchAction.selectOne($index,$event)">
                     <th><label>
-                        <input type="checkbox" aria-label="...">
+                        <input type="checkbox" ng-model="searchAction.selectedItems[$index]" ng-change="searchAction.selectOne($index,$event)">
                     </label></th>
-                    <td>1</td>
-                    <td>联想</td>
-                    <td>广州RDC</td>
-                    <td><a ng-click="btnAction.showAsnDetailActionGetData(13)">435325345345</a></td>
-                    <td>29070979</td>
-                    <td></td>
-                    <td></td>
-                    <td>采购订单</td>
-                    <td>100/0/0</td>
-                    <td>100/0/0</td>
-                    <td>100/0/0</td>
-                    <td>生效</td>
-                    <td></td>
-                    <td>张三<br>
-                        2016/10/10 <br>
-                        22:22:22</td>
-                    <td>张三<br>
-                        2016/10/10 <br>
-                        22:22:22</td>
+                    <td>{{$index+1}}</td>
+                    <td>{{item.ownerName}}</td>
+                    <td><a ng-bind="item.sendPick.pickNo" ng-click="btnAction.view(item.sendPick.pickId)"></a></td>
+                    <td>{{item.deliveryNo}}</td>
+                    <td>{{item.waveNo}}</td>
+                    <td title="{{item.sendPick.parentId}}">{{item.sendPick.parentId| substr:6:'...'}}</td>
+                    <td>{{item.docTypeComment}}</td>
+                    <td>{{item.sendPick.planPickQty}}/{{item.sendPick.planPickWeight}}/{{item.sendPick.planPickVolume}}</td>
+                    <td>{{item.sendPick.realPickQty}}/{{item.sendPick.realPickWeight}}/{{item.sendPick.realPickVolume}}</td>
+                    <td>{{item.statusComment}}</td>
+                    <td>{{item.sendPick.opPerson}}<br>
+                        {{item.sendPick.opTime}}</td>
                 </tr>
                 </tr>
-
                 </tbody>
             </table>
         </div>
         <!-- /example -->
-
-
-        <page></page>
+        <page page-data="searchAction.dataList" url="{{searchUrl}}" page-model-query="pickPageModelQuery"></page>
 
 
     </div>
@@ -181,82 +162,75 @@
                     <div class="panel-body">
 
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
+
                                 <div class="form-group  has-feedback">
-                                    <label class="col-sm-3 control-label receive-form-title">仓库</label>
-                                    <div class="col-sm-9">
-                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                    <label class="col-sm-4 control-label receive-form-title">发货单号</label>
+                                    <div class="col-sm-8">
+                                        <label class="text-left pdTp5">{{newAndModifyAction.pickVo.deliveryNo}}</label>
                                     </div>
                                 </div>
                                 <div class="form-group  has-feedback">
-                                    <label class="col-sm-3 control-label receive-form-title">发货单号</label>
-                                    <div class="col-sm-9">
-                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                    <label class="col-sm-4 control-label receive-form-title">待拣货数量</label>
+                                    <div class="col-sm-8">
+                                        <label class="text-left pdTp5" >{{newAndModifyAction.pickVo.sendPick.planPickQty}}</label>
                                     </div>
                                 </div>
+
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <div class="form-group  has-feedback">
                                     <label class="col-sm-4 control-label receive-form-title">拣货单号</label>
                                     <div class="col-sm-8">
-                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                        <label class="text-left pdTp5">{{newAndModifyAction.pickVo.sendPick.pickNo}}</label>
                                     </div>
                                 </div>
+                                <div class="form-group  has-feedback">
+                                    <label class="col-sm-4 control-label receive-form-title">待拣货公斤</label>
+                                    <div class="col-sm-8">
+                                        <label class="text-left pdTp5" >{{newAndModifyAction.pickVo.sendPick.planPickWeight}}</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-3">
                                 <div class="form-group  has-feedback">
                                     <label class="col-sm-4 control-label receive-form-title">波次单号</label>
                                     <div class="col-sm-8">
-                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                        <label class="text-left pdTp5">{{newAndModifyAction.pickVo.sendPick.waveNo}}</label>
                                     </div>
                                 </div>
+                                <div class="form-group  has-feedback">
+                                    <label class="col-sm-4 control-label receive-form-title">待拣货立方</label>
+                                    <div class="col-sm-8">
+                                        <label class="text-left pdTp5" >{{newAndModifyAction.pickVo.sendPick.planPickVolume}}</label>
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <div class="form-group  has-feedback">
                                     <label class="col-sm-4 control-label receive-form-title">单据类型</label>
                                     <div class="col-sm-8">
-                                        <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
+                                        <select class="form-control" ng-model="newAndModifyAction.pickVo.sendPick.docType" disabled>
                                             <option value="" selected>请选择</option>
-                                            <option value="{{l.key}}" ng-repeat="l in getOriginData.asnStatusLists">{{l.value}}</option>
+                                            <option value="{{l.key}}" ng-repeat="l in getOriginData.PICKTYPE">{{l.value}}</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
-                            <div class="col-sm-4">
-                                <div class="form-group  has-feedback">
-                                    <label class="col-sm-3 control-label receive-form-title">待拣货数量</label>
-                                    <div class="col-sm-9">
-                                        <label class="text-left pdTp5">10000</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group  has-feedback">
-                                    <label class="col-sm-4 control-label receive-form-title">待拣货公斤</label>
-                                    <div class="col-sm-8">
-                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group  has-feedback">
-                                    <label class="col-sm-4 control-label receive-form-title">待拣货立方</label>
-                                    <div class="col-sm-8">
-                                        <label class="text-left pdTp5">11111</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mg-lf">
                             <div class="form-group  has-feedback">
                                 <label class="col-sm-1 control-label receive-form-title">备注</label>
                                 <div class="col-sm-8">
-                                    <textarea class="form-control" rows="3" placeholder="备注"></textarea>
+                                    <textarea class="form-control" rows="3" placeholder="备注" ng-model="newAndModifyAction.pickVo.sendPick.remark"></textarea>
                                 </div>
                             </div>
                         </div>
 
-                        <!--tabs-->
+                        <!--tabs 发货单-->
                         <div class="row mg-lf">
                             <div class="col-sm-9 col-sm-offset-1">
                                 <uib-tabset active="active">
@@ -266,6 +240,11 @@
                                             <table class="table table-hover table-striped">
                                                 <thead>
                                                 <tr>
+                                                    <th width="10%">
+                                                        <label>
+                                                            <input type="checkbox" >
+                                                        </label>
+                                                    </th>
                                                     <th>源单号</th>
                                                     <th>发货单号</th>
                                                     <th>货主</th>
@@ -276,10 +255,17 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr>
-                                                    <td>Mark</td>
-                                                    <td>Otto</td>
-                                                    <td>@mdo</td>
+                                                <tr ng-repeat="l in newAndModifyAction.deliveryVoList track by $index"  ng-class="{danger:l.display}" ng-if="!l.display" ng-model="l.selectedStatus">
+                                                    <th width="10%"><label>
+                                                        <input type="checkbox" ng-model="newAndModifyAction.delItems[$index]" >
+                                                    </label></th>
+                                                    <td width="18%">{{l.sendDelivery.srcNo}}</td>
+                                                    <td width="18%" title="{{l.sendDelivery.deliveryNo}}">{{l.sendDelivery.deliveryNo | substr : 8:'...'}}</td>
+                                                    <td width="10%">{{l.ownerName}}</td>
+                                                    <td width="12%">{{l.sendDelivery.orderTime}}</td>
+                                                    <td width="10%">{{l.sendDelivery.orderQty}}</td>
+                                                    <td width="10%">{{l.sendDelivery.orderSkuQty}}</td>
+                                                    <td width="10%">{{l.sendDelivery.orderQty-l.sendDelivery.pickQty}}</td>
                                                 </tr>
 
                                                 </tbody>
@@ -297,20 +283,26 @@
                                             <table class="table table-hover table-striped">
                                                 <thead>
                                                 <tr>
+                                                    <th width="10%">
+                                                        <label>
+                                                            <input type="checkbox" >
+                                                        </label>
+                                                    </th>
                                                     <th>波次单号</th>
                                                     <th>发货单数量</th>
-                                                    <th>货主</th>
-                                                    <th>创建日期</th>
-                                                    <th>创建人</th>
                                                     <th>待拣货货品数</th>
                                                     <th>待拣货总数量</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr>
-                                                    <td>Mark</td>
-                                                    <td>Otto</td>
-                                                    <td>@mdo</td>
+                                                <tr ng-repeat="l in newAndModifyAction.waveVoList"  ng-class="{danger:l.display}" ng-if="!l.display" ng-model="l.selectedStatus">
+                                                    <th width="10%"><label>
+                                                        <input type="checkbox" ng-model="newAndModifyAction.waveItems[$index]" >
+                                                    </label></th>
+                                                    <td width="18%" title="{{l.sendWave.waveNo}}">{{l.sendWave.waveNo | substr : 8:'...'}}</td>
+                                                    <td width="18%" >{{l.sendWave.deliveryAmount}}</td>
+                                                    <td width="12%">{{l.sendWave.orderSkuQty}}</td>
+                                                    <td width="10%">{{l.sendWave.orderQty - l.sendWave.pickQty}}</td>
                                                 </tr>
 
                                                 </tbody>
@@ -322,18 +314,19 @@
                             </div>
                         </div>
                         <!--tabs end-->
-
+                        <!--tabs 波次单-->
                         <div class="row mg-tp20">
                             <div class="col-sm-offset-1 col-sm-1">
-                                <button class="btn btn-info">选择</button>
+                                <button class="btn btn-info" ng-click="newAndModifyAction.addPickSku(active)">加入列表</button>
                             </div>
                             <div class="col-sm-1">
-                                <button class="btn btn-info" ng-click="btnAction.addAsn()">取消</button>
+                                <button class="btn btn-info" ng-click="newAndModifyAction.delSku()">删除</button>
                             </div>
                             <div class="col-sm-1">
-                                <button class="btn btn-info" ng-click="btnAction.addAsn()">自动分配</button>
+                                <button class="btn btn-info" ng-if="newAndModifyAction.allocateBtn_display" ng-click="newAndModifyAction.autoAllocate()">自动分配</button>
                             </div>
                         </div>
+                        <!--tabs 波次单 end-->
                     </div>
                 </div>
             </div>
@@ -360,7 +353,7 @@
                                         <tr>
                                             <th>
                                                 <label>
-                                                    <input type="checkbox" aria-label="...">
+                                                    <input type="checkbox" aria-label="..." ng-model="detailSelectAction.selectedAll" ng-change="detailSelectAction.chkSelectAll(detailSelectAction.selectedAll)">
                                                 </label>
                                             </th>
                                             <th>货品代码</th>
@@ -372,13 +365,17 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
+                                        <tr ng-repeat="l in newAndModifyAction.pickDetailVoList"  class="cursor_pointer"
+                                            ng-class="{'info':planLocationAction.selectedIndex==$index}" ng-click="planLocationAction.sendDetailSelect(l,$index,$event)">
                                             <th><label>
-                                                <input type="checkbox" aria-label="...">
+                                                <input type="checkbox" aria-label="..." ng-model="detailSelectAction.selectedItems[$index]" ng-change="detailSelectAction.selectOne($index,$event)">
                                             </label></th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
+                                            <td>{{l.skuNo}}</td>
+                                            <td>{{l.skuName}}</td>
+                                            <td>{{l.sendPickDetail.batchNo}}</td>
+                                            <td>{{l.specModel}}</td>
+                                            <td>{{l.sendPickDetail.measureUnit}}</td>
+                                            <td>{{l.sendPickDetail.orderQty}}/{{l.sendPickDetail.orderWeight}}/{{l.sendPickDetail.orderVolume}}</td>
                                         </tr>
 
                                         </tbody>
@@ -397,8 +394,8 @@
                             <h3 class="panel-title">
                                 <div role="button" class="btn-block"  aria-expanded="true" aria-controls="collapseOne">
                                     拣货计划
-                                    <i class="fa fa-minus-square pull-right color345795" aria-hidden="true"></i>
-                                    <i class="fa fa-plus-square pull-right color345795" aria-hidden="true"></i>
+                                    <i class="fa fa-minus-square pull-right color345795" aria-hidden="true" ng-click="planLocationAction.removeReaLocation()"></i>
+                                    <i class="fa fa-plus-square pull-right color345795" aria-hidden="true" ng-click="planLocationAction.addRealLocation()"></i>
                                 </div>
                             </h3>
                         </div>
@@ -416,23 +413,33 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
+                                        <tr ng-repeat="l in newAndModifyAction.pickDetailVoList[planLocationAction.selectedIndex].planPickLocations"  ng-class="{'info':planLocationAction.selectedRealIndex==$index}" ng-click="planLocationAction.realDetailVOSelect($index)">
                                             <td>
                                                 <div class="form-group has-feedback MakeSureAsn_input">
-                                                    <input type="number" class="form-control input-sm" ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
+                                                    <input type="text" class="form-control input-sm" input-number-only nonzero-integer="true"
+                                                           max="{{newAndModifyAction.pickDetailVoList[planLocationAction.selectedIndex].sendPickDetail.orderQty}}"
+                                                           ng-model="l.sendPickLocation.pickQty">
+
                                                 </div>
                                             </td>
                                             <td> <div class="form-group has-feedback MakeSureAsn_input">
-                                                <input type="number" class="form-control input-sm" ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
-                                            </div></td>
-                                            <td> <div class="form-group has-feedback MakeSureAsn_input">
-                                                <input type="number" class="form-control input-sm" ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
+                                                <input type="text" class="form-control input-sm"   input-number-only
+                                                       max="{{newAndModifyAction.pickDetailVoList[planLocationAction.selectedIndex].sendPickDetail.orderWeight}}"
+                                                       ng-model="l.sendPickLocation.pickWeight">
+
                                             </div></td>
                                             <td>
                                                 <div class="form-group has-feedback MakeSureAsn_input">
-                                                    <input type="text" class="form-control input-sm"
-                                                           ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
-                                                    <span class="fa fa-search form-control-feedback right2" ng-click="btnAction.searchModel('select_wareLocation_searchModel')"  aria-hidden="true"></span>
+                                                    <input type="text" class="form-control input-sm" input-number-only
+                                                           max="{{newAndModifyAction.pickDetailVoList[planLocationAction.selectedIndex].sendPickDetail.orderVolume}}"
+                                                           ng-model="l.sendPickLocation.pickVolume">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-group has-feedback MakeSureAsn_input"  ng-click="planLocationAction.selectStock()">
+                                                    <input type="text" class="form-control input-sm" placeholder="请选择"
+                                                           ng-model="l.locationComment" >
+                                                    <span class="fa fa-search form-control-feedback right2"  aria-hidden="true"></span>
                                                 </div>
                                             </td>
                                         </tr>
@@ -450,10 +457,13 @@
 
         <div class="row mg-bm-50">
             <div class="col-sm-offset-1 col-sm-1">
-                <button class="btn btn-info">保存</button>
+                <button class="btn btn-info" ng-click="newAndModifyAction.save()">保存</button>
             </div>
             <div class="col-sm-2">
-                <button class="btn btn-info" ng-click="btnAction.addAsn()">返回</button>
+                <button class="btn btn-info" ng-click="newAndModifyAction.saveAndEnable()">保存并生效</button>
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-info" ng-click="newAndModifyAction.backToIndex()">返回</button>
             </div>
         </div>
     </form>
@@ -481,28 +491,11 @@
                             <div class="col-sm-4 col-sm-offset-1">
                                 <div class="form-group  has-feedback">
                                     <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>工作人员</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                               required name="ownerComment" onfocus="this.blur()" ng-click="btnAction.searchModel('select_users_searchModel')"
+                                    <div class="col-sm-9" ng-click="confirmAction.selectedWorker()">
+                                        <input type="text" ng-model="workConfirm.opPersonName" class="form-control"
+                                               name="opPersonName" onfocus="this.blur()"
                                                placeholder="请选择">
-                                        <span ng-if="!storeSearchForm.ownerComment.$error.required"
-                                              clear-input-btn="searchReceiveMsg.ownerComment"
-                                              class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group  has-feedback">
-                                    <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>批量选择库位</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                               required name="ownerComment"
-                                               onfocus="this.blur()" ng-click="btnAction.searchModel('select_wareLocation_searchModel')"
-                                               placeholder="请选择">
-                                        <span ng-if="!storeSearchForm.ownerComment.$error.required"
-                                              clear-input-btn="searchReceiveMsg.ownerComment"
-                                              class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                        <span class="fa fa-search form-control-feedback color345795" aria-hidden="true"></span>
                                     </div>
                                 </div>
 
@@ -515,7 +508,7 @@
         </div>
 
         <div class="row">
-            <div class="col-sm-7">
+            <div class="col-sm-5">
                 <div class="panel-group"  role="tablist" aria-multiselectable="true">
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" >
@@ -533,11 +526,6 @@
                                     <table class="table table-hover table-striped">
                                         <thead>
                                         <tr>
-                                            <th>
-                                                <label>
-                                                    <input type="checkbox" aria-label="...">
-                                                </label>
-                                            </th>
                                             <th>货品代码</th>
                                             <th>货品名称</th>
                                             <th>批次</th>
@@ -547,16 +535,14 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <th><label>
-                                                <input type="checkbox" aria-label="...">
-                                            </label></th>
-                                            <td>Mark</td>
-                                            <td title="asfasdfsdfasdfasfasfasfasf">啊时代发生的...</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
-                                            <td>@mdo</td>
+                                        <tr  ng-repeat="l in workConfirm.sendPickDetailVoList" class="cursor_pointer"
+                                             ng-class="{'info':confirmAction.selectedIndex==$index}" ng-click="confirmAction.sendDetailSelect(l,$index)">
+                                            <td title="l.skuNo">{{l.skuNo|substr :8 :'...'}}</td>
+                                            <td>{{l.skuName}}</td>
+                                            <td>{{l.sendPickDetail.batchNo}}</td>
+                                            <td>{{l.specModel}}</td>
+                                            <td>{{l.sendPickDetail.measureUnit}}</td>
+                                            <td>{{l.sendPickDetail.orderQty}}/{{l.sendPickDetail.orderWeight}}/{{l.sendPickDetail.orderVolume}}</td>
                                         </tr>
 
                                         </tbody>
@@ -574,7 +560,7 @@
                         <div class="panel-heading" role="tab" >
                             <h3 class="panel-title">
                                 <a role="button" class="btn-block"  aria-expanded="true" aria-controls="collapseOne">
-                                    计划上架详情
+                                    计划拣货详情
                                     <i class="fa  pull-right" aria-hidden="true"></i>
                                 </a>
                             </h3>
@@ -591,14 +577,16 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
+                                             <tr ng-repeat="l in workConfirm.sendPickDetailVoList[confirmAction.selectedIndex].planPickLocations">
+                                                 <td>
+                                                     <span>{{l.sendPickLocation.pickQty}}</span>/
+                                                     <span>{{l.sendPickLocation.pickWeight | number:2}}</span>/
+                                                        <span>{{l.sendPickLocation.pickVolume | number:2}}</span>
+                                                 </td>
                                             <td>
-
+                                                {{l.locationComment}}
                                             </td>
-                                            <td></td>
-
-                                        </tr>
-
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -608,15 +596,15 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-5">
                 <div class="panel-group"  role="tablist" aria-multiselectable="true">
                     <div class="panel panel-default">
                         <div class="panel-heading" role="tab" >
                             <h3 class="panel-title">
                                 <a role="button" class="btn-block"  aria-expanded="true" aria-controls="collapseOne">
-                                    实际上架详情
-                                    <i class="fa fa-minus-square pull-right color345795" aria-hidden="true"></i>
-                                    <i class="fa fa-plus-square pull-right color345795" aria-hidden="true"></i>
+                                    实际拣货详情
+                                    <i class="fa fa-minus-square pull-right color345795" aria-hidden="true" ng-click="confirmAction.removeReaLocation()"></i>
+                                    <i class="fa fa-plus-square pull-right color345795" aria-hidden="true" ng-click="confirmAction.addRealLocation()"></i>
                                 </a>
                             </h3>
                         </div>
@@ -634,22 +622,35 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
+                                        <tr ng-repeat="l in workConfirm.sendPickDetailVoList[confirmAction.selectedIndex].realPickLocations track by $index"
+                                            ng-class="{'info':confirmAction.selectedRealIndex==$index}" ng-click="confirmAction.realDetailVOSelect($index)">
                                             <td>
                                                 <div class="form-group has-feedback MakeSureAsn_input">
-                                                    <input type="text" class="form-control input-sm" ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
+                                                    <input type="text" class="form-control input-sm" input-number-only nonzero-integer="true"
+                                                           max="{{workConfirm.sendPickDetailVoList[confirmAction.selectedIndex].sendPickDetail.orderQty}}"
+                                                           ng-model="l.sendPickLocation.pickQty">
+
                                                 </div>
                                             </td>
                                             <td> <div class="form-group has-feedback MakeSureAsn_input">
-                                                <input type="text" class="form-control input-sm" ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
-                                            </div></td>
-                                            <td> <div class="form-group has-feedback MakeSureAsn_input">
-                                                <input type="text" class="form-control input-sm" ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
+                                                <input type="text" class="form-control input-sm"   input-number-only
+                                                       max="{{workConfirm.sendPickDetailVoList[confirmAction.selectedIndex].sendPickDetail.orderWeight}}"
+                                                       ng-model="l.sendPickLocation.pickWeight">
+
                                             </div></td>
                                             <td>
                                                 <div class="form-group has-feedback MakeSureAsn_input">
-                                                    <input type="text" class="form-control input-sm"
-                                                           ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
+                                                    <input type="text" class="form-control input-sm" input-number-only
+                                                           max="{{workConfirm.sendPickDetailVoList[confirmAction.selectedIndex].sendPickDetail.orderVolume}}"
+                                                           ng-model="l.sendPickLocation.pickVolume">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-group has-feedback MakeSureAsn_input"
+                                                     ng-click="confirmAction.selectRealStock()">
+                                                    <input type="text" class="form-control input-sm" placeholder="请选择"
+                                                           ng-model="l.locationComment" >
+                                                    <span class="fa fa-search form-control-feedback right2"  aria-hidden="true"></span>
                                                 </div>
                                             </td>
                                         </tr>
@@ -668,17 +669,17 @@
 
         <div class="row mg-bm-50">
             <div class="col-sm-offset-1 col-sm-1">
-                <button class="btn btn-info">确认</button>
+                <button class="btn btn-info" ng-click="confirmAction.makeSurePost()">确认</button>
             </div>
             <div class="col-sm-2">
-                <button class="btn btn-info" ng-click="btnAction.MakeSureWorkBtn()">返回</button>
+                <button class="btn btn-info" ng-click="btnAction.makeSureTurnPage()">返回</button>
             </div>
         </div>
     </form>
 </section>
 <!--作业确认end-->
 
-<!--或者拆分上架单-->
+<!--或者拆分拣货单-->
 <section class="animate-enter-leave posAb" ng-if="btnAction.showSplitAsn">
     <form class="form-horizontal" name="storeSearchForm" novalidate>
         <div class="panel-group mg-tp20" role="tablist" aria-multiselectable="true">
@@ -695,74 +696,68 @@
                     <div class="panel-body">
 
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
+
                                 <div class="form-group  has-feedback">
-                                    <label class="col-sm-3 control-label receive-form-title">仓库</label>
-                                    <div class="col-sm-9">
-                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                    <label class="col-sm-4 control-label receive-form-title">发货单号</label>
+                                    <div class="col-sm-8">
+                                        <label class="text-left pdTp5" ng-bind="pickSplitItem.deliveryNo"></label>
                                     </div>
                                 </div>
                                 <div class="form-group  has-feedback">
-                                    <label class="col-sm-3 control-label receive-form-title">发货单号</label>
-                                    <div class="col-sm-9">
-                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                    <label class="col-sm-4 control-label receive-form-title">待拣货数量</label>
+                                    <div class="col-sm-8">
+                                        <label class="text-left pdTp5" ng-bind="pickSplitItem.sendPick.planPickQty"></label>
                                     </div>
                                 </div>
+
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <div class="form-group  has-feedback">
                                     <label class="col-sm-4 control-label receive-form-title">拣货单号</label>
                                     <div class="col-sm-8">
-                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                        <label class="text-left pdTp5" ng-bind="pickSplitItem.sendPick.pickNo"></label>
                                     </div>
                                 </div>
-                                <div class="form-group  has-feedback">
-                                    <label class="col-sm-4 control-label receive-form-title">波次单号</label>
-                                    <div class="col-sm-8">
-                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group  has-feedback">
-                                    <label class="col-sm-4 control-label receive-form-title">单据类型</label>
-                                    <div class="col-sm-8">
-                                        <label class="text-left pdTp5">发货单拣货</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="form-group  has-feedback">
-                                    <label class="col-sm-3 control-label receive-form-title">待拣货数量</label>
-                                    <div class="col-sm-9">
-                                        <label class="text-left pdTp5">10000</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
                                 <div class="form-group  has-feedback">
                                     <label class="col-sm-4 control-label receive-form-title">待拣货公斤</label>
                                     <div class="col-sm-8">
-                                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                        <label class="text-left pdTp5" ng-bind="pickSplitItem.sendPick.planPickWeight"></label>
                                     </div>
                                 </div>
+
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
+                                <div class="form-group  has-feedback">
+                                    <label class="col-sm-4 control-label receive-form-title">波次单号</label>
+                                    <div class="col-sm-8">
+                                        <label class="text-left pdTp5" ng-bind="pickSplitItem.waveNo"></label>
+                                    </div>
+                                </div>
                                 <div class="form-group  has-feedback">
                                     <label class="col-sm-4 control-label receive-form-title">待拣货立方</label>
                                     <div class="col-sm-8">
-                                        <label class="text-left pdTp5">11111</label>
+                                        <label class="text-left pdTp5" ng-bind="pickSplitItem.sendPick.planPickVolume"></label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group  has-feedback">
+                                    <label class="col-sm-4 control-label receive-form-title">单据类型</label>
+                                    <div class="col-sm-8">
+                                        <label class="text-left pdTp5" ng-bind="pickSplitItem.docTypeComment"></label>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+
                         <div class="row mg-lf">
                             <div class="form-group  has-feedback">
                                 <label class="col-sm-1 control-label receive-form-title">备注</label>
                                 <div class="col-sm-8">
-                                    <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                                    <label class="text-left pdTp5" ng-bind="pickSplitItem.sendPick.note"></label>
                                 </div>
                             </div>
                         </div>
@@ -803,35 +798,52 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <th>1</th>
+                                <tr ng-repeat="l in pickSplitItem.sendPickDetailVoList">
+                                    <th ng-bind="$index+1"></th>
                                     <td width="14rem">
                                         <div class="form-group has-feedback splitAsn_input">
-                                            <input type="number" class="form-control input-sm" ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
-                                            <span class="fa fa-times form-control-feedback right20" clear-input-btn="searchReceiveMsg.ownerComment" aria-hidden="true"></span>
-                                            <span class="fa fa-repeat form-control-feedback right0" aria-hidden="true"></span>
+                                            <input type="text" class="form-control input-sm" max="{{l.sendPickDetail.orderQty}}" required
+                                                   ng-model="splitAction.data.sendPickDetailVoList[$index].sendPickDetail.orderQty" input-number-only>
+
+                                            <span ng-if="splitAction.data.sendPickDetailVoList[$index].sendPickDetail.orderQty!=''" min="0"
+                                                  class="fa fa-times-circle  form-control-feedback right20"
+                                                  turn-to-min="splitAction.data.sendPickDetailVoList[$index].sendPickDetail.orderQty" aria-hidden="true"></span>
+                                            <span class="fa fa-repeat form-control-feedback right0"  max="{{l.sendPickDetail.orderQty}}"
+                                                  turn-to-max="splitAction.data.sendPickDetailVoList[$index].sendPickDetail.orderQty"  aria-hidden="true"></span>
                                         </div>
                                     </td>
                                     <td width="14rem">
                                         <div class="form-group has-feedback splitAsn_input">
-                                            <input type="number" class="form-control input-sm" ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
-                                            <span class="fa fa-times form-control-feedback right20" clear-input-btn="searchReceiveMsg.ownerComment" aria-hidden="true"></span>
-                                            <span class="fa fa-repeat form-control-feedback right0" aria-hidden="true"></span>
+                                            <input type="text" class="form-control input-sm" max="{{l.sendPickDetail.orderWeight}}"
+                                                   ng-model="splitAction.data.sendPickDetailVoList[$index].sendPickDetail.orderWeight" input-number-only >
+
+                                            <span class="fa fa-times form-control-feedback right20"
+                                                  ng-if="splitAction.data.sendPickDetailVoList[$index].sendPickDetail.orderWeight!=''" min="0"
+                                                  turn-to-min="splitAction.data.sendPickDetailVoList[$index].sendPickDetail.orderWeight" aria-hidden="true"></span>
+
+                                            <span class="fa fa-repeat form-control-feedback right0"  max="{{l.sendPickDetail.orderWeight}}"
+                                                  turn-to-max="splitAction.data.sendPickDetailVoList[$index].sendPickDetail.orderWeight"  aria-hidden="true"></span>
                                         </div>
                                     </td>
                                     <td width="14rem">
                                         <div class="form-group has-feedback splitAsn_input">
-                                            <input type="number" class="form-control input-sm" ng-model="searchReceiveMsg.ownerComment" aria-describedby="inputSuccess5Status">
-                                            <span class="fa fa-times form-control-feedback right20" clear-input-btn="searchReceiveMsg.ownerComment" aria-hidden="true"></span>
-                                            <span class="fa fa-repeat form-control-feedback right0" aria-hidden="true"></span>
+                                            <input type="text" class="form-control input-sm" max="{{l.sendPickDetail.orderVolume}}" input-number-only
+                                                   ng-model="splitAction.data.sendPickDetailVoList[$index].sendPickDetail.orderVolume">
+
+                                            <span class="fa fa-times form-control-feedback right20"
+                                                  ng-if="splitAction.data.sendPickDetailVoList[$index].sendPickDetail.orderVolume!=''" min="0"
+                                                  turn-to-min="splitAction.data.sendPickDetailVoList[$index].sendPickDetail.orderVolume" aria-hidden="true"></span>
+
+                                            <span class="fa fa-repeat form-control-feedback right0"  max="{{l.sendPickDetail.orderVolume}}"
+                                                  turn-to-max="splitAction.data.sendPickDetailVoList[$index].sendPickDetail.orderVolume"  aria-hidden="true"></span>
                                         </div>
                                     </td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>Otto</td>
+                                    <td>{{l.sendPickDetail.orderQty}}/{{l.sendPickDetail.orderWeight}}/{{l.sendPickDetail.orderVolume}}</td>
+                                    <td>{{l.skuNo}}</td>
+                                    <td>{{l.skuName}}</td>
+                                    <td>{{l.sendPickDetail.batchNo}}</td>
+                                    <td>{{l.specModel}}</td>
+                                    <td>{{l.sendPickDetail.measureUnit}}</td>
                                 </tr>
 
                                 </tbody>
@@ -844,19 +856,208 @@
         </div>
 
         <div class="row mg-bm-50">
-            <div class="col-sm-offset-1 col-sm-1">
-                <button class="btn btn-info">确认拆分</button>
-            </div>
-            <div class="col-sm-2">
-                <button class="btn btn-info" ng-click="btnAction.splitAsn()">返回</button>
-            </div>
+            <button class="btn btn-info" ng-click="splitAction.splitSaveAndBack()">保存并返回</button>
+            <button class="btn btn-info" ng-click="btnAction.showSplit()">返回</button>
+
         </div>
     </form>
 </section>
-<!--或者拆分上架单end-->
+<!--或者拆分拣货单end-->
 
 <!--查看拣货单-->
 <section class="animate-enter-leave posAb" ng-if="btnAction.showAsnDetail">
-    <picking-detail></picking-detail>
+
+    <div class="form-horizontal" name="storeSearchForm" novalidate>
+        <div class="panel-group mg-tp20" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOneDetail">
+                    <h3 class="panel-title">
+                        <a role="button" ng-init="status.open=true" ng-click="status.open=!status.open" class="btn-block" data-toggle="collapse" data-target="#collapseOneDetail"  aria-expanded="true" aria-controls="collapseOne">
+                            查看拣货单
+                            <i class="fa  pull-right" ng-class="{'fa-hand-paper-o': status.open, 'fa-hand-rock-o': !status.open}" aria-hidden="true"></i>
+                        </a>
+                    </h3>
+                </div>
+                <div id="collapseOneDetail" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-sm-3">
+
+                                <div class="form-group  has-feedback">
+                                    <label class="col-sm-4 control-label receive-form-title">发货单号</label>
+                                    <div class="col-sm-8">
+                                        <label class="text-left pdTp5">{{btnAction.pickVoInfo.deliveryNo}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group  has-feedback">
+                                    <label class="col-sm-4 control-label receive-form-title">待拣货数量</label>
+                                    <div class="col-sm-8">
+                                        <label class="text-left pdTp5">{{btnAction.pickVoInfo.sendPick.planPickQty}}</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group  has-feedback">
+                                    <label class="col-sm-4 control-label receive-form-title">拣货单号</label>
+                                    <div class="col-sm-8">
+                                        <label class="text-left pdTp5">{{btnAction.pickVoInfo.sendPick.pickNo}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group  has-feedback">
+                                    <label class="col-sm-4 control-label receive-form-title">待拣货公斤</label>
+                                    <div class="col-sm-8">
+                                        <label class="text-left pdTp5">{{btnAction.pickVoInfo.sendPick.planPickWeight}}</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group  has-feedback">
+                                    <label class="col-sm-4 control-label receive-form-title">波次单号</label>
+                                    <div class="col-sm-8">
+                                        <label class="text-left pdTp5">{{btnAction.pickVoInfo.sendPick.waveNo}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group  has-feedback">
+                                    <label class="col-sm-4 control-label receive-form-title">待拣货立方</label>
+                                    <div class="col-sm-8">
+                                        <label class="text-left pdTp5">{{btnAction.pickVoInfo.sendPick.planPickVolume}}</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group  has-feedback">
+                                    <label class="col-sm-4 control-label receive-form-title">单据类型</label>
+                                    <div class="col-sm-8">
+                                        <label class="text-left pdTp5">{{btnAction.pickVoInfo.docTypeComment}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mg-lf">
+                            <div class="form-group  has-feedback">
+                                <label class="col-sm-1 control-label receive-form-title">备注</label>
+                                <div class="col-sm-8">
+                                    <label class="text-left pdTp5">{{btnAction.pickVoInfo.sendPick.remark}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="panel-group"  role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" >
+                            <h3 class="panel-title">
+                                <a role="button" ng-init="status.openTwo=true" ng-click="status.openTwo=!status.openTwo" class="btn-block" data-toggle="collapse" data-target="#collapseTwoMS"  aria-expanded="true" aria-controls="collapseOne">
+                                    货品明细
+                                    <i class="fa  pull-right" ng-class="{'fa-hand-paper-o': status.openTwo, 'fa-hand-rock-o': !status.openTwo}" aria-hidden="true"></i>
+                                </a>
+                            </h3>
+                        </div>
+                        <div id="collapseTwoMS" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="panel-body pd5">
+                                <!--表格-->
+                                <div class="receive-table" data-example-id="hoverable-table">
+                                    <table class="table table-hover table-striped">
+                                        <thead>
+                                        <tr>
+                                            <!--<th>-->
+                                                <!--<label>-->
+                                                    <!--<input type="checkbox" aria-label="...">-->
+                                                <!--</label>-->
+                                            <!--</th>-->
+                                            <th>货品代码</th>
+                                            <th>货品名称</th>
+                                            <th>批次</th>
+                                            <th>规格型号</th>
+                                            <th>计量单位</th>
+                                            <th>数量/公斤/立方</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="l in btnAction.pickVoInfo.sendPickDetailVoList" ng-click="viewPlanLocationAction.sendDetailSelect(l,$index,$event)">
+                                            <!--<th><label>-->
+                                                <!--<input type="checkbox" aria-label="...">-->
+                                            <!--</label></th>-->
+                                            <td>{{l.skuNo}}</td>
+                                            <td>{{l.skuName}}</td>
+                                            <td>{{l.sendPickDetail.batchNo}}</td>
+                                            <td>{{l.specModel}}</td>
+                                            <td>{{l.sendPickDetail.measureUnit}}</td>
+                                            <td>{{l.sendPickDetail.orderQty}}/{{l.sendPickDetail.orderWeight}}/{{l.sendPickDetail.orderVolume}}</td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /表格 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="panel-group"  role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" >
+                            <h3 class="panel-title">
+                                <div role="button" class="btn-block"  aria-expanded="true" aria-controls="collapseOne">
+                                    拣货计划
+                                </div>
+                            </h3>
+                        </div>
+                        <div id="collapseThrMS" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="panel-body pd5">
+                                <!--表格-->
+                                <div class="receive-table" data-example-id="hoverable-table">
+                                    <table class="table table-hover table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>计划数量</th>
+                                            <th>计划公斤</th>
+                                            <th>计划立方</th>
+                                            <th>计划库位</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="l in btnAction.pickVoInfo.sendPickDetailVoList[viewPlanLocationAction.selectedIndex].planPickLocations">
+                                            <td ng-bind="l.sendPickLocation.pickQty"></td>
+                                            <td ng-bind="l.sendPickLocation.pickWeight"></td>
+                                            <td ng-bind="l.sendPickLocation.pickVolume"></td>
+                                            <td ng-bind="l.locationComment"></td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /表格 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mg-bm-50">
+            <div class="col-sm-2">
+                <button class="btn btn-info" ng-click="btnAction.showAsnDetailAction()">返回</button>
+            </div>
+        </div>
+    </div>
+
 </section>
 <!--/查看拣货单-->
+
+<confirm-model id="backConfirm" title="友情提示:" content="数据已经更改，请确定是否返回！" ok="btnAction.addModShow()"></confirm-model>
+<confirm-model id="pickConfirm" title=" 是否继续:" content=" 以下货品计划拣货和实际拣货数量不符：" ok="confirmAction.mSPost()" ok-text="继续" cancel-text="取消">
+    <span ng-repeat="l in confirmAction._skuComment" class="label label-warning">{{l}}</span>
+</confirm-model>

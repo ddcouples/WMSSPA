@@ -2,12 +2,15 @@
 a{
   cursor: pointer !important;
 }
-.page-main {
-  position: relative;
+.page-container{
+
   clear: both;
-  width:50rem;
-  margin-top: 15px;
   margin:1.5rem auto;
+  text-align: center;
+}
+.page-main {
+
+  
 }
 .page-main .input-group {
   margin-left: 10px;
@@ -16,6 +19,7 @@ a{
 }
 .page-main .input-group .input-group-btn {
   display: inline-block;
+  width: auto;
 }
 .page-main .input-group .input-group-btn button {
   border-top-left-radius: 0;
@@ -85,7 +89,7 @@ a{
   font-size: 1.4rem;
   display: inline-block;
   margin-left: 10px;
-  margin-left: 1rem;
+  margin-left: 1.8rem;
 }
 .page-last input{
   width: 40px;

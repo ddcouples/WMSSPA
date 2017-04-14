@@ -1,18 +1,18 @@
 
 
-<section class="animate-enter-leave"  ng-if="btnAction.showIndex">
+<section class="animate-enter-leave"  ng-if="searchLocAction.showIndex">
     <div class="receive_container">
         <div class="receive_container">
-            <form class="form-horizontal" name="storeSearchForm" novalidate>
+            <form class="form-horizontal" name="saveLocForm" novalidate>
                 <div class="row">
                     <div class="col-sm-2 form-horizontal">
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title">库位代码</label>
                             <div class="col-sm-8">
-                                <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                       required name="ownerComment"
+                                <input type="text" ng-model="searchLocAction.voModel.likeLocNo" class="form-control"
+                                       required name="likeLocNo"
                                        placeholder="库位代码">
-                                <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchReceiveMsg.ownerComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!saveLocForm.likeLocNo.$error.required"  clear-input-btn="searchLocAction.voModel.likeLocNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
 
@@ -21,10 +21,10 @@
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title">库位名称</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.poNo"
-                                       name="poNo" required
+                                <input type="text" class="form-control"  ng-model="searchLocAction.voModel.likeLocName"
+                                       name="likeLocName" required
                                        placeholder="库位名称">
-                                <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchReceiveMsg.asn.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!saveLocForm.likeLocName.$error.required"  clear-input-btn="searchLocAction.voModel.likeLocName" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
 
@@ -33,10 +33,10 @@
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">所属库区</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                       name="asnNo" required
+                                <input type="text" class="form-control"  ng-model="searchLocAction.voModel.likeAreaName"
+                                       name="likeAreaName" required
                                        placeholder="所属库区">
-                                <span ng-if="!storeSearchForm.asnNo.$error.required" clear-input-btn="searchReceiveMsg.asn.asnNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!saveLocForm.likeAreaName.$error.required" clear-input-btn="searchLocAction.voModel.likeAreaName"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
 
@@ -45,9 +45,9 @@
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">状态</label>
                             <div class="col-sm-8">
-                                <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
+                                <select class="form-control" ng-model="searchLocAction.voModel.locationStatusComment">
                                     <option value="" selected>请选择</option>
-                                    <option value="{{l.key}}" ng-repeat="l in getOriginData.LocationStatus">{{l.value}}</option>
+                                    <option value="{{l.value}}" ng-repeat="l in getOriginData.LOCATIONSTATUS">{{l.value}}</option>
                                 </select>
                             </div>
                         </div>
@@ -56,8 +56,8 @@
 
                         <div class="row">
                             <div class=" col-sm-offset-2 btn-mr16">
-                                <button type="button" class="btn btn-info" ng-click="searchformAction.search()">查询</button>
-                                <button type="button" class="btn btn-info" ng-click="searchformAction.reset()">重置</button>
+                                <button type="button" class="btn btn-info" ng-click="searchLocAction.search()">查询</button>
+                                <button type="button" class="btn btn-info" ng-click="searchLocAction.reset()">重置</button>
                             </div>
                         </div>
                     </div>
@@ -70,13 +70,13 @@
         <!--按钮组-->
         <div class="row ">
             <div class="col-sm-10 col-sm-offset-1">
-                <button type="button" class="btn btn-info" ng-click="btnAction.addAsn()">新增</button>
+                <button type="button" class="btn btn-info" ng-click="searchLocAction.add()">新增</button>
 
-                <button type="button" class="btn btn-info" ng-click="btnAction.modifyAsn(11)">修改</button>
+                <button type="button" class="btn btn-info" ng-click="searchLocAction.modify()">修改</button>
 
-                <button type="button" class="btn btn-info">生效</button>
+                <button type="button" class="btn btn-info" ng-click="searchLocAction.active()">生效</button>
 
-                <button type="button" class="btn btn-info">失效</button>
+                <button type="button" class="btn btn-info" ng-click="searchLocAction.inactive()">失效</button>
 
             </div>
         </div>
@@ -87,111 +87,103 @@
                 <tr>
                     <th>
                         <label>
-                            <input type="checkbox" aria-label="...">
+                            <!--<input type="checkbox" aria-label="...">-->
                         </label>
                     </th>
-                    <th>序号</th>
                     <th>库位代码</th>
-                    <th>所属库区</th>
                     <th>库位名称</th>
+                    <th>所属库区</th>
                     <th>库容量</th>
-                    <th>计量单位</th>
                     <th>已占用容量</th>
                     <th>预分配容量</th>
                     <th>库容量占比</th>
                     <th>包装</th>
-
                     <th>冻结</th>
-
                     <th>今日动碰</th>
                     <th>区</th>
-
                     <th>排</th>
                     <th>列</th>
                     <th>层</th>
                     <th>备注</th>
                     <th>状态</th>
-
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th><label>
-                        <input type="checkbox" aria-label="...">
-                    </label></th>
-                    <td>1</td>
-                    <td><a ng-click="btnAction.showDetailActionGetData(13)">435325345345</a></td>
-                    <td>进口产品库位1</td>
-                    <td>库区1</td>
-                    <td>6000</td>
-                    <td>转账</td>
-                    <td>按月</td>
-                    <td>按月</td>
-                    <td>15</td>
-                    <td>每天</td>
-                    <td>系统</td>
-                    <td>打开</td>
+                    <tr ng-repeat="pageItem in searchLocAction.listVO track by $index"  ng-click="searchLocAction.selectModify($index,$event)"
+                        ng-class="{'info':searchLocAction.currentSelectItems==$index&&searchLocAction.selectedItems[$index]==true}" >
+                        <td>
+                            <label>
+                                <input type="checkbox" class="chk_selectItem" aria-label="..."  ng-model="searchLocAction.selectedItems[$index]" ng-change="searchLocAction.selectModify($index,$event)" />
+                            </label>
+                        </td>
+                        <td title="pageItem.location.locationNo"><a ng-click="searchLocAction.showDetailActionGetData(pageItem.location.locationId)" ng-bind="pageItem.location.locationNo|substr:8:'..'"></a></td>
+                        <td ng-bind="pageItem.location.locationName">库位名称</td>
+                        <td ng-bind="pageItem.areaComment">所属库区</td>
+                        <td ng-bind="pageItem.location.maxCapacity">库容量</td>
+                        <td ng-bind="pageItem.location.usedCapacity">已占用容量</td>
+                        <td ng-bind="pageItem.location.preusedCapacity">预分配容量</td>
+                        <td ng-bind="pageItem.location.capacityUseRate">库容量占比</td>
+                        <td ng-bind="pageItem.packComment">包装</td>
+                        <td ng-bind="pageItem.blockComment">冻结</td>
+                        <td ng-bind="pageItem.touchTimes">今日动碰</td>
+                        <td ng-bind="pageItem.location.locationZone|nullIsZero:0">区</td>
+                        <td ng-bind="pageItem.location.locationRow|nullIsZero:0">排</td>
+                        <td ng-bind="pageItem.location.locationColumn|nullIsZero:0">列</td>
+                        <td ng-bind="pageItem.location.layer|nullIsZero:0">层</td>
+                        <td ng-bind="pageItem.location.note">备注</td>
+                        <td ng-bind="pageItem.locationStatusComment">状态</td>
 
-                </tr>
+                    </tr>
 
                 </tbody>
             </table>
         </div>
         <!-- /example -->
 
-
-        <page></page>
+        <page page-data="searchLocAction.listVO" url="{{listLoc_url}}" page-model-query="pageModelQuery"></page>
     </div>
     <footer></footer>
 </section>
 <!--新增/修改库位-->
-<section class="animate-enter-leave posAb" ng-if="btnAction.showAddOrModify">
-    <form class="form-horizontal" name="storeSearchForm" novalidate>
-        <panel title="{{btnAction.showText.firstTitle}}">
+<section class="animate-enter-leave posAb" ng-if="searchLocAction.showAddOrModify">
+    <form class="form-horizontal" name="saveLocForm" novalidate>
+        <panel title="{{searchLocAction.showText.firstTitle}}">
             <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>库位代码</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
+                            <input type="text" class="form-control"  ng-model="addLocAction.voModel.location.locationNo"
+                                   name="locationNo" required
                                    placeholder="库位代码">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <span ng-if="!saveLocForm.locationNo.$error.required"
+                                  clear-input-btn="addLocAction.voModel.location.locationNo"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">最大库容量</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="最大库容量">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
-                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            <label class="text-left form-control pdTp5" ng-bind="addLocAction.voModel.location.maxCapacity"></label>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">区</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
+                            <input type="text" class="form-control"  ng-model="addLocAction.voModel.location.locationZone"
+                                   name="locationZone" required
                                    placeholder="区">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <span ng-if="!saveLocForm.locationZone.$error.required"
+                                  clear-input-btn="addLocAction.voModel.location.locationZone"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title">X轴</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="X轴">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
-                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        <label class="col-sm-4 control-label receive-form-title">货主</label>
+                        <div class="col-sm-8 "  ng-click="addLocAction.selectOwner()">
+                            <input type="text" ng-model="addLocAction.voModel.ownerComment" class="form-control"
+                                   onfocus="this.blur()"
+                                   placeholder="货主">
                         </div>
                     </div>
                 </div>
@@ -199,44 +191,39 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>库位名称</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="租赁客商">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <input type="text" class="form-control"  ng-model="addLocAction.voModel.location.locationName"
+                                   name="locationName" required
+                                   placeholder="库位名称">
+                            <span ng-if="!saveLocForm.locationName.$error.required"
+                                  clear-input-btn="addLocAction.voModel.location.locationName"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">使用库容量</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="使用库容量">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
-                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            <label class="text-left form-control pdTp5" ng-bind="addLocAction.voModel.location.usedCapacity"></label>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">排</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
+                            <input type="text" class="form-control"  ng-model="addLocAction.voModel.location.locationRow"
+                                   name="locationRow" required
                                    placeholder="排">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <span ng-if="!saveLocForm.locationRow.$error.required"
+                                  clear-input-btn="addLocAction.voModel.location.locationRow"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title">Y轴</label>
+                        <label class="col-sm-4 control-label receive-form-title">X轴</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="Y轴">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <input type="text" class="form-control"  ng-model="addLocAction.voModel.location.x"
+                                   name="x" required
+                                   placeholder="X轴">
+                            <span ng-if="!saveLocForm.x.$error.required"
+                                  clear-input-btn="addLocAction.voModel.location.x"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -245,42 +232,37 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">所属库区</label>
                         <div class="col-sm-8">
-                            <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
+                            <select class="form-control" ng-model="addLocAction.voModel.location.areaId" ng-change="addLocAction.choiceArea()">
                                 <option value="" selected>请选择</option>
-                                <option value="{{l.key}}" ng-repeat="l in getOriginData.AdjustStatus">{{l.value}}</option>
+                                <option value="{{l.area.areaId}}" ng-repeat="l in getOriginData.AREALIST">{{l.area.areaName}}</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">预分配库容量</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="Y轴">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
-                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            <label class="text-left form-control pdTp5" ng-bind="addLocAction.voModel.location.preusedCapacity"></label>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">列</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
+                            <input type="text" class="form-control"  ng-model="addLocAction.voModel.location.locationColumn"
+                                   name="locationColumn" required
                                    placeholder="列">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <span ng-if="!saveLocForm.locationColumn.$error.required"
+                                  clear-input-btn="addLocAction.voModel.location.locationColumn"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title">Z轴</label>
+                        <label class="col-sm-4 control-label receive-form-title">Y轴</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="Z轴">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <input type="text" class="form-control"  ng-model="addLocAction.voModel.location.y"
+                                   name="y" required
+                                   placeholder="Y轴">
+                            <span ng-if="!saveLocForm.y.$error.required"
+                                  clear-input-btn="addLocAction.voModel.location.y"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -289,31 +271,38 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">库位规格</label>
                         <div class="col-sm-8">
-                            <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
+                            <select class="form-control" ng-model="addLocAction.voModel.location.specId" ng-change="addLocAction.choiceSpec()">
                                 <option value="" selected>请选择</option>
-                                <option value="{{l.key}}" ng-repeat="l in getOriginData.AdjustStatus">{{l.value}}</option>
+                                <option value="{{l.locSpec.specId}}" ng-repeat="l in getOriginData.LOCSPEC">{{l.locSpec.specName}}</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">库容量占比</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="Z轴">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
-                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            <label class="text-left form-control pdTp5" ng-bind="addLocAction.voModel.location.capacityUseRate"></label>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">层</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
+                            <input type="text" class="form-control"  ng-model="addLocAction.voModel.location.layer"
+                                   name="layer" required
+                                   placeholder="层">
+                            <span ng-if="!saveLocForm.layer.$error.required"
+                                  clear-input-btn="addLocAction.voModel.location.layer"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">Z轴</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="addLocAction.voModel.location.z"
+                                   name="z" required
                                    placeholder="Z轴">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <span ng-if="!saveLocForm.z.$error.required"
+                                  clear-input-btn="addLocAction.voModel.location.z"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -321,77 +310,77 @@
             </div>
 
             <div class="form-group  has-feedback">
-                <label class="col-sm-1 control-label receive-form-title"><span class="color-red">*</span>备注</label>
+                <label class="col-sm-1 control-label receive-form-title">备注</label>
                 <div class="col-sm-8">
-                    <textarea class="form-control" rows="3" placeholder="备注"></textarea>
+                    <textarea class="form-control" rows="3" placeholder="备注" ng-model="addLocAction.voModel.location.note" ></textarea>
                 </div>
             </div>
 
         </panel>
         <div class="mg-bm-50 mg-lt20">
-            <button class="btn btn-info mg-lt20">暂存</button>
-            <button class="btn btn-info mg-lt20">保存并返回</button>
-            <button class="btn btn-info mg-lt20" ng-click="btnAction.addAsn()">返回</button>
+            <button class="btn btn-info mg-lt20" ng-click="addLocAction.save()">暂存</button>
+            <button class="btn btn-info mg-lt20" ng-click="addLocAction.saveAndBack()">保存并返回</button>
+            <button class="btn btn-info mg-lt20" ng-click="searchLocAction.backToIndex()">返回</button>
         </div>
     </form>
 </section>
 <!--/新增/修改库位-->
 
 <!--查看库位-->
-<section class="animate-enter-leave posAb" ng-if="btnAction.showDetail">
+<section class="animate-enter-leave posAb" ng-if="searchLocAction.showDetail">
 
-    <form class="form-horizontal" name="storeSearchForm" novalidate>
+    <form class="form-horizontal" name="saveLocForm" novalidate>
         <panel title="查看库位">
             <div class="row">
                 <div class="col-sm-3">
                     <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>库位代码</label>
-                        <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                        <label class="col-sm-4 control-label receive-form-title">库位代码</label>
+                        <div class="col-sm-8"  title="{{viewLocAction.voModel.location.locationNo}}">
+                            <label class="form-control text-left pdTp5" ng-bind="viewLocAction.voModel.location.locationNo|substr:16:'...'"></label>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">最大库容量</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5" ng-bind="viewLocAction.voModel.location.maxCapacity"></label>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">区</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5" ng-bind="viewLocAction.voModel.location.locationZone"></label>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">X轴</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5" ng-bind="viewLocAction.voModel.location.x"></label>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>库位名称</label>
-                        <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                        <label class="col-sm-4 control-label receive-form-title">库位名称</label>
+                        <div class="col-sm-8" title="{{viewLocAction.voModel.location.locationName}}">
+                            <label class="form-control text-left pdTp5" ng-bind="viewLocAction.voModel.location.locationName|substr:16:'...'"></label>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">使用库容量</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5" ng-bind="viewLocAction.voModel.location.usedCapacity"></label>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">排</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5" ng-bind="viewLocAction.voModel.location.locationRow"></label>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">Y轴</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5" ng-bind="viewLocAction.voModel.location.y"></label>
                         </div>
                     </div>
                 </div>
@@ -399,25 +388,25 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">所属库区</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5" ng-bind="viewLocAction.voModel.areaComment"></label>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">预分配库容量</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5" ng-bind="viewLocAction.voModel.location.preusedCapacity"></label>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">列</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5" ng-bind="viewLocAction.voModel.location.locationColumn"></label>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">Z轴</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5" ng-bind="viewLocAction.voModel.location.z"></label>
                         </div>
                     </div>
                 </div>
@@ -425,34 +414,34 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">库位规格</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5" ng-bind="viewLocAction.voModel.specComment"></label>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">库容量占比</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5" ng-bind="viewLocAction.voModel.location.capacityUseRate"></label>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-4 control-label receive-form-title">层</label>
                         <div class="col-sm-8">
-                            <label class="form-control text-left pdTp5">林安物流园</label>
+                            <label class="form-control text-left pdTp5" ng-bind="viewLocAction.voModel.location.layer"></label>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="form-group  has-feedback">
-                <label class="col-sm-1 control-label receive-form-title"><span class="color-red">*</span>备注</label>
+                <label class="col-sm-1 control-label receive-form-title">备注</label>
                 <div class="col-sm-8">
-                    <label class="form-control text-left pdTp5">林安物流园</label>
+                    <label class="form-control text-left pdTp5" ng-bind="viewLocAction.voModel.location.note"></label>
                 </div>
             </div>
 
         </panel>
         <div class="mg-bm-50 mg-lt20">
-            <button class="btn btn-info mg-lt20" ng-click="btnAction.turnShowDetail()">返回</button>
+            <button class="btn btn-info mg-lt20" ng-click="searchLocAction.turnShowDetail()">返回</button>
         </div>
     </form>
 </section>

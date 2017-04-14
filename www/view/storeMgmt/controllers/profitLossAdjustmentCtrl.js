@@ -1,22 +1,50 @@
 'use strict';
-module.exports = angular.module("app.storeMgmt").controller("profitLossAdjustmentCtrl", ['$scope',function($scope) {
-    $scope.getOriginData={
-        AdjustStatus:[{
-            key:'0',
-            value:'打开'
-        },{
-            key:'0',
-            value:'已调帐'
-        },{
-            key:'0',
-            value:'取消'
-        }]
+module.exports = angular.module("app.storeMgmt")
+.controller("profitLossAdjustmentCtrl", 
+		['$scope','tooltip','modifyById','arrayAction','httpServer','commit',
+    function($scope,tooltip,modifyById,arrayAction,httpServer,commit) {
+	httpServer.postData('/param/show',['ADJUST_STATUS','ADJUST_TYPE']).then(function(res){
+	    $scope.getOriginData = res;
+	});
+	//详情临时对象
+	$scope.tempDetail={ //个字段的顺序和前端显示顺序要一致 方便下步复用
+        "locationName":"",//库位名称
+        "areaName":"",//库区名称
+        "skuNo":"",//货品编号
+        "skuName":"",//货品名称
+    	"adj":{
+            "batchNo":"",// 批次
+            "skuId":"",// 货品状态
+            "locationId":"",// 库位状态
+            "mesureUnit":"",//计量单位
+            "specModel":"",//规格型号
+            "stockQty":"",//账存
+            "realQty":"",//实存
+            "adjustType":null//调账类型
+        }
+    };
+	// 盈亏调整单明细对象
+    function AdjustDetail () {
+    	this.batchNo=null;// 批次
+    	this.skuId=null;// 货品状态
+    	this.locationId=null;// 库位状态
+    	this.mesureUnit=null;//计量单位
+    	this.specModel=null;//规格型号
+    	this.stockQty=null;//账存
+    	this.realQty=null;//实存
+    	this.adjustType=null;//调账类型
     }
-    var showTitle=['新增调账单','盈亏调整'];
+
+    // 盈亏调整单明细VO
+    function AdjustDetailVO () {
+        this.adj= new AdjustDetail();	// 明细
+    	this.locationName=null;//库位名称
+    	this.areaName=null;//库区名称
+    	this.skuNo=null;//货品编号
+    	this.skuName=null;//货品名称
+    }
     $scope.btnAction={
-        showText:{
-            firstTitle:showTitle[0]
-        },
+
         showAddOrModify:false,
         showSplitAsn:false,
         showIndex:true,
@@ -24,30 +52,51 @@ module.exports = angular.module("app.storeMgmt").controller("profitLossAdjustmen
             this.showAddOrModify=!this.showAddOrModify;
             this.showIndex=!this.showIndex;
         },
-        modifyAsn:function(){//点击切换修改ASN页面
-            this.showAddOrModify=!this.showAddOrModify;
+        adjustmentPage:false,
+        adjustmentTurnpage:function(){
+            this.adjustmentPage=!this.adjustmentPage;
             this.showIndex=!this.showIndex;
-            this.showText.firstTitle=showTitle[1];
+        },
+        adjustment:function(){//点击切换修改ASN页面
+            this.adjustmentTurnpage();
         },
         searchModel:function(id){
             $('#'+id).modal('show');
-        }
-        // ,
-        // showAsnDetail:false,
-        // showAsnDetailAction:function(){
-        //     this.showAsnDetail=!this.showAsnDetail;
-        //     this.showIndex=!this.showIndex;
-        // },
-        // showAsnDetailActionGetData:function(id){
-        //     this.showAsnDetailAction();
-        //     //而后进行查询数据绑定
-        //     console.log(id);
-        // },
-        // showMakeSureGetGoods:false,
-        // MakeSureGetGoodsBtn:function(){//点击切换收货确认
-        //     this.showMakeSureGetGoods=!this.showMakeSureGetGoods;
-        //     this.showIndex=!this.showIndex;
-        // }
+        },
+        // 选择库存
+        selectStock:function(){
+            commit.commitToParent($scope,'inventoryGoodsModal',{
+            	"status":"searchStock",
+            	"isShow":true,
+            	queryParam:{
+                    "invStock":{
+                        "locationId":"",
+                        "skuId":"",
+                        "batchNo":""
+                    },
+                    "locationName":'',
+                    "locationNo":'',
+                    "skuNo":'',
+                    "skuName":''
+                }	
+            });
+            var on = commit.listening($scope,'searchStock',function(event,data){
+            	console.log(data);
+                $scope.tempDetail.adj.skuId = data.invStock.skuId;
+                $scope.tempDetail.skuNo = data.skuNo;
+                $scope.tempDetail.skuName = data.skuName;
+                $scope.tempDetail.adj.batchNo = data.invStock.batchNo;
+                $scope.tempDetail.adj.locationId = data.invStock.locationId;
+                $scope.tempDetail.locationNo = data.locationNo;
+                $scope.tempDetail.locationName = data.locationName;
+                $scope.tempDetail.areaName = data.areaName;
+                $scope.tempDetail.adj.measureUnit = data.measureUnit;
+                $scope.tempDetail.adj.specModel = data.specModel;
+                $scope.tempDetail.adj.stockQty = data.invStock.stockQty;
+                $scope.tempDetail.adj.realQty = data.invStock.stockQty;
+                on();
+            });
+        },
     }
 }]).name;
 /**

@@ -1,44 +1,43 @@
-
+<!-- 移位单管理 -->
 <section class="animate-enter-leave"  ng-if="btnAction.showIndex">
     <!--查询表单-->
     <div class="receive_container">
         <div class="receive_container">
-            <form class="form-horizontal" name="storeSearchForm" novalidate>
+            <form class="form-horizontal" name="shiftSearchForm" novalidate>
                 <div class="row">
                     <div class="col-sm-3 form-horizontal">
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title">移入库位</label>
                             <div class="col-sm-8">
-                                <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                       required name="ownerComment"
+                                <input type="text" ng-model="reqParam.inLocationName" class="form-control"
+                                       required name="inLocation"
                                        placeholder="移入库位">
-                                <span ng-if="!storeSearchForm.ownerComment.$error.required"
-                                      clear-input-btn="searchReceiveMsg.ownerComment"
+                                <span ng-if="!shiftSearchForm.inLocation.$error.required"
+                                      clear-input-btn="reqParam.inLocationName"
                                       class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
-
                     </div>
                     <div class="col-sm-3 form-horizontal">
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title">移出库位</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.poNo"
-                                       name="poNo" required
+                                <input type="text" class="form-control"  ng-model="reqParam.outLocationName"
+                                       name="outLocation" required
                                        placeholder="移出库位">
-                                <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchReceiveMsg.asn.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <span ng-if="!shiftSearchForm.outLocation.$error.required"  
+                                clear-input-btn="reqParam.outLocationName" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
-
                     </div>
 
                     <div class="col-sm-2 form-horizontal">
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">状态</label>
                             <div class="col-sm-8">
-                                <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
+                                <select class="form-control" ng-model="reqParam.shift.shiftStatus">
                                     <option value="" selected>请选择</option>
-                                    <option value="{{l.key}}" ng-repeat="l in getOriginData.gressionStatus">{{l.value}}</option>
+                                    <option value="{{l.key}}" ng-repeat="l in getOriginData.STATUS">{{l.value}}</option>
                                 </select>
                             </div>
                         </div>
@@ -61,15 +60,12 @@
         <!--按钮组-->
         <div class="row ">
             <div class="col-sm-10 col-sm-offset-1">
-                <button type="button" ng-click="btnAction.addAsn()"  class="btn btn-info">新增</button>
-
-                <button type="button" ng-click="btnAction.modifyAsn()" class="btn btn-info">修改</button>
-
-                <button type="button" class="btn btn-info">生效</button>
-                <button type="button" class="btn btn-info">失效</button>
-                <button type="button" class="btn btn-info">打印</button>
-                <button type="button" ng-click="btnAction.MakeSureGetGoodsBtn()" class="btn btn-info">作业确认</button>
-
+                <button type="button" ng-click="btnAction.showAdd()"  class="btn btn-info">新增</button>
+                <button type="button" ng-click="btnAction.showModify()" class="btn btn-info">修改</button>
+                <button type="button" ng-click="btnAction.enable()" class="btn btn-info">生效</button>
+                <button type="button" ng-click="btnAction.disable()" class="btn btn-info">失效</button>
+                <button type="button" ng-click="btnAction.print()" class="btn btn-info">打印</button>
+                <button type="button" ng-click="btnAction.showConfirmBtn()" class="btn btn-info">作业确认</button>
             </div>
         </div>
         <!--按钮组end-->
@@ -83,61 +79,227 @@
                         </label>
                     </th>
                     <th>序号</th>
-                    <th>企业</th>
-                    <th>仓库</th>
                     <th>移位单编码</th>
                     <th>状态</th>
-                    <th>移出库位</th>
-                    <th>
-                        移入库位
-                    </th>
-                    <th>移位数量</th>
-
-                    <th>计量单位</th>
-
+                    <th>移位类型</th>
                     <th>制单人</th>
                     <th>制单时间</th>
-                    <th>执行人</th>
+                    <th>作业人员</th>
                     <th>作业确认时间</th>
-
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <th><label>
-                        <input type="checkbox" aria-label="...">
-                    </label></th>
-
-                    <td>1</td>
-                    <td>中云智慧</td>
-                    <td>仓库1</td>
-                    <td><a ng-click="btnAction.showAsnDetailActionGetData(13)">435325345345</a></td>
-                    <td>生效</td>
-                    <td>A2</td>
-                    <td>A3</td>
-                    <td>1</td>
-                    <td>件</td>
-                    <td>赵六</td>
-                    <td>2015-10-10 22:11:00</td>
-                    <td>王五</td>
-                    <td>2015-10-10 22:11:00</td>
+                    <tbody>
+                <tr ng-repeat="item in shiftList track by $index"
+                    ng-click="btnAction.selectModify($index,$event)" >
+                    <td><label>
+                        <input type="checkbox" class="chk_selectItem" aria-label="..."  ng-model="btnAction.selectedItems[$index]" ng-change="btnAction.selectModify($index,$event)" />
+                    </label></td>
+                    <td ng-bind="$index+1"></td>
+					<td title="{{item.shift.shiftNo}}">
+                        <a  ng-click="btnAction.showDetailBtn(item.shift.shiftId)" ng-bind="item.shift.shiftNo.length>10?item.shift.shiftNo.slice(0,8)+'...':item.shift.shiftNo"></a>
+                    </td>
+					<td ng-bind="item.shiftStatusName"></td>
+                    <td ng-bind="item.shiftTypeName"></td>
+                    <td ng-bind="item.createUserName"></td>
+                    <td ng-bind="item.shift.createTime"></td>
+                    <td ng-bind="item.opPersonName"></td>
+                    <td ng-bind="item.shift.opTime"></td>
                 </tr>
-
                 </tbody>
             </table>
         </div>
-        <!-- /example -->
-
-
-        <page></page>
-
+        <!-- /主页数据表 -->
+        <page page-data="shiftList" url="/shift/list" page-model-query="pageModelQuery"></page>
+        
 
     </div>
     <footer></footer>
 </section>
 
-<!--新增/修改盘点单-->
+<!--新增/修改移位单-->
 <section class="animate-enter-leave posAb" ng-if="btnAction.showAddOrModify">
+    <form class="form-horizontal" name="shiftDetailSearchForm" novalidate>
+        <panel title="{{btnAction.showText.firstTitle}}">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title">移位类型</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" ng-model="shiftVo.shift.shiftType">
+                                <option value="{{l.key}}" ng-repeat="l in getOriginData.SHIFT_TYPE">{{l.value}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">移位单号</label>
+                        <div class="col-sm-8">
+                            <label ng-bind="shiftVo.shift.shiftNo" class="text-left pdTp5"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mg-lf">
+                <div class="form-group  has-feedback">
+                    <label class="col-sm-1 control-label receive-form-title">备注</label>
+                    <div class="col-sm-8">
+                        <textarea ng-bind="shiftVo.shift.note" class="form-control" rows="3" placeholder="备注"></textarea>
+                    </div>
+                </div>
+            </div>
+        </panel>
+        <panel title="移位明细">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>移出库位</label>
+                        <div class="col-sm-9">
+                           <input type="text" ng-model="shiftDetailVo.outLocation" class="form-control"
+                                  required name="outLocation"
+                                  onfocus="this.blur()"
+                               	  ng-click="btnAction.selectOutLocation()"
+                                  placeholder="请选择">
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title">货品代码</label>
+                        <div class="col-sm-9">
+                            <label ng-bind="shiftDetailVo.shift.skuNo" class="form-control text-left pdTp5"></label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title">计量单位</label>
+                        <div class="col-sm-9">
+                            <label ng-bind="shiftDetailVo.shift.measureUnit" class="form-control text-left pdTp5"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>移入库位</label>
+                        <div class="col-sm-9">
+                           <input type="text" ng-model="shiftDetailVo.inLocation" class="form-control"
+                                  required name="inLocation"
+                                  onfocus="this.blur()"
+                               	  ng-click="btnAction.selectInLocation()"
+                                  placeholder="请选择">
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title">批次</label>
+                        <div class="col-sm-9">
+                            <label ng-bind="shiftDetailVo.shift.batchNo" class="form-control text-left pdTp5"></label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title">库存数量</label>
+                        <div class="col-sm-9">
+                            <label ng-bind="shiftDetailVo.stockQty" class="form-control text-left pdTp5"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>库存货品</label>
+                        <div class="col-sm-9">
+                           <input type="text" ng-model="shiftDetailVo.skuName" class="form-control"
+                                  required name="skuName"
+                                  onfocus="this.blur()"
+                               	  ng-click="btnAction.selectGoods()"
+                                  placeholder="请选择">
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title">规格型号</label>
+                        <div class="col-sm-9">
+                            <label ng-bind="shiftDetailVo.shift.specModel" class="form-control text-left pdTp5"></label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>计划移位数量</label>
+                        <div class="col-sm-9">
+                            <input type="text" ng-model="shiftDetailVo.shift.shiftQty" class="form-control"
+                                   required name="shiftQty"
+                                   placeholder="计划移位数量">
+                            <span ng-if="!shiftDetailSearchForm.shiftQty.$error.required"
+                                  clear-input-btn="shiftDetailVo.shift.shiftQty"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </panel>
+
+        <div class="row mg20">
+            <div class="col-sm-offset-1 col-sm-1">
+                <button ng-click="btnDetailAction.inList()" class="btn btn-info">加入列表</button>
+            </div>
+            <div class="col-sm-1">
+                <button ng-click="btnDetailAction.deleteItem()" class="btn btn-info">删除</button>
+            </div>
+            <div class="col-sm-1">
+                <button ng-click="btnDetailAction.reset()" class="btn btn-info">重置</button>
+            </div>
+        </div>
+        <!--表格-->
+        <div class="receive-table" data-example-id="hoverable-table">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                	<th>
+                        <label>
+                            <input type="checkbox" aria-label="..." ng-model="btnDetailAction.selectedAll" ng-change="btnDetailAction.selectAll()">
+                        </label>
+                    </th>
+                    <th>序号</th>
+                    <th>移出库位</th>
+                    <th>移入库位</th>
+                    <th>货品名称</th>
+                    <th>批次</th>
+                    <th>货品代码</th>
+                    <th>规格型号</th>
+                    <th>计量单位</th>
+                    <th>计划移位数量</th>
+                </tr>
+                </thead>
+                <tbody>
+	                <tr ng-if="shiftVo.listInvShiftDetailVO.length===0"><td colspan="8"><h4>无内容</h4></td></tr>
+	                <tr class="cursor_pointer" ng-repeat="detailItem in shiftVo.listInvShiftDetailVO track by $index"
+	                    ng-click="btnDetailAction.selectModify($index,$event)"
+	                    ng-class="{'success':btnDetailAction.currentSelectItems==$index}">
+	                    <td><label>
+	                        <input type="checkbox" ng-model="btnDetailAction.selectedItems[$index]" ng-change="btnDetailAction.selectModify($index,$event)" />
+	                    </label></td>
+	                    <td ng-bind="$index+1"></td>
+	                    <td title="{{detailItem.outLocation}}" ng-bind="detailItem.outLocation.length>10?detailItem.outLocation.slice(0,8)+'...':detailItem.outLocation"></td>
+	                    <td title="{{detailItem.inLocation}}" ng-bind="detailItem.inLocation.length>10?detailItem.inLocation.slice(0,8)+'...':detailItem.inLocation"></td>
+	                    <td title="{{detailItem.skuName}}" ng-bind="detailItem.skuName.length>10?detailItem.skuName.slice(0,8)+'...':detailItem.skuName"></td>
+	                    <td title="{{detailItem.shift.batchNo}}" ng-bind="detailItem.shift.batchNo.length>10?detailItem.shift.batchNo.slice(0,8)+'...':detailItem.shift.batchNo"></td>
+	                    <td title="{{detailItem.skuNo}}" ng-bind="detailItem.skuNo.length>10?detailItem.skuNo.slice(0,8)+'...':detailItem.skuNo"></td>
+	                    <td title="{{detailItem.shift.specModel}}" ng-bind="detailItem.shift.specModel.length>10?detailItem.shift.specModel.slice(0,8)+'...':detailItem.shift.specModel"></td>
+	                    <td title="{{detailItem.shift.measureUnit}}" ng-bind="detailItem.shift.measureUnit.length>10?detailItem.shift.measureUnit.slice(0,8)+'...':detailItem.shift.measureUnit"></td>
+	                    <td ng-bind="detailItem.shift.shiftQty | nullIsZero:0"></td>
+	                </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <!-- /表格 -->
+
+        <div class="row mg-bm-50">
+            <div class=" col-sm-offset-1 ">
+                <button class="btn btn-info">暂存</button>
+                <button class="btn btn-info">保存并生效</button>
+                <button class="btn btn-info" ng-click="btnAction.addAsn()">返回</button>
+            </div>
+        </div>
+    </form>
+</section>
+<!--/新增/修改移位单-->
+
+<!--详情页-->
+<section class="animate-enter-leave posAb" ng-if="btnAction.showDetail">
     <form class="form-horizontal" name="storeSearchForm" novalidate>
         <panel title="{{btnAction.showText.firstTitle}}">
             <div class="row">
@@ -145,19 +307,7 @@
                     <div class="form-group  has-feedback">
                         <label class="col-sm-3 control-label receive-form-title">移位类型</label>
                         <div class="col-sm-9">
-                            <select class="form-control" ng-model="searchReceiveMsg.asn.dataFrom" ng-options="l.value as l.value for l in getOriginData.dataFromLists">
-                                <!--<option value="0" selected>请选择</option>-->
-                                <option value="10">库内移位</option>
-                                <option value="20">补货移位</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title">仓库</label>
-                        <div class="col-sm-8">
-                            <label class="text-left pdTp5">1号仓库</label>
+                            <label class="text-left pdTp5">{{getWarehouseId}}</label>
                         </div>
                     </div>
                 </div>
@@ -174,104 +324,11 @@
                 <div class="form-group  has-feedback">
                     <label class="col-sm-1 control-label receive-form-title">备注</label>
                     <div class="col-sm-8">
-                        <textarea class="form-control" rows="3" placeholder="备注"></textarea>
+                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
                     </div>
                 </div>
             </div>
         </panel>
-        <panel title="盘点明细">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="form-group  has-feedback">
-                        <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>移出库位</label>
-                        <div class="col-sm-9">
-                            <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                   required name="ownerComment"
-                                   onfocus="this.blur()" ng-click="btnAction.searchModel('select_wareLocation_searchModel')"
-                                   placeholder="请选择">
-                            <span class="fa fa-search form-control-feedback color345795" aria-hidden="true"></span>
-                        </div>
-                    </div>
-                    <div class="form-group  has-feedback">
-                        <label class="col-sm-3 control-label receive-form-title">货品代码</label>
-                        <div class="col-sm-9">
-                            <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                   required name="ownerComment"
-                                   onfocus="this.blur()" ng-click="btnAction.searchModel('searchModel')"
-                                   placeholder="请选择">
-                            <span class="fa fa-search form-control-feedback color345795" aria-hidden="true"></span>
-                        </div>
-                    </div>
-                    <div class="form-group  has-feedback">
-                        <label class="col-sm-3 control-label receive-form-title">规格型号</label>
-                        <div class="col-sm-9">
-                            <label class="form-control text-left pdTp5">200000111245</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group  has-feedback">
-                        <label class="col-sm-3 control-label receive-form-title">库位名称</label>
-                        <div class="col-sm-9">
-                            <label class="form-control text-left pdTp5">200000111245</label>
-                        </div>
-                    </div>
-                    <div class="form-group  has-feedback">
-                        <label class="col-sm-3 control-label receive-form-title">货品名称</label>
-                        <div class="col-sm-9">
-                            <label class="form-control text-left pdTp5">200000111245</label>
-                        </div>
-                    </div>
-                    <div class="form-group  has-feedback">
-                        <label class="col-sm-3 control-label receive-form-title">计量单位</label>
-                        <div class="col-sm-9">
-                            <label class="form-control text-left pdTp5">200000111245</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group  has-feedback">
-                        <label class="col-sm-3 control-label receive-form-title">移入库位</label>
-                        <div class="col-sm-9">
-                            <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                   required name="ownerComment"
-                                   onfocus="this.blur()" ng-click="btnAction.searchModel('select_wareLocation_searchModel')"
-                                   placeholder="请选择">
-                            <span class="fa fa-search form-control-feedback color345795" aria-hidden="true"></span>
-                        </div>
-                    </div>
-                    <div class="form-group  has-feedback">
-                        <label class="col-sm-3 control-label receive-form-title">批次</label>
-                        <div class="col-sm-9">
-                            <label class="form-control text-left pdTp5">200000111245</label>
-                        </div>
-                    </div>
-                    <div class="form-group  has-feedback">
-                        <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>计划移位数量</label>
-                        <div class="col-sm-9">
-                            <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                   required name="ownerComment"
-                                   placeholder="计划移位数量">
-                            <span ng-if="!storeSearchForm.ownerComment.$error.required"
-                                  clear-input-btn="searchReceiveMsg.ownerComment"
-                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </panel>
-
-        <div class="row mg20">
-            <div class="col-sm-offset-1 col-sm-1">
-                <button class="btn btn-info">新增</button>
-            </div>
-            <div class="col-sm-1">
-                <button class="btn btn-info">删除</button>
-            </div>
-            <div class="col-sm-1">
-                <button class="btn btn-info">重置</button>
-            </div>
-        </div>
         <!--表格-->
         <div class="receive-table" data-example-id="hoverable-table">
             <table class="table table-hover table-striped">
@@ -304,11 +361,108 @@
         <!-- /表格 -->
 
         <div class="row mg-bm-50">
-            <div class="col-sm-2 col-sm-offset-1 ">
-                <button class="btn btn-info" >保存</button>
+            <div class=" col-sm-offset-1 ">
+                <button class="btn btn-info">暂存</button>
+                <button class="btn btn-info">保存并生效</button>
                 <button class="btn btn-info" ng-click="btnAction.addAsn()">返回</button>
             </div>
         </div>
     </form>
 </section>
-<!--/新增/修改盘点单-->
+<!--  /详情页-->
+
+<!--确认移位详情页-->
+<section class="animate-enter-leave posAb" ng-if="btnAction.showConfirm">
+    <form class="form-horizontal" name="storeSearchForm" novalidate>
+        <panel title="{{btnAction.showText.firstTitle}}">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title">移位类型</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" ng-model="searchReceiveMsg.asn.dataFrom" ng-options="l.value as l.value for l in getOriginData.dataFromLists">
+                                <!--<option value="0" selected>请选择</option>-->
+                                <option value="10">库内移位</option>
+                                <option value="20">补货移位</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mg-lf">
+                <div class="form-group  has-feedback">
+                    <label class="col-sm-1 control-label receive-form-title">备注</label>
+                    <div class="col-sm-8">
+                        <label class="text-left pdTp5">{{getWarehouseId}}</label>
+                    </div>
+                </div>
+            </div>
+        </panel>
+        <!--表格-->
+        <div class="receive-table" data-example-id="hoverable-table">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>移出库位</th>
+                    <th>计划移入库位</th>
+                    <th>计划移位数量</th>
+                    <th>计量单位</th>
+                    <th><span class="color-red">*</span>实际移入库位</th>
+                    <th><span class="color-red">*</span>实际移入数量</th>
+                    <th>货品代码</th>
+                    <th>货品名称</th>
+                    <th>批次</th>
+                    <th>规格型号</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+
+                    <th ng-bind="$index+1"></th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td width="14rem">
+                        <div class="form-group has-feedback splitAsn_input">
+                            <input type="number" class="form-control input-sm" max="{{l.deliveryDetail.orderQty}}" required
+                                   ng-model="deliverySplitAction.datas.deliveryDetailVoList[$index].orderQty" input-number-only>
+                            <span ng-if="deliverySplitAction.datas.deliveryDetailVoList[$index].orderQty!=''" min="0"
+                                  class="fa fa-times-circle  form-control-feedback right20" turn-to-min="deliverySplitAction.datas.deliveryDetailVoList[$index].orderQty" aria-hidden="true"></span>
+                            <span class="fa fa-repeat form-control-feedback right0"  max="{{l.deliveryDetail.orderQty}}"
+                                  turn-to-max="deliverySplitAction.datas.deliveryDetailVoList[$index].orderQty"  aria-hidden="true"></span>
+                        </div>
+                    </td>
+                    <td width="14rem">
+                        <div class="form-group has-feedback splitAsn_input">
+                            <input type="number" class="form-control input-sm" ng-model="deliverySplitAction.datas.deliveryDetailVoList[$index].orderWeight" input-number-only >
+                            <span class="fa fa-times form-control-feedback right0" ng-if="deliverySplitAction.datas.deliveryDetailVoList[$index].orderWeight!=''"
+                                  clear-input-btn="deliverySplitAction.datas.deliveryDetailVoList[$index].orderWeight" aria-hidden="true"></span>
+                        </div>
+                    </td>
+
+                    <td >
+
+                    </td>
+                    <td ng-bind="l.skuNo"></td>
+                    <td ng-bind="l.skuName"></td>
+                    <td ng-bind="l.deliveryDetail.batchNo"></td>
+                    <td ng-bind="l.specModel"></td>
+                    <td ng-bind="l.deliveryDetail.measureUnit"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- /表格 -->
+
+        <div class="row mg-bm-50">
+            <div class=" col-sm-offset-1 ">
+                <button class="btn btn-info">暂存</button>
+                <button class="btn btn-info">保存并生效</button>
+                <button class="btn btn-info" ng-click="btnAction.confirm()">返回</button>
+            </div>
+        </div>
+    </form>
+</section>
+<!--  /详情页-->

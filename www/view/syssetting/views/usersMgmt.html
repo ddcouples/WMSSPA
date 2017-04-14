@@ -1,122 +1,467 @@
-<div class="receive_container">
+<!--列表页面-->
+<section class="animate-enter-leave"  ng-if="btnAction.showIndex">
+    <!--查询条件-->
     <div class="receive_container">
-        <form class="form-horizontal" name="storeSearchForm" novalidate>
+        <div class="receive_container">
+            <form class="form-horizontal" name="searchForm" novalidate>
+                <div class="row">
+                    <div class="col-sm-2 form-horizontal">
+                        <div class="form-group  has-feedback">
+                            <label class="col-sm-4 control-label receive-form-title">用户名</label>
+                            <div class="col-sm-8">
+                                <input type="text" ng-model="queryReqParam.entity.accountNo" class="form-control"
+                                       required name="accountNo" placeholder="用户名">
+                                <span ng-if="!searchForm.accountNo.$error.required"  clear-input-btn="queryReqParam.entity.accountNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 form-horizontal">
+                        <div class="form-group  has-feedback">
+                            <label class="col-sm-4 control-label receive-form-title">姓名</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control"  ng-model="queryReqParam.entity.accountName"
+                                       name="accountName" required placeholder="姓名">
+                                <span ng-if="!searchForm.accountName.$error.required"  clear-input-btn="queryReqParam.entity.accountName" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="col-sm-2 form-horizontal">
+                        <div class="form-group  has-feedback">
+                            <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">手机号</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control"  ng-model="queryReqParam.user.phone"
+                                       name="phone" required placeholder="手机号">
+                                <span ng-if="!searchForm.phone.$error.required" clear-input-btn="queryReqParam.user.phone"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    -->
+                    <div class="col-sm-2 form-horizontal">
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">状态</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" ng-model="queryReqParam.entity.accountStatus">
+                                    <option value="" selected>请选择</option>
+                                    <option value="{{l.key}}" ng-repeat="l in getOriginData.status">{{l.value}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-horizontal">
+                        <div class="row">
+                            <div class=" col-sm-offset-2 btn-mr16">
+                                <button type="button" class="btn btn-info" ng-click="searchformAction.search()">查询</button>
+                                <button type="button" class="btn btn-info" ng-click="searchformAction.reset()">重置</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="recevive_tables receive_btns">
+        <!--功能按钮begin-->
+        <div class="row ">
+            <div class="col-sm-10 col-sm-offset-1">
+                <button type="button" ng-click="btnAction.addPage()" class="btn btn-info">新增</button>
+                <button type="button" ng-click="btnAction.modifyPage(selectById.idArray[0])" class="btn btn-info">修改</button>
+                <button type="button" ng-click="btnAction.takeEffect(selectById.idArray[0],10)" class="btn btn-info">生效</button>
+                <button type="button" ng-click="btnAction.loseEffect(selectById.idArray[0],20)" class="btn btn-info">失效</button>
+                <button type="button" ng-click="btnAction.cancel(selectById.idArray[0],10)" class="btn btn-info">取消</button>
+            </div>
+        </div>
+        <!--功能按钮组end-->
+        <div class="receive-table" data-example-id="hoverable-table">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>序号</th>
+                    <th>用户名</th>
+                    <th>用户姓名</th>
+                    <th>邮箱</th>
+                    <th>备注</th>
+                    <th>状态</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in pageData">
+                    <th><label>
+                        <input ng-model="item.selected" type="checkbox" ng-change="btnAction.slectOnly(item.entity.accountId, item.selected, item)">
+                    </label></th>
+                    <td ng-bind="$index+1"></td>
+                    <td><a ng-bind="item.entity.accountNo|substr:6:'...'" ng-click="btnAction.showDetailActionGetData(item.entity.accountId)"></a></td>
+                    <td ng-bind="item.entity.accountName|substr:6:'...'"></td>
+                    <td ng-bind="item.user.email|substr:6:'...'"></td>
+                    <td ng-bind="item.entity.note|substr:6:'...'"></td>
+                    <td ng-bind="item.statusName"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- 分页列表数据显示 page-data用来绑定表格数据的别名 page-model-query查询参数别名 -->
+        <page page-data="pageData" url="/account/list" page-model-query="queryParam"></page>
+    </div>
+
+    <footer></footer>
+</section>
+<!--列表页面-->
+
+<!--新增/修改页面-->
+<section class="animate-enter-leave posAb" ng-if="btnAction.showAddOrModify">
+    <form class="form-horizontal" name="addForm" novalidate>
+        <!--主表页面-->
+        <panel title="{{btnAction.showText.firstTitle}}">
             <div class="row">
-                <div class="col-sm-2 form-horizontal">
+                <div class="col-sm-4">
                     <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title">用户名</label>
-                        <div class="col-sm-8">
-                            <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                   required name="ownerComment"
-                                   placeholder="用户名">
-                            <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchReceiveMsg.ownerComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>用户名</label>
+                        <div class="col-sm-9">
+                            <input type="text" ng-model="addModifyReqParam.entity.accountNo" id="accountNo" name="accountNo"
+                                   ng-minlength="6" ng-maxlength="18" ng-pattern="/[a-zA-Z0-9]/"
+                                   ng-class="{'error':addForm.accountNo.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入正确的用户名"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.accountNo.$invalid"
+                                   required class="form-control"  placeholder="用户名">
+                            <span ng-if="!addForm.accountNo.$error.required"
+                                  clear-input-btn="addModifyReqParam.entity.accountNo"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
-
-                </div>
-                <div class="col-sm-2 form-horizontal">
                     <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title">姓名</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.poNo"
-                                   name="poNo" required
-                                   placeholder="姓名">
-                            <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchReceiveMsg.asn.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>用户密码</label>
+                        <div class="col-sm-9">
+                            <input type="password" ng-model="addModifyReqParam.entity.accountPwd" id="accountPwd" name="accountPwd"
+                                   ng-minlength="6" ng-maxlength="18" ng-pattern="/[a-zA-Z0-9]/"
+                                   ng-class="{'error':addForm.accountPwd.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入正确的用户密码"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.accountPwd.$invalid"
+                                   required class="form-control"  placeholder="用户密码">
+                            <span ng-if="!addForm.accountPwd.$error.required"
+                                  clear-input-btn="addModifyReqParam.entity.accountPwd"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
-
-                </div>
-                <div class="col-sm-2 form-horizontal">
                     <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">手机号</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="手机号">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required" clear-input-btn="searchReceiveMsg.asn.asnNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-sm-2 form-horizontal">
-                    <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">状态</label>
-                        <div class="col-sm-8">
-                            <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
-                                <option value="" selected>请选择</option>
-                                <option value="{{l.key}}" ng-repeat="l in getOriginData.usersMgmtStatus">{{l.value}}</option>
-                            </select>
+                        <label class="col-sm-3 control-label receive-form-title">所属工作区</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.user.workAreaId"
+                                   ng-maxlength="32" uib-tooltip="必须输入正确的工作区"
+                                   ng-class="{'error':addForm.workAreaId.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.workAreaId.$invalid"
+                                   id="workAreaId" name="workAreaId" placeholder="所属工作区">
+                            <span ng-if="addForm.workAreaId.$invalid||addModifyReqParam.user.workAreaId!=null&&addModifyReqParam.user.workAreaId!=''"
+                                  clear-input-btn="addModifyReqParam.user.workAreaId"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4 form-horizontal">
-
-                    <div class="row">
-                        <div class=" col-sm-offset-2 btn-mr16">
-                            <button type="button" class="btn btn-info" ng-click="searchformAction.search()">查询</button>
-                            <button type="button" class="btn btn-info" ng-click="searchformAction.reset()">重置</button>
+                <div class="col-sm-4">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>用户姓名</label>
+                        <div class="col-sm-8">
+                            <input type="text" ng-model="addModifyReqParam.entity.accountName" id="accountName" name="accountName"
+                                   ng-minlength="2" ng-maxlength="32"
+                                   ng-class="{'error':addForm.accountName.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入正确的用户姓名"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.accountName.$invalid"
+                                   required class="form-control"  placeholder="用户姓名">
+                            <span ng-if="!addForm.accountName.$error.required"
+                                  clear-input-btn="addModifyReqParam.entity.accountName"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>重复密码</label>
+                        <div class="col-sm-8">
+                            <input type="password" ng-model="addModifyReqParam.entity.accountPwd2" id="accountPwd2" name="accountPwd2"
+                                   ng-minlength="6" ng-maxlength="18" ng-pattern="/[a-zA-Z0-9]/"
+                                   ng-class="{'error':addForm.accountPwd2.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入正确的重复密码"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.accountPwd2.$invalid"
+                                   required class="form-control"  placeholder="重复密码">
+                            <span ng-if="!addForm.accountPwd2.$error.required"
+                                  clear-input-btn="addModifyReqParam.entity.accountPwd2"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">所属班组</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.user.groupId"
+                                   ng-maxlength="32" uib-tooltip="必须输入正确的班组"
+                                   ng-class="{'error':addForm.groupId.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.groupId.$invalid"
+                                   name="groupId" placeholder="所属班组">
+                            <span ng-if="addForm.groupId.$invalid||addModifyReqParam.user.groupId!=null&&addModifyReqParam.user.groupId!=''"
+                                  clear-input-btn="addModifyReqParam.user.groupId"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">邮箱</label>
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control"  ng-model="addModifyReqParam.user.email"
+                                   ng-maxlength="64" uib-tooltip="必须输入正确的邮箱"
+                                   ng-class="{'error':addForm.email.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.email.$invalid"
+                                   name="email" placeholder="邮箱">
+                            <span ng-if="addForm.email.$invalid||addModifyReqParam.user.email!=null&&addModifyReqParam.user.email!=''"
+                                  clear-input-btn="addModifyReqParam.user.email"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                 </div>
             </div>
-        </form>
-    </div>
-</div>
+            <div class="row mg-lf">
+                <div class="form-group  has-feedback">
+                    <label class="col-sm-1 control-label receive-form-title">备注</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" ng-maxlength="128" placeholder="备注" uib-tooltip="必须输入正确的备注"
+                                  ng-class="{'error':addForm.note.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                  tooltip-placement="top" tooltip-class="customClass"
+                                  tooltip-trigger="'none'"
+                                  tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                  tooltip-enable="addForm.note.$invalid"
+                                  name="note" id="note" ng-model="addModifyReqParam.entity.note"></textarea>
+                    </div>
+                </div>
+            </div>
+        </panel>
 
-<div class="recevive_tables receive_btns">
-    <!--按钮组-->
-    <div class="row ">
-        <div class="col-sm-10 col-sm-offset-1">
-            <button type="button" class="btn btn-info">新增</button>
+        <!--从表页面-->
+        <panel title="用户角色">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">角色代码</label>
+                        <div class="col-sm-8" ng-click="btnAction.searchModel('selectRoleModel')">
+                            <input type="text" ng-model="subObject.roleNo" id="roleNo" name="roleNo"
+                                   onfocus="this.blur()" class="form-control"  placeholder="请选择">
+                            <span class="fa fa-search form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">角色名称</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="subObject.roleName"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group  has-feedback">
+                <label class="col-sm-1 control-label receive-form-title">角色描述</label>
+                <div class="col-sm-8">
+                    <label class="form-control text-left pdTp5" ng-bind="subObject.roleDesc"></label>
+                </div>
+            </div>
 
-            <button type="button" class="btn btn-info">修改</button>
+            <!--按钮组-->
+            <div class="row">
+                <div class="col-sm-offset-1 col-sm-1">
+                    <button class="btn btn-info" ng-click="detailAction.addList(addForm)">加入列表</button>
+                </div>
+                <div class="col-sm-1">
+                    <button class="btn btn-info" ng-click="detailAction.deleteItem()">删除</button>
+                </div>
+            </div>
 
-            <button type="button" class="btn btn-info">生效</button>
+            <!--表格-->
+            <div class="receive-table" data-example-id="hoverable-table">
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th>
+                            <label>
+                                <input type="checkbox" ng-model="detailAction.selectedAll" ng-change="detailAction.selectAll()" />
+                            </label>
+                        </th>
+                        <th>序号</th>
+                        <th>角色代码</th>
+                        <th>角色名称</th>
+                        <th>角色描述</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                                ng-click="detailAction.selectModify($index, $event)"
+                                ng-class="{'success':detailAction.currentSelectItems==$index}"
+                                ng-repeat="item in addModifyReqParam.list track by $index">
+                            <th><label>
+                                <input type="checkbox" ng-model="item.xstatus" />
+                            </label></th>
+                            <td ng-bind="$index+1"></td>
+                            <td ng-bind="item.roleNo"></td>
+                            <td ng-bind="item.roleName"></td>
+                            <td ng-bind="item.roleDesc"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </panel>
 
-            <button type="button" class="btn btn-info">失效</button>
-
-            <button type="button" class="btn btn-info">取消</button>
+        <!--按钮组-->
+        <div class="mg-bm-50 mg-lt20">
+            <button class="btn btn-info mg-lt20" ng-click="addModifyBtnAction.temporarilySave(addForm)">暂存</button>
+            <button class="btn btn-info mg-lt20" ng-click="addModifyBtnAction.saveEffectBack(addForm)">保存并返回</button>
+            <button class="btn btn-info mg-lt20" ng-click="btnAction.addPage()">返回</button>
         </div>
+    </form>
+</section>
+<!--新增/修改页面-->
+
+<!--查看详情页面-->
+<section class="animate-enter-leave posAb" ng-if="btnAction.showDetail">
+    <form class="form-horizontal" name="viewForm" novalidate>
+        <panel title="{{btnAction.showText.firstTitle}}">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title">用户名</label>
+                        <div class="col-sm-9">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.accountNo"></label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title">所属工作区</label>
+                        <div class="col-sm-9">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.user.workAreaId"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">用户姓名</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.accountName"></label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">所属班组</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.user.groupId"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">邮箱</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.user.email"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mg-lf">
+                <div class="form-group  has-feedback">
+                    <label class="col-sm-1 control-label receive-form-title">备注</label>
+                    <div class="col-sm-8">
+                        <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.note"></label>
+                    </div>
+                </div>
+            </div>
+        </panel>
+
+        <panel title="用户角色">
+            <!--表格-->
+            <div class="receive-table" data-example-id="hoverable-table">
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>角色代码</th>
+                        <th>角色名称</th>
+                        <th>角色描述</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in viewRspParam.list track by $index">
+                            <td ng-bind="$index+1"></td>
+                            <td ng-bind="item.roleNo"></td>
+                            <td ng-bind="item.roleName"></td>
+                            <td ng-bind="item.roleDesc"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </panel>
+        <div class="mg-bm-50 mg-lt20">
+            <button class="btn btn-info mg-lt20" ng-click="btnAction.showDetailAction()">返回</button>
+        </div>
+    </form>
+</section>
+<!--查看详情页面-->
+
+<!--选择角色弹出框-->
+<search-modal  id="selectRoleModel" lg="true" title="选择角色">
+    <div class="modal-body">
+        <form class="form-inline" name="selectForm4Role1" >
+            <div class="form-group has-feedback">
+                <label>角色代码：</label>
+                <input type="text" class="form-control"
+                       ng-model="queryReqParam4Role.entity.roleNo" placeholder="角色代码">
+                <span ng-if="queryReqParam4Role.entity.roleNo!==''"
+                      clear-input-btn="queryReqParam4Role.entity.roleNo"
+                      class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <label>角色名称：</label>
+                <input type="text" class="form-control"
+                       ng-model="queryReqParam4Role.entity.roleName" placeholder="角色名称">
+                <span ng-if="queryReqParam4Role.entity.roleName!==''"
+                      clear-input-btn="queryReqParam4Role.entity.roleName"
+                      class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+            </div>
+            <button type="submit" class="btn btn-primary" ng-click="selectForm4Role.search()">查询</button>
+        </form>
+        <div class="receive-table scroll_y" data-example-id="hoverable-table">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>角色代码</th>
+                    <th>角色名称</th>
+                    <th>角色描述</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="cursor_pointer" ng-repeat="item in pageData4Role" ng-click="selectForm4Role.select(item)" >
+                    <td ng-bind="$index+1"></td>
+                    <td ng-bind="item.entity.roleNo"></td>
+                    <td ng-bind="item.entity.roleName"></td>
+                    <td ng-bind="item.entity.roleDesc"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <page page-data="pageData4Role" url="/role/list" page-model-query="queryParam4Role"></page>
     </div>
-    <!--按钮组end-->
-    <div class="receive-table" data-example-id="hoverable-table">
-        <table class="table table-hover table-striped">
-            <thead>
-            <tr>
-                <th>
-                    <label>
-                        <input type="checkbox" aria-label="...">
-                    </label>
-                </th>
-                <th>序号</th>
-                <th>用户名</th>
-                <th>用户姓名</th>
-                <th>邮箱</th>
-                <th>备注</th>
-                <th>状态</th>
-                <th>创建人<br>
-                    创建时间</th>
-                <th>最后修改人<br>
-                    修改时间</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th><label>
-                    <input type="checkbox" aria-label="...">
-                </label></th>
-
-            </tr>
-
-            </tbody>
-        </table>
-    </div>
-
-
-    <page></page>
-
-
-</div>
-<footer></footer>
-
-
+</search-modal>
+<!--/选择角色弹出框-->

@@ -14,7 +14,7 @@
                 </div>
                 <div class="nav navbar-nav navbar-right mg-tp5">
                     <h5>你好，<a class="mg-rt20" ui-sref=".personCenter">张三</a> 当前仓库：<span class="mg-lt5">仓库1</span>
-                        <a href="" class="mg-lt30 mg-rt20">退出</a></h5>
+                        <a href="/wms/#!/login" class="mg-lt30 mg-rt20">退出</a></h5>
                 </div>
             </div>
         </div>
@@ -22,18 +22,362 @@
     <section class="ware_container ">
         <div class="ware_content">
             <ul class="nav nav-justified ware_title">
-                <li ui-sref-active="active"><a ui-sref=".home">首页</a></li>
-                <li ui-sref-active="active"><a ui-sref=".storeMgmt">仓储管理</a></li>
-                <li ui-sref-active="active"><a ui-sref=".monitoringCenter">监控中心</a></li>
-                <li ui-sref-active="active"><a ui-sref=".gardenMgmt">园区管理</a></li>
-                <li ui-sref-active="active"><a href="">报表中心</a></li>
-                <li ui-sref-active="active"><a ui-sref=".basicData">基础数据</a></li>
+                <!--<li ui-sref-active="active"><a ui-sref=".home">首页</a></li>-->
+                <!--<li ui-sref-active="active"><a ui-sref=".storeMgmt">仓储管理</a></li>-->
+                <!--<li ui-sref-active="active"><a ui-sref=".monitoringCenter">监控中心</a></li>-->
+                <!--<li ui-sref-active="active"><a ui-sref=".gardenMgmt">园区管理</a></li>-->
+                <!--<li ui-sref-active="active"><a href="">报表中心</a></li>-->
+                <!--<li ui-sref-active="active"><a ui-sref=".basicData">基础数据</a></li>-->
                 <li ui-sref-active="active"><a ui-sref=".sysSetting">系统管理</a></li>
             </ul>
         </div>
         <div  ui-view></div>
-
     </section>
+
+    <!--选择用户弹框 监听select_users_searchModel-->
+    <div class="modal fade bs-example-modal-lg"
+         data-backdrop="static"
+         data-keyboard="false" id="select_users_searchModel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" >
+                        选择用户</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label>用户编号：</label>
+                            <input type="text" class="form-control" placeholder="用户编号" ng-model="selectedUsersAction.usersQueryModelEntity.entity.userNo">
+                        </div>
+                        <div class="form-group">
+                            <label>姓名：</label>
+                            <input type="text" class="form-control" placeholder="姓名" ng-model="selectedUsersAction.usersQueryModelEntity.entity.userName">
+                        </div>
+                        <div class="form-group">
+                            <label>手机号：</label>
+                            <input type="tel" class="form-control" placeholder="手机号" ng-model="selectedUsersAction.usersQueryModelEntity.entity.phone">
+                        </div>
+                        <button type="submit" class="btn btn-primary" ng-click="selectedUsersAction.search()">查询</button>
+                    </form>
+                    <div class="receive-table scroll_y" data-example-id="hoverable-table">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>用户编号</th>
+                                <th>姓名</th>
+                                <th>手机号</th>
+                                <th>所属班组</th>
+                                <th>当前作业</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                    <div class="receive-table scroll_y" data-example-id="hoverable-table">
+                        <table class="table table-hover table-striped">
+                            <tbody>
+                            <tr class="cursor_pointer" ng-repeat="l in selectUsersPageData track by $index" ng-click="selectedUsersAction.selectUser(l)">
+                                <td>{{$index+1}}</td>
+                                <td title="{{l.entity.userNo}}">{{l.entity.userNo | substr :8:'...'}}</td>
+                                <td>{{l.entity.userName}}</td>
+                                <td>{{l.entity.phone}}</td>
+                                <td>{{l.groupName}}</td>
+                                <td>{{l.areaName}}</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <page page-data="selectUsersPageData" url="/user/list" default-search="false" page-model-query="selectedUsersAction.usersQueryModelEntity"></page>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--选择用户end-->
+
+    <!--选择库位modal-->
+    <div class="modal fade"
+         data-backdrop="static"
+         data-keyboard="false" id="select_wareLocation_searchModel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" >
+                        选择库位</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label>库位代码：</label>
+                            <input type="text" class="form-control" placeholder="库位代码" ng-model="selectedWareLocationAction.WareLocationQueryModelEntity.likeLocNo">
+                        </div>
+                        <div class="form-group">
+                            <label>所属库区：</label>
+                            <input type="text" class="form-control" placeholder="所属库区" ng-model="selectedWareLocationAction.WareLocationQueryModelEntity.likeAreaName">
+                        </div>
+                        <div class="form-group">
+                            <label>库位名称：</label>
+                            <input type="text" class="form-control" placeholder="库位名称" ng-model="selectedWareLocationAction.WareLocationQueryModelEntity.likeLocName">
+                        </div>
+                        <button type="submit" class="btn btn-primary" ng-click="selectedWareLocationAction.search()">查询</button>
+                    </form>
+                    <div class="receive-table " data-example-id="hoverable-table">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>库位代码</th>
+                                <th>库位名称</th>
+                                <th>所属库区</th>
+                                <th>库容量</th>
+                                <th>使用库容量</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="receive-table scroll_y" data-example-id="hoverable-table">
+                        <table class="table table-hover table-striped">
+                            <tbody>
+                            <tr class="cursor_pointer" ng-repeat="l in selectWareLocationPageData track by $index" ng-click="selectedWareLocationAction.selectWareLocation(l)">
+                                <td>{{$index+1}}</td>
+                                <td title="l.location.locationNo">{{l.location.locationNo|substr: 8:'...'}}</td>
+                                <td>{{l.location.locationName}}</td>
+                                <td>{{l.areaComment}}</td>
+                                <td>{{l.location.maxCapacity}}</td>
+                                <td>{{l.location.usedCapacity}}</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <page page-data="selectWareLocationPageData" url="/location/list" default-search="false" page-model-query="selectedWareLocationAction.WareLocationQueryModelEntity"></page>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--选择库位modal end-->
+
+    <!--选择货品弹框-->
+    <div class="modal fade bs-example-modal-lg"
+         data-backdrop="static"
+         data-keyboard="false" id="searchGoodsModel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">选择货品</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label>货品代码：</label>
+                            <input type="text" class="form-control"
+                                   ng-model="selectGoods.queryParam.entity.skuNo"
+                                   placeholder="货品代码">
+                        </div>
+                        <div class="form-group">
+                            <label>货品名称：</label>
+                            <input type="text" class="form-control"
+                                   ng-model="selectGoods.queryParam.entity.skuName"
+                                   placeholder="货品名称">
+                        </div>
+                        <div class="form-group">
+                            <label>计量单位：</label>
+                            <input type="text" class="form-control"
+                                   ng-model="SelectGoodspageModelQuery.entity.measureUnit"
+                                   placeholder="计量单位">
+                        </div>
+                        <button type="submit" class="btn btn-primary" ng-click="selectGoods.search()">查询</button>
+                    </form>
+                    <div class="receive-table scroll_y" data-example-id="hoverable-table">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>货品代码</th>
+                                <th>货品名称</th>
+                                <th>规格型号</th>
+                                <th>计量单位</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="receive-table scroll_y" data-example-id="hoverable-table">
+                        <table class="table table-hover table-striped">
+                            <tbody>
+                            <tr class="cursor_pointer" ng-click="selectGoods.select(d)"
+                                ng-repeat="d in SelectGoodspageData">
+                                <td ng-bind="$index+1"></td>
+                                <td ng-bind="d.entity.skuNo"></td>
+                                <td ng-bind="d.entity.skuName"></td>
+                                <td ng-bind="d.entity.specModel"></td>
+                                <td ng-bind="d.entity.measureUnit"></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <page page-data="SelectGoodspageData" url="/sku/list" default-search="false" page-model-query="selectGoods.queryParam"></page>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--/货品代码弹框-->
+
+    <!--选择发货方弹框   此处已经进行数据的绑定-->
+    <search-modal  id="selectMerchantModel" title="选择客商" lg="true">
+        <div class="modal-body modal-merchant">
+            <form class="form-inline" name="selectOrganizationForm" novalidate>
+                <div class="form-group">
+                    <label>客商代码：</label>
+                    <input type="text" ng-model="selectMerchant.queryParam.entity.merchantNo" class="form-control" placeholder="客商代码">
+                </div>
+                <div class="form-group">
+                    <label>客商名称：</label>
+                    <input type="text" ng-model="selectMerchant.queryParam.entity.merchantName" class="form-control" placeholder="客商名称">
+                </div>
+                <div class="form-group">
+                    <label>负责人：</label>
+                    <input type="text" ng-model="selectMerchant.queryParam.entity.contactPerson" class="form-control" placeholder="负责人">
+                </div>
+                <button type="submit" class="btn btn-primary" ng-click="selectMerchant.search()">查询</button>
+            </form>
+            <div class="receive-table" data-example-id="hoverable-table">
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th width="10%">序号</th>
+                        <th width="20%">客商代码</th>
+                        <th width="10%">客商简称</th>
+                        <th width="15%">客商名称</th>
+                        <th width="10%">负责人</th>
+                        <th width="15%">联系电话</th>
+                        <th width="20%">备注</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="receive-table scroll_y" data-example-id="hoverable-table">
+                <table class="table table-hover table-striped">
+                    <tbody class="">
+                    <tr class="cursor_pointer" ng-repeat="item in SelectMerchantspageData"
+                        ng-click="selectMerchant.select(item)">
+                        <td width="10%" ng-bind="$index+1"></td>
+                        <td  width="20%" ng-bind="item.entity.merchantNo"></td>
+                        <td width="10%" ng-bind="item.entity.merchantShortName"></td>
+                        <td width="15%" ng-bind="item.entity.merchantName"></td>
+                        <td width="10%" ng-bind="item.entity.contactPerson"></td>
+                        <td width="15%" ng-bind="item.entity.contactPhone"></td>
+                        <td width="20%" ng-bind="item.entity.note"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <page page-data="SelectMerchantspageData" default-search="false" url="/merchant/list" page-model-query="selectMerchant.queryParam"></page>
+        </div>
+    </search-modal>
+    <!--/选择客商弹框-->
+
+    <!--库存货品弹框-->
+    <search-modal  id="inventoryGoodsModal" title="库存货品选择" lg="true">
+        <form class="form-horizontal" name="storeSearchForm" novalidate>
+            <div class="modal-body">
+                <div class="row" ng-if="selectInventory.isShow">
+                    <div class="col-sm-11">
+                        <div class="col-sm-3">
+                            <div class="form-group  has-feedback">
+                                <label class="col-sm-5 control-label receive-form-title">库位代码</label>
+                                <div class="col-sm-7">
+                                    <input type="text" ng-model="selectInventory.queryParam.locationNo" class="form-control"
+                                           required name="locationNo"
+                                           placeholder="库位代码">
+                                    <span ng-if="storeSearchForm.locationNo!=''"  clear-input-btn="selectInventory.queryParam.locationNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group  has-feedback">
+                                <label class="col-sm-5 control-label receive-form-title">库位名称</label>
+                                <div class="col-sm-7">
+                                    <input type="text" ng-model="selectInventory.queryParam.locationName" class="form-control"
+                                           required name="locationName"
+                                           placeholder="库位名称">
+                                    <span ng-if="storeSearchForm.locationName!=''"  clear-input-btn="selectInventory.queryParam.locationName"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group  has-feedback">
+                                <label class="col-sm-5 control-label receive-form-title">货品代码</label>
+                                <div class="col-sm-7">
+                                    <input type="text" ng-model="selectInventory.queryParam.skuNo" class="form-control"
+                                           required name="skuNo"
+                                           placeholder="货品代码">
+                                    <span ng-if="storeSearchForm.skuNo!=''"  clear-input-btn="selectInventory.queryParam.skuNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group  has-feedback">
+                                <label class="col-sm-5 control-label receive-form-title">货品名称</label>
+                                <div class="col-sm-7">
+                                    <input type="text" ng-model="selectInventory.queryParam.skuName" class="form-control"
+                                           required name="skuName"
+                                           placeholder="货品名称">
+                                    <span ng-if="storeSearchForm.skuName!=''"  clear-input-btn="selectInventory.queryParam.skuName"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <button ng-click="selectInventory.search()" class="btn btn-success">查询</button>
+                    </div>
+                </div>
+                <!--表格-->
+                <div class="receive-table" data-example-id="hoverable-table">
+                    <table class="table table-hover table-striped">
+                       	<thead>
+                        	<tr>
+	                            <th>序号</th>
+	                            <th>库位</th>
+	                            <th>货品代码</th>
+	                            <th>货品名称</th>
+	                            <th>批次</th>
+	                            <th>规格型号</th>
+	                            <th>计量单位</th>
+	                            <th>账存</th>
+                        	</tr>
+                       	</thead>
+                       	<tbody class="">
+		                    <tr class="cursor_pointer" ng-repeat="item in SelectStockPageData"
+		                        ng-click="selectInventory.select(item)">
+		                        
+		                        <td ng-bind="$index+1"></td>
+		                        <td title="{{item.locationName}}" ng-bind="item.locationName.length>10?item.locationName.slice(0,8)+'...':item.locationName"></td>
+	                    		<td title="{{item.skuNo}}" ng-bind="item.skuNo.length>10?item.skuNo.slice(0,8)+'...':item.skuNo"></td>
+	                    		<td title="{{item.skuName}}" ng-bind="item.skuName.length>10?item.skuName.slice(0,8)+'...':item.skuName"></td>
+	                    		<td title="{{item.invStock.batchNo}}" ng-bind="item.invStock.batchNo.length>10?item.invStock.batchNo.slice(0,8)+'...':item.invStock.batchNo"></td>
+	                    		<td title="{{item.specModel}}" ng-bind="item.specModel.length>10?item.specModel.slice(0,8)+'...':item.specModel"></td>
+	                    		<td title="{{item.measureUnit}}" ng-bind="item.measureUnit.length>10?item.measureUnit.slice(0,8)+'...':item.measureUnit"></td>
+	                    		<td ng-bind="item.invStock.stockQty | nullIsZero:0"></td>
+		                    </tr>
+                   		</tbody>
+       			 	</table>
+                </div>
+                <!-- /表格 -->
+                <page page-data="SelectStockPageData" default-search="false" url="/stock/list" page-model-query="selectInventory.queryParam"></page>
+       
+            </div>
+        </form>
+    </search-modal>
+    <!--/库存货品弹框-->
 </div>
 
 

@@ -41,7 +41,20 @@ module.exports = angular.module('app.storeMgmt', []).config(['$urlRouterProvider
             return deferred.promise;
         },
         controller: 'receiveMgmtCtrl',
-        controllerAs: 'receiveMgmtController'
+        controllerAs: 'receiveMgmtController',
+        resolve: {
+            'app.storeMgmt': function($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure(['./controllers/receiveMgmtCtrl.js'], function() {
+                    var mod = require('./controllers/receiveMgmtCtrl.js');
+                    $ocLazyLoad.load({
+                        name: 'app.storeMgmt'
+                    });
+                    deferred.resolve(mod.controller);
+                }, 'storeMgmt-ctl');
+                return deferred.promise;
+            }
+        }
     }).state('warehouse.storeMgmt.shelvesMgmt', {
         url: '/shelvesMgmt',
         templateProvider: function($q) {
@@ -53,7 +66,20 @@ module.exports = angular.module('app.storeMgmt', []).config(['$urlRouterProvider
             return deferred.promise;
         },
         controller: 'shelvesMgmtCtrl',
-        controllerAs: 'shelvesMgmtController'
+        controllerAs: 'shelvesMgmtController',
+        resolve: {
+            'app.storeMgmt': function($q, $ocLazyLoad) {
+                var deferred = $q.defer();
+                require.ensure(['./controllers/shelvesMgmtCtrl.js'], function() {
+                    var mod = require('./controllers/shelvesMgmtCtrl.js');
+                    $ocLazyLoad.load({
+                        name: 'app.storeMgmt'
+                    });
+                    deferred.resolve(mod.controller);
+                }, 'storeMgmt-ctl');
+                return deferred.promise;
+            }
+        }
     }).state('warehouse.storeMgmt.deliveryGoodMgmt', {
         url: '/deliveryGoodMgmt',
         templateProvider: function($q) {
@@ -166,6 +192,9 @@ module.exports = angular.module('app.storeMgmt', []).config(['$urlRouterProvider
         },
         controller: 'takeStockCtrl',
         controllerAs: 'takeStockController',
+        onEnter:function(){
+            console.log(1);
+        },
         resolve: {
             'app.storeMgmt': function($q, $ocLazyLoad) {
                 var deferred = $q.defer();

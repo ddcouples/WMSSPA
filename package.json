@@ -6,9 +6,7 @@
   "scripts": {
     "webpack": "set NODE_ENV=dev&&webpack  --progress --colors",
     "build": "set NODE_ENV=build&&webpack -p --progress --colors",
-    "test": "set NODE_ENV=test&&webpack -p --progress --colors",
-    "dev": "set NODE_ENV=dev&& webpack-dev-server --hot --progress  --colors --host 0.0.0.0 --port 8080",
-    "hot": "webpack-dev-server --devtool eval --progress --colors --hot --content-base"
+    "dev": "set NODE_ENV=dev&& webpack-dev-server --hot --progress  --colors --host 0.0.0.0 --port 8088"
   },
   "keywords": [
     "front-solution"

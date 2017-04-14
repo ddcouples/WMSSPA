@@ -8,7 +8,7 @@ module.exports = angular.module('directive.historyMessage', [])
         restrict: 'EA',
         template: require('./historyMessage.html'),
         scope:{
-          sources:'=',
+            sources:'=',
             selectHistory:'='
         },
         link: function(scope, elem, attr) {

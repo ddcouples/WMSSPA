@@ -1,0 +1,40 @@
+.back-to-bottom{
+    position: fixed;
+    right:3rem;
+    top:10rem;
+    cursor: pointer;
+    z-index: 1000;
+    -webkit-transition: transform 2s ease-in-out,opacity 1s ease-in;
+    -moz-transition: transform 2s ease-in-out ,opacity 1s ease-in;
+    -ms-transition: transform 2s ease-in-out ,opacity 1s ease-in;
+    -o-transition: transform 2s ease-in-out,opacity 1s ease-in;
+    transition: transform 2s ease-in-out,opacity 1s ease-in;
+    -webkit-transform: rotate(0deg) translateX(8rem);
+    -moz-transform: rotate(0deg) translateX(8rem);
+    -ms-transform: rotate(0deg) translateX(8rem);
+    -o-transform: rotate(0deg) translateX(8rem);
+    transform: rotate(0deg) translateX(8rem);
+    opacity: 0;
+    div{
+        width:4rem;
+        height:5.6rem;
+        background: url("../../img/backTobottom.gif") no-repeat;
+    }
+}
+
+.back-to-bottom.current{
+    -webkit-transform: rotate(0) translateX(0) ;
+    -moz-transform: rotate(0) translateX(0) ;
+    -ms-transform: rotate(0) translateX(0) ;
+    -o-transform: rotate(0) translateX(0) ;
+    transform: rotate(0) translateX(0);
+    opacity:1;
+}
+.back-to-bottom.up{
+    -webkit-transform: translateY(200%) ;
+    -moz-transform: translateY(200%) ;
+    -ms-transform: translateY(200%) ;
+    -o-transform: translateY(200%) ;
+    transform: translateY(200%);
+    opacity:0;
+}

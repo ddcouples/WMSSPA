@@ -18,6 +18,7 @@ angular.module('app', [
         require('angular-animate'),
         // require('angular-ui-bootstrap'),
         tabs,
+        require('angular-ui-bootstrap/src/tooltip'),
         require('oclazyload'),
         require('./routing.js'),
         require('./directive.js'),
@@ -25,5 +26,5 @@ angular.module('app', [
     ])
     .config(['$urlRouterProvider','$locationProvider',function($urlRouterProvider, $locationProvider) {
          $urlRouterProvider.otherwise("/login");
-        // $locationProvider.html5Mode(true);
-    }]);
+         // $locationProvider.html5Mode(true);
+    }]).value('HttpMethod','POST');

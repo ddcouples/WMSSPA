@@ -1,127 +1,370 @@
-<div class="receive_container">
+<!--列表页面-->
+<section class="animate-enter-leave"  ng-if="btnAction.showIndex">
     <div class="receive_container">
-        <form class="form-horizontal" name="storeSearchForm" novalidate>
+        <div class="receive_container">
+            <form class="form-horizontal" name="searchForm" novalidate>
+                <div class="row">
+                    <div class="col-sm-2 form-horizontal">
+                        <div class="form-group  has-feedback">
+                            <label class="col-sm-4 control-label receive-form-title">权限编号</label>
+                            <div class="col-sm-8">
+                                <input type="text" ng-model="queryReqParam.entity.authNo" class="form-control"
+                                       required name="authNo" placeholder="权限编号">
+                                <span ng-if="!searchForm.authNo.$error.required"  clear-input-btn="queryReqParam.entity.authNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 form-horizontal">
+                        <div class="form-group  has-feedback">
+                            <label class="col-sm-4 control-label receive-form-title">权限名称</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control"  ng-model="queryReqParam.entity.authName"
+                                       name="authName" required placeholder="权限名称">
+                                <span ng-if="!searchForm.authName.$error.required"  clear-input-btn="queryReqParam.entity.authName" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 form-horizontal">
+                        <div class="form-group  has-feedback">
+                            <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">权限简称</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control"  ng-model="queryReqParam.entity.authShortname"
+                                       name="authShortname" required placeholder="权限简称">
+                                <span ng-if="!searchForm.authShortname.$error.required" clear-input-btn="queryReqParam.entity.authShortname"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 form-horizontal">
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">状态</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" ng-model="queryReqParam.entity.authStatus">
+                                    <option value="" selected>请选择</option>
+                                    <option value="{{l.key}}" ng-repeat="l in getOriginData.status">{{l.value}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-horizontal">
+                        <div class="row">
+                            <div class=" col-sm-offset-2 btn-mr16">
+                                <button type="button" class="btn btn-info" ng-click="searchformAction.search()">查询</button>
+                                <button type="button" class="btn btn-info" ng-click="searchformAction.reset()">重置</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="recevive_tables receive_btns">
+        <!--按钮组-->
+        <div class="row ">
+            <div class="col-sm-10 col-sm-offset-1">
+                <button type="button" ng-click="btnAction.addPage()" class="btn btn-info">新增</button>
+                <button type="button" ng-click="btnAction.modifyPage(selectById.idArray[0])" class="btn btn-info">修改</button>
+                <button type="button" ng-click="btnAction.takeEffect(selectById.idArray[0],10)" class="btn btn-info">生效</button>
+                <button type="button" ng-click="btnAction.loseEffect(selectById.idArray[0],20)" class="btn btn-info">失效</button>
+                <button type="button" ng-click="btnAction.cancel(selectById.idArray[0],10)" class="btn btn-info">取消</button>
+            </div>
+        </div>
+        <!--按钮组end-->
+        <div class="receive-table" data-example-id="hoverable-table">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>序号</th>
+                    <th>权限编号</th>
+                    <th>权限名称</th>
+                    <th>权限简称</th>
+                    <th>权限URL</th>
+                    <th>上级权限</th>
+                    <th>权限类型</th>
+                    <th>级别</th>
+                    <th>状态</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in pageData">
+                    <th><label>
+                        <input ng-model="item.selected" type="checkbox" ng-change="btnAction.slectOnly(item.entity.authId, item.selected, item)">
+                    </label></th>
+                    <td ng-bind="$index+1"></td>
+                    <td><a ng-bind="item.entity.authNo|substr:6:'...'" ng-click="btnAction.showDetailActionGetData(item.entity.authId)"></a></td>
+                    <td ng-bind="item.entity.authName|substr:6:'...'"></td>
+                    <td ng-bind="item.entity.authShortname|substr:6:'...'"></td>
+                    <td ng-bind="item.entity.authUrl|substr:6:'...'"></td>
+                    <td ng-bind="item.parent.authName|substr:6:'...'"></td>
+                    <td ng-bind="item.typeName"></td>
+                    <td ng-bind="item.levelName"></td>
+                    <td ng-bind="item.statusName"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- /example -->
+        <!-- 分页列表数据显示 page-data用来绑定表格数据的别名 page-model-query查询参数别名 -->
+        <page page-data="pageData" url="/auth/list" page-model-query="queryParam"></page>
+    </div>
+    <footer ></footer>
+</section>
+<!--列表页面-->
+
+<!--新增/修改页面-->
+<section class="animate-enter-leave posAb" ng-if="btnAction.showAddOrModify">
+    <form class="form-horizontal" name="addForm" novalidate>
+        <panel title="{{btnAction.showText.firstTitle}}">
             <div class="row">
-                <div class="col-sm-2 form-horizontal">
+                <div class="col-sm-3">
                     <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title">权限编号</label>
+                        <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>权限编号</label>
                         <div class="col-sm-8">
-                            <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                   required name="ownerComment"
-                                   placeholder="权限编号">
-                            <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchReceiveMsg.ownerComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.authNo"
+                                   ng-class="{'error':addForm.authNo.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入权限编号"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.authNo.$invalid"
+                                   id="authNo" name="authNo" required placeholder="权限编号">
+                            <span ng-if="!addForm.authNo.$error.required"
+                                  clear-input-btn="addModifyReqParam.entity.authNo"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>权限名称</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.authName"
+                                   ng-class="{'error':addForm.authName.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入权限名称"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.authName.$invalid"
+                                   id="authName" name="authName" required placeholder="权限名称">
+                            <span ng-if="!addForm.authName.$error.required"
+                                  clear-input-btn="addModifyReqParam.entity.authName"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
 
                 </div>
-                <div class="col-sm-2 form-horizontal">
+                <div class="col-sm-3">
                     <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title">权限名称</label>
+                        <label class="col-sm-4 control-label receive-form-title">权限简称</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.poNo"
-                                   name="poNo" required
-                                   placeholder="权限名称">
-                            <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchReceiveMsg.asn.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.authShortname"
+                                   name="authShortname" required placeholder="权限简称">
+                            <span ng-if="!addForm.authShortname.$error.required"
+                                  clear-input-btn="addModifyReqParam.entity.authShortname"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2"><span class="color-red">*</span>权限类型</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" ng-model="addModifyReqParam.entity.authType">
+                                <option value="{{l.key}}" ng-repeat="l in getOriginData.type">{{l.value}}</option>
+                            </select>
                         </div>
                     </div>
 
                 </div>
-                <div class="col-sm-2 form-horizontal">
-                    <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">权限简称</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="权限简称">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required" clear-input-btn="searchReceiveMsg.asn.asnNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
-                        </div>
-                    </div>
+            </div>
 
+            <div class="form-group  has-feedback">
+                <label class="col-sm-1 control-label receive-form-title"><span class="color-red">*</span>权限URL</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.authUrl"
+                           ng-class="{'error':addForm.authUrl.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                           uib-tooltip="必须输入权限URL"
+                           tooltip-placement="top" tooltip-class="customClass"
+                           tooltip-trigger="'none'"
+                           tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                           tooltip-enable="addForm.authUrl.$invalid"
+                           id="authUrl" name="authUrl" required placeholder="权限URL">
+                    <span ng-if="!addForm.authUrl.$error.required"
+                          clear-input-btn="addModifyReqParam.entity.authUrl"
+                          class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                 </div>
-                <div class="col-sm-2 form-horizontal">
-                    <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">状态</label>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>级别</label>
                         <div class="col-sm-8">
-                            <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
-                                <option value="" selected>请选择</option>
-                                <option value="{{l.key}}" ng-repeat="l in getOriginData.rightsStatus">{{l.value}}</option>
+                            <select class="form-control" ng-model="addModifyReqParam.entity.authLevel">
+                                <option value="{{l.key}}" ng-repeat="l in getOriginData.level">{{l.value}}</option>
                             </select>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4 form-horizontal">
-
-                    <div class="row">
-                        <div class=" col-sm-offset-2 btn-mr16">
-                            <button type="button" class="btn btn-info" ng-click="searchformAction.search()">查询</button>
-                            <button type="button" class="btn btn-info" ng-click="searchformAction.reset()">重置</button>
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">上级权限</label>
+                        <div class="col-sm-8" ng-click="btnAction.searchModel('selectAuthModel')">
+                            <input type="text" ng-model="addModifyReqParam.parent.authName" id="authName2"
+                                   required name="authName2"
+                                   onfocus="this.blur()" class="form-control"  placeholder="请选择">
+                            <span class="fa fa-search form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                 </div>
             </div>
-        </form>
-    </div>
-</div>
+            <div class="form-group  has-feedback">
+                <label class="col-sm-1 control-label receive-form-title">备注</label>
+                <div class="col-sm-8">
+                    <textarea class="form-control"  placeholder="备注" ng-model="addModifyReqParam.entity.note"></textarea>
+                </div>
+            </div>
+        </panel>
 
-<div class="recevive_tables receive_btns">
-    <!--按钮组-->
-    <div class="row ">
-        <div class="col-sm-10 col-sm-offset-1">
-            <button type="button" class="btn btn-info">新增</button>
+        <div class="mg-bm-50 mg-lt20">
+            <button class="btn btn-info mg-lt20" ng-click="addModifyBtnAction.temporarilySave(addForm)">暂存</button>
+            <button class="btn btn-info mg-lt20" ng-click="addModifyBtnAction.saveEffectBack(addForm)">保存并返回</button>
+            <button class="btn btn-info mg-lt20" ng-click="btnAction.addPage()">返回</button>
+        </div>
+    </form>
+</section>
+<!--新增/修改页面-->
 
-            <button type="button" class="btn btn-info">修改</button>
+<!--查看详情页面-->
+<section class="animate-enter-leave posAb" ng-if="btnAction.showDetail">
+    <div class="form-horizontal" name="viewForm" novalidate>
+        <panel title="查看权限">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">权限编号</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.authNo"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">权限名称</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.authName"></label>
+                        </div>
+                    </div>
 
-            <button type="button" class="btn btn-info">生效</button>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">权限简称</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.authShortname"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">权限类型</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.typeName"></label>
+                        </div>
+                    </div>
 
-            <button type="button" class="btn btn-info">失效</button>
+                </div>
+            </div>
 
-            <button type="button" class="btn btn-info">取消</button>
+            <div class="form-group  has-feedback">
+                <label class="col-sm-1 control-label receive-form-title">权限URL</label>
+                <div class="col-sm-8">
+                    <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.authUrl"></label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">级别</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.levelName"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">上级权限</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.parent.authName"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group  has-feedback">
+                <label class="col-sm-1 control-label receive-form-title">备注</label>
+                <div class="col-sm-8">
+                    <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.note"></label>
+                </div>
+            </div>
+        </panel>
+
+        <div class="mg-bm-50 mg-lt20">
+            <button class="btn btn-info mg-lt20" ng-click="btnAction.showDetailAction()">返回</button>
         </div>
     </div>
-    <!--按钮组end-->
-    <div class="receive-table" data-example-id="hoverable-table">
-        <table class="table table-hover table-striped">
-            <thead>
-            <tr>
-                <th>
-                    <label>
-                        <input type="checkbox" aria-label="...">
-                    </label>
-                </th>
-                <th>序号</th>
-                <th>权限编号</th>
-                <th>权限名称</th>
-                <th>权限简称</th>
-                <th>权限URL</th>
-                <th>上级权限</th>
-                <th>权限类型</th>
-                <th>级别</th>
-                <th>备注</th>
-                <th>状态</th>
-                <th>创建人<br>
-                    创建时间</th>
-                <th>最后修改人<br>
-                    修改时间</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th><label>
-                    <input type="checkbox" aria-label="...">
-                </label></th>
+</section>
+<!--查看详情页面-->
 
-            </tr>
-
-            </tbody>
-        </table>
+<!--弹出框（选择客商）-->
+<search-modal  id="selectAuthModel" title="选择权限" lg="true">
+    <div class="modal-body modal-merchant">
+        <form class="form-inline" name="selectForm4Auth" novalidate>
+            <div class="form-group">
+                <label>权限编号：</label>
+                <input type="text" ng-model="queryReqParam1.entity.authNo" class="form-control" placeholder="权限编号">
+            </div>
+            <div class="form-group">
+                <label>权限名称：</label>
+                <input type="text" ng-model="queryReqParam1.entity.authName" class="form-control" placeholder="权限名称">
+            </div>
+            <div class="form-group">
+                <label>权限简称：</label>
+                <input type="text" ng-model="queryReqParam1.entity.authShortname" class="form-control" placeholder="权限简称">
+            </div>
+            <button type="submit" class="btn btn-primary" ng-click="selectForm1.search()">查询</button>
+        </form>
+        <div class="receive-table scroll_y" data-example-id="hoverable-table">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>权限编号</th>
+                    <th>权限名称</th>
+                    <th>权限简称</th>
+                    <th>权限URL</th>
+                    <th>上级权限</th>
+                    <th>权限类型</th>
+                    <th>级别</th>
+                    <th>状态</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in pageData1" ng-click="selectForm1.select(item)">
+                    <td ng-bind="$index+1"></td>
+                    <td ng-bind="item.entity.authNo|substr:6:'...'"></td>
+                    <td ng-bind="item.entity.authName|substr:6:'...'"></td>
+                    <td ng-bind="item.entity.authShortname|substr:6:'...'"></td>
+                    <td ng-bind="item.entity.authUrl|substr:6:'...'"></td>
+                    <td ng-bind="item.parent.authName|substr:6:'...'"></td>
+                    <td ng-bind="item.typeName"></td>
+                    <td ng-bind="item.levelName"></td>
+                    <td ng-bind="item.statusName"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <page page-data="pageData1" url="/auth/list" page-model-query="queryParam1"></page>
     </div>
-    <!-- /example -->
-
-
-    <page></page>
-
-
-</div>
-
-<footer></footer>
-
+</search-modal>

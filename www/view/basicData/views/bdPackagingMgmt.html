@@ -1,46 +1,41 @@
+<!--列表页面-->
 <section class="animate-enter-leave"  ng-if="btnAction.showIndex">
     <div class="receive_container">
         <div class="receive_container">
-            <form class="form-horizontal" name="storeSearchForm" novalidate>
+            <form class="form-horizontal" name="searchForm" novalidate>
                 <div class="row">
                     <div class="col-sm-2 form-horizontal">
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title">包装单位</label>
                             <div class="col-sm-8">
-                                <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                       required name="ownerComment"
-                                       placeholder="包装单位">
-                                <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchReceiveMsg.ownerComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <input type="text" ng-model="queryReqParam.entity.packUnit" class="form-control"
+                                       required name="packUnit" placeholder="包装单位">
+                                <span ng-if="!searchForm.packUnit.$error.required"  clear-input-btn="queryReqParam.entity.packUnit"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
-
                     </div>
                     <div class="col-sm-2 form-horizontal">
                         <div class="form-group  has-feedback">
                             <label class="col-sm-4 control-label receive-form-title">包装级别</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.poNo"
-                                       name="poNo" required
-                                       placeholder="包装级别">
-                                <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchReceiveMsg.asn.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                                <input type="text" class="form-control"  ng-model="queryReqParam.entity.packLevel"
+                                       name="packLevel" required placeholder="包装级别">
+                                <span ng-if="!searchForm.packLevel.$error.required"  clear-input-btn="queryReqParam.entity.packLevel" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                             </div>
                         </div>
-
                     </div>
-
                     <div class="col-sm-2 form-horizontal">
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">状态</label>
                             <div class="col-sm-8">
-                                <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
+                                <select class="form-control" ng-model="queryReqParam.entity.packStatus">
                                     <option value="" selected>请选择</option>
-                                    <option value="{{l.key}}" ng-repeat="l in getOriginData.bdPackagingStatus">{{l.value}}</option>
+                                    <option value="{{l.key}}" ng-repeat="l in getOriginData.status">{{l.value}}</option>
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-4 form-horizontal">
-
                         <div class="row">
                             <div class=" col-sm-offset-2 btn-mr16">
                                 <button type="button" class="btn btn-info" ng-click="searchformAction.search()">查询</button>
@@ -56,14 +51,11 @@
         <!--按钮组-->
         <div class="row ">
             <div class="col-sm-10 col-sm-offset-1">
-                <button type="button" class="btn btn-info"  ng-click="btnAction.addAsn()">新增</button>
-
-                <button type="button" class="btn btn-info" ng-click="btnAction.modifyAsn(11)">修改</button>
-
-                <button type="button" class="btn btn-info">生效</button>
-
-                <button type="button" class="btn btn-info">失效</button>
-
+                <button type="button" ng-click="btnAction.addPage()" class="btn btn-info">新增</button>
+                <button type="button" ng-click="btnAction.modifyPage(selectById.idArray[0])" class="btn btn-info">修改</button>
+                <button type="button" ng-click="btnAction.takeEffect(selectById.idArray[0],10)" class="btn btn-info">生效</button>
+                <button type="button" ng-click="btnAction.loseEffect(selectById.idArray[0],20)" class="btn btn-info">失效</button>
+                <button type="button" ng-click="btnAction.cancel(selectById.idArray[0],10)" class="btn btn-info">取消</button>
             </div>
         </div>
         <!--按钮组end-->
@@ -71,11 +63,7 @@
             <table class="table table-hover table-striped">
                 <thead>
                 <tr>
-                    <th>
-                        <label>
-                            <input type="checkbox" aria-label="...">
-                        </label>
-                    </th>
+                    <th></th>
                     <th>序号</th>
                     <th>包装单位</th>
                     <th>包装级别</th>
@@ -83,152 +71,297 @@
                     <th>长（M）</th>
                     <th>宽（M）</th>
                     <th>高（M）</th>
+                    <th>重量（公斤）</th>
                     <th>体积（CBM）</th>
-                    <th>备注</th>
                     <th>状态</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
+                <tr ng-repeat="item in pageData">
                     <th><label>
-                        <input type="checkbox" aria-label="...">
+                        <input ng-model="item.selected" type="checkbox" ng-change="btnAction.slectOnly(item.entity.packId, item.selected, item)">
                     </label></th>
-
+                    <td ng-bind="$index+1"></td>
+                    <td><a ng-bind="item.entity.packUnit|substr:6:'...'" ng-click="btnAction.showDetailActionGetData(item.entity.packId)"></a></td>
+                    <td ng-bind="item.entity.packLevel|substr:6:'...'"></td>
+                    <td ng-bind="item.entity.trayPercent|substr:6:'...'"></td>
+                    <td ng-bind="item.entity.packLength|substr:6:'...'"></td>
+                    <td ng-bind="item.entity.packWide"></td>
+                    <td ng-bind="item.entity.packHeight|substr:6:'...'"></td>
+                    <td ng-bind="item.entity.weight"></td>
+                    <td ng-bind="item.entity.volume"></td>
+                    <td ng-bind="item.packStatus"></td>
                 </tr>
-
                 </tbody>
             </table>
         </div>
         <!-- /example -->
-
-
-        <page></page>
-
-
+        <!-- 分页列表数据显示 page-data用来绑定表格数据的别名 page-model-query查询参数别名 -->
+        <page page-data="pageData" url="/pack/list" page-model-query="queryParam"></page>
     </div>
     <footer></footer>
 </section>
+<!--列表页面-->
 
-
-
-<!--新增/修改仓库-->
+<!--新增/修改页面-->
 <section class="animate-enter-leave posAb" ng-if="btnAction.showAddOrModify">
-    <form class="form-horizontal" name="storeSearchForm" novalidate>
+    <form class="form-horizontal" name="addForm" novalidate>
         <panel title="{{btnAction.showText.firstTitle}}">
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title">包装编号</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="包装编号">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                        <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>包装编号</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.packNo"
+                                   ng-minlength="6" ng-maxlength="18" ng-pattern="/[a-zA-Z0-9]/"
+                                   ng-class="{'error':addForm.packNo.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入正确的包装编号"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.packNo.$invalid"
+                                   id="packNo" name="packNo" required placeholder="包装编号">
+                            <span ng-if="!addForm.packNo.$error.required"
+                                  clear-input-btn="addModifyReqParam.entity.packNo"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title">长(CM)</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="租金(万元)">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                        <label class="col-sm-3 control-label receive-form-title">长(CM)</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control"  ng-model="addModifyReqParam.entity.packLength"
+                                   ng-class="{'error':addForm.packLength.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入正确的长"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.packLength.$invalid"
+                                   name="packLength" placeholder="租金(万元)">
+                            <span ng-if="addForm.packLength.$invalid||addModifyReqParam.entity.packLength!=null&&addModifyReqParam.entity.packLength!=''"
+                                  clear-input-btn="addModifyReqParam.entity.packLength"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
-
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>包装单位</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="包装单位">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
-                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
-                        </div>
-                    </div>
-                    <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title">宽(CM)</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="宽(CM)">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
-                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title">包装级别</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="包装级别">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
-                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
-                        </div>
-                    </div>
-                    <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title">高(CM)</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="高(CM)">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
-                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-3">
                     <div class="form-group  has-feedback">
                         <label class="col-sm-3 control-label receive-form-title">托盘系数</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="托盘系数">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <input type="number" class="form-control"  ng-model="addModifyReqParam.entity.trayPercent"
+                                   ng-class="{'error':addForm.trayPercent.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入正确的托盘系数"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.trayPercent.$invalid"
+                                   name="trayPercent" placeholder="托盘系数">
+                            <span ng-if="addForm.trayPercent.$invalid||addModifyReqParam.entity.trayPercent!=null&&addModifyReqParam.entity.trayPercent!=''"
+                                  clear-input-btn="addModifyReqParam.entity.trayPercent"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>包装单位</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.packUnit"
+                                   ng-maxlength="64"
+                                   ng-class="{'error':addForm.packUnit.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入正确的包装单位"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.packUnit.$invalid"
+                                   id="packUnit" name="packUnit" required placeholder="包装单位">
+                            <span ng-if="!addForm.packUnit.$error.required"
+                                  clear-input-btn="addModifyReqParam.entity.packUnit"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title">宽(CM)</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control"  ng-model="addModifyReqParam.entity.packWide"
+                                   ng-class="{'error':addForm.packWide.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入正确的宽"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.packWide.$invalid"
+                                   name="packWide" placeholder="宽(CM)">
+                            <span ng-if="addForm.packWide.$invalid||addModifyReqParam.entity.packWide!=null&&addModifyReqParam.entity.packWide!=''"
+                                  clear-input-btn="addModifyReqParam.entity.packWide"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title">重量(公斤)</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control"  ng-model="addModifyReqParam.entity.weight"
+                                   ng-class="{'error':addForm.weight.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入正确的重量"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.weight.$invalid"
+                                   name="weight" placeholder="重量(公斤)">
+                            <span ng-if="addForm.weight.$invalid||addModifyReqParam.entity.weight!=null&&addModifyReqParam.entity.weight!=''"
+                                  clear-input-btn="addModifyReqParam.entity.weight"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title">包装级别</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.packLevel"
+                                   ng-maxlength="64"
+                                   ng-class="{'error':addForm.packLevel.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入正确的包装级别"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.packLevel.$invalid"
+                                   name="packLevel" placeholder="包装级别">
+                            <span ng-if="addForm.packLevel.$invalid||addModifyReqParam.entity.packLevel!=null&&addModifyReqParam.entity.packLevel!=''"
+                                  clear-input-btn="addModifyReqParam.entity.packLevel"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title">高(CM)</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control"  ng-model="addModifyReqParam.entity.packHeight"
+                                   ng-class="{'error':addForm.packHeight.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入正确的高"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.packHeight.$invalid"
+                                   name="packHeight" placeholder="高(CM)">
+                            <span ng-if="addForm.packHeight.$invalid||addModifyReqParam.entity.packHeight!=null&&addModifyReqParam.entity.packHeight!=''"
+                                  clear-input-btn="addModifyReqParam.entity.packHeight"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group  has-feedback">
                         <label class="col-sm-3 control-label receive-form-title">体积(CM³)</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="体积(CM³)">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required"
-                                  clear-input-btn="searchReceiveMsg.asn.asnNo"
+                            <input type="number" class="form-control"  ng-model="addModifyReqParam.entity.volume"
+                                   ng-class="{'error':addForm.volume.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入正确的体积"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.volume.$invalid"
+                                   name="volume" placeholder="体积(CM³)">
+                            <span ng-if="addForm.volume.$invalid||addModifyReqParam.entity.volume!=null&&addModifyReqParam.entity.volume!=''"
+                                  clear-input-btn="addModifyReqParam.entity.volume"
                                   class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
-
                 </div>
             </div>
             <div class="form-group  has-feedback">
                 <label class="col-sm-1 control-label receive-form-title">备注</label>
-                <div class="col-sm-9">
-                    <textarea class="form-control" rows="3" placeholder="备注"></textarea>
+                <div class="col-sm-8">
+                    <textarea class="form-control" rows="3" id="note" name="note"
+                              ng-maxlength="128"
+                              ng-class="{'error':addForm.note.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                              uib-tooltip="必须输入正确的备注"
+                              tooltip-placement="top" tooltip-class="customClass"
+                              tooltip-trigger="'none'"
+                              tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                              tooltip-enable="addForm.note.$invalid"
+                              placeholder="备注" ng-model="addModifyReqParam.entity.note"></textarea>
                 </div>
             </div>
-
         </panel>
         <div class="mg-bm-50 mg-lt20">
-            <button class="btn btn-info mg-lt20">暂存</button>
-            <button class="btn btn-info mg-lt20">保存并返回</button>
-            <button class="btn btn-info mg-lt20" ng-click="btnAction.addAsn()">返回</button>
+            <button class="btn btn-info mg-lt20" ng-click="addModifyBtnAction.temporarilySave(addForm)">暂存</button>
+            <button class="btn btn-info mg-lt20" ng-click="addModifyBtnAction.saveEffectBack(addForm)">保存并返回</button>
+            <button class="btn btn-info mg-lt20" ng-click="btnAction.addPage()">返回</button>
         </div>
     </form>
 </section>
-<!--/新增/修改仓库-->
+<!--新增/修改页面-->
+
+<!--查看详情页面-->
+<section class="animate-enter-leave posAb" ng-if="btnAction.showDetail">
+    <form class="form-horizontal" name="viewForm" novalidate>
+        <panel title="{{btnAction.showText.firstTitle}}">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>包装编号</label>
+                        <div class="col-sm-9">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.packNo"></label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title">长(CM)</label>
+                        <div class="col-sm-9">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.packLength"></label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title">托盘系数</label>
+                        <div class="col-sm-9">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.trayPercent"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title"><span class="color-red">*</span>包装单位</label>
+                        <div class="col-sm-9">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.packUnit"></label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title">宽(CM)</label>
+                        <div class="col-sm-9">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.packWide"></label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title">重量(公斤)</label>
+                        <div class="col-sm-9">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.weight"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title">包装级别</label>
+                        <div class="col-sm-9">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.packLevel"></label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title">高(CM)</label>
+                        <div class="col-sm-9">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.packHeight"></label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-3 control-label receive-form-title">体积(CM³)</label>
+                        <div class="col-sm-9">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.volume"></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group  has-feedback">
+                <label class="col-sm-1 control-label receive-form-title">备注</label>
+                <div class="col-sm-8">
+                    <textarea onfocus="this.blur()" class="form-control" rows="3" placeholder="备注" ng-model="viewRspParam.entity.note"></textarea>
+                </div>
+            </div>
+        </panel>
+        <div class="mg-bm-50 mg-lt20">
+            <button class="btn btn-info mg-lt20" ng-click="btnAction.showDetailAction()">返回</button>
+        </div>
+    </form>
+</section>
+<!--查看详情页面-->

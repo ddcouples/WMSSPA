@@ -4,7 +4,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 999;
+  z-index: 999999999;
 }
 .tooltip-diaphane {
   width: 100%;
@@ -20,7 +20,7 @@
   border-radius: 5px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   position: fixed;
-  z-index: 999;
+  z-index: 999999999;
   left: 50%;
   top: 50%;
   transform: translateX(-50%) translateY(-50%);

@@ -1,126 +1,389 @@
-<div class="receive_container">
+<!--列表页面-->
+<section class="animate-enter-leave"  ng-if="btnAction.showIndex">
     <div class="receive_container">
-        <form class="form-horizontal" name="storeSearchForm" novalidate>
+        <div class="receive_container">
+            <form class="form-horizontal" name="searchForm" novalidate>
+                <div class="row">
+                    <div class="col-sm-2 form-horizontal">
+                        <div class="form-group  has-feedback">
+                            <label class="col-sm-4 control-label receive-form-title">企业代码</label>
+                            <div class="col-sm-8">
+                                <input type="text" ng-model="queryReqParam.entity.orgNo" class="form-control"
+                                       name="orgNo" required placeholder="企业代码">
+                                <span ng-if="!searchForm.orgNo.$error.required"  clear-input-btn="queryReqParam.entity.orgNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 form-horizontal">
+                        <div class="form-group  has-feedback">
+                            <label class="col-sm-4 control-label receive-form-title">企业名称</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control"  ng-model="queryReqParam.entity.orgName"
+                                       name="orgName" required placeholder="企业名称">
+                                <span ng-if="!searchForm.orgName.$error.required"  clear-input-btn="queryReqParam.entity.orgName" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 form-horizontal">
+                        <div class="form-group  has-feedback">
+                            <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">联系人</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control"  ng-model="queryReqParam.entity.contactPerson"
+                                       name="contactPerson" required placeholder="联系人">
+                                <span ng-if="!searchForm.contactPerson.$error.required" clear-input-btn="queryReqParam.entity.contactPerson"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 form-horizontal">
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">状态</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" ng-model="queryReqParam.entity.orgStatus">
+                                    <option value="" selected>请选择</option>
+                                    <option value="{{l.key}}" ng-repeat="l in getOriginData.status">{{l.value}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-horizontal">
+                        <div class="row">
+                            <div class=" col-sm-offset-2 btn-mr16">
+                                <button type="button" class="btn btn-info" ng-click="searchformAction.search()">查询</button>
+                                <button type="button" class="btn btn-info" ng-click="searchformAction.reset()">重置</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="recevive_tables receive_btns">
+        <!--按钮组-->
+        <div class="row ">
+            <div class="col-sm-10 col-sm-offset-1">
+                <button type="button" ng-click="btnAction.addPage()" class="btn btn-info">新增</button>
+                <button type="button" ng-click="btnAction.modifyPage(selectById.idArray[0])" class="btn btn-info">修改</button>
+                <button type="button" ng-click="btnAction.takeEffect(selectById.idArray[0],10)" class="btn btn-info">生效</button>
+                <button type="button" ng-click="btnAction.loseEffect(selectById.idArray[0],20)" class="btn btn-info">失效</button>
+                <button type="button" ng-click="btnAction.cancel(selectById.idArray[0],10)" class="btn btn-info">取消</button>
+            </div>
+        </div>
+        <!--按钮组end-->
+        <div class="receive-table" data-example-id="hoverable-table">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>序号</th>
+                    <th>企业代码</th>
+                    <th>企业名称</th>
+                    <th>简称</th>
+                    <th>城市</th>
+                    <th>联系人</th>
+                    <th>联系电话</th>
+                    <th>备注</th>
+                    <th>状态</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in pageData">
+                    <th><label>
+                        <input ng-model="item.selected" type="checkbox" ng-change="btnAction.slectOnly(item.entity.orgId, item.selected, item)">
+                    </label></th>
+                    <td ng-bind="$index+1"></td>
+                    <td><a ng-bind="item.entity.orgNo|substr:6:'...'" ng-click="btnAction.showDetailActionGetData(item.entity.orgId)"></a></td>
+                    <td ng-bind="item.entity.orgName|substr:6:'...'"></td>
+                    <td ng-bind="item.entity.orgShortName|substr:6:'...'"></td>
+                    <td ng-bind="item.entity.city|substr:6:'...'"></td>
+                    <td ng-bind="item.entity.contactPerson|substr:6:'...'"></td>
+                    <td ng-bind="item.entity.contactPhone|substr:6:'...'"></td>
+                    <td ng-bind="item.entity.note|substr:6:'...'"></td>
+                    <td ng-bind="item.statusName"></td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <!-- /example -->
+        <!-- 分页列表数据显示 page-data用来绑定表格数据的别名 page-model-query查询参数别名 -->
+        <page page-data="pageData" url="/org/list" page-model-query="queryParam"></page>
+    </div>
+    <footer></footer>
+</section>
+<!--列表页面-->
+
+<!--新增/修改页面-->
+<section class="animate-enter-leave posAb" ng-if="btnAction.showAddOrModify">
+    <form class="form-horizontal" name="addForm" novalidate>
+        <panel title="{{btnAction.showText.firstTitle}}">
             <div class="row">
-                <div class="col-sm-2 form-horizontal">
+                <div class="col-sm-3">
                     <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title">企业代码</label>
+                        <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>企业代码</label>
                         <div class="col-sm-8">
-                            <input type="text" ng-model="searchReceiveMsg.ownerComment" class="form-control"
-                                   required name="ownerComment"
-                                   placeholder="企业代码">
-                            <span ng-if="!storeSearchForm.ownerComment.$error.required"  clear-input-btn="searchReceiveMsg.ownerComment"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.orgNo"
+                                   ng-class="{'error':addForm.orgNo.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入企业代码"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.orgNo.$invalid"
+                                   id="orgNo" name="orgNo" required placeholder="企业代码">
+                            <span ng-if="!addForm.orgNo.$error.required"
+                                  clear-input-btn="addModifyReqParam.entity.orgNo"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
-
-                </div>
-                <div class="col-sm-2 form-horizontal">
                     <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title">企业名称</label>
+                        <label class="col-sm-4 control-label receive-form-title">开户银行</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.poNo"
-                                   name="poNo" required
-                                   placeholder="企业名称">
-                            <span ng-if="!storeSearchForm.poNo.$error.required"  clear-input-btn="searchReceiveMsg.asn.poNo" class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.bank"
+                                   name="bank" required placeholder="开户银行">
+                            <span ng-if="!addForm.bank.$error.required"
+                                  clear-input-btn="addModifyReqParam.entity.bank"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
-
-                </div>
-                <div class="col-sm-2 form-horizontal">
                     <div class="form-group  has-feedback">
-                        <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">联系人</label>
+                        <label class="col-sm-4 control-label receive-form-title">联系电话</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control"  ng-model="searchReceiveMsg.asn.asnNo"
-                                   name="asnNo" required
-                                   placeholder="联系人">
-                            <span ng-if="!storeSearchForm.asnNo.$error.required" clear-input-btn="searchReceiveMsg.asn.asnNo"  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-sm-2 form-horizontal">
-                    <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-4 control-label receive-form-title">状态</label>
-                        <div class="col-sm-8">
-                            <select class="form-control" ng-model="searchReceiveMsg.asn.asnStatus">
-                                <option value="" selected>请选择</option>
-                                <option value="{{l.key}}" ng-repeat="l in getOriginData.epManagemenStatus">{{l.value}}</option>
-                            </select>
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.contactPhone"
+                                   name="contactPhone" required placeholder="联系电话">
+                            <span ng-if="!addForm.contactPhone.$error.required"
+                                  clear-input-btn="addModifyReqParam.entity.contactPhone"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4 form-horizontal">
-
-                    <div class="row">
-                        <div class=" col-sm-offset-2 btn-mr16">
-                            <button type="button" class="btn btn-info" ng-click="searchformAction.search()">查询</button>
-                            <button type="button" class="btn btn-info" ng-click="searchformAction.reset()">重置</button>
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title"><span class="color-red">*</span>企业名称</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.orgName"
+                                   ng-class="{'error':addForm.orgName.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                                   uib-tooltip="必须输入企业名称"
+                                   tooltip-placement="top" tooltip-class="customClass"
+                                   tooltip-trigger="'none'"
+                                   tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                                   tooltip-enable="addForm.orgName.$invalid"
+                                   id="orgName" name="orgName" required placeholder="企业名称">
+                            <span ng-if="!addForm.orgName.$error.required"
+                                  clear-input-btn="addModifyReqParam.entity.orgName"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">银行账户</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.bankAccount"
+                                   name="bankAccount" required placeholder="银行账户">
+                            <span ng-if="!addForm.bankAccount.$error.required"
+                                  clear-input-btn="addModifyReqParam.entity.bankAccount"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">电子邮箱</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.email"
+                                   name="email" required placeholder="电子邮箱">
+                            <span ng-if="!addForm.email.$error.required"
+                                  clear-input-btn="addModifyReqParam.entity.email"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">简称</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.orgShortName"
+                                   name="orgShortName" required placeholder="简称">
+                            <span ng-if="!addForm.orgShortName.$error.required"
+                                  clear-input-btn="addModifyReqParam.entity.orgShortName"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">城市</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.city"
+                                   name="city" required placeholder="城市">
+                            <span ng-if="!addForm.city.$error.required"
+                                  clear-input-btn="addModifyReqParam.entity.city"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">传真</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.fax"
+                                   name="fax" required placeholder="传真">
+                            <span ng-if="!addForm.fax.$error.required"
+                                  clear-input-btn="addModifyReqParam.entity.fax"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">税号</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.taxNo"
+                                   name="taxNo" required placeholder="税号">
+                            <span ng-if="!addForm.taxNo.$error.required"
+                                  clear-input-btn="addModifyReqParam.entity.taxNo"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">联系人</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.contactPerson"
+                                   name="contactPerson" required placeholder="联系人">
+                            <span ng-if="!addForm.contactPerson.$error.required"
+                                  clear-input-btn="addModifyReqParam.entity.contactPerson"
+                                  class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
                         </div>
                     </div>
                 </div>
             </div>
-        </form>
-    </div>
-</div>
 
-<div class="recevive_tables receive_btns">
-    <!--按钮组-->
-    <div class="row ">
-        <div class="col-sm-10 col-sm-offset-1">
-            <button type="button" class="btn btn-info">新增</button>
+            <div class="form-group  has-feedback">
+                <label class="col-sm-1 control-label receive-form-title"><span class="color-red">*</span>联系地址</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control"  ng-model="addModifyReqParam.entity.contactAddress"
+                           ng-class="{'error':addForm.contactAddress.$invalid&&addModifyBtnAction.tooltipIsOpen}"
+                           uib-tooltip="必须输入联系地址"
+                           tooltip-placement="top" tooltip-class="customClass"
+                           tooltip-trigger="'none'"
+                           tooltip-is-open="addModifyBtnAction.tooltipIsOpen"
+                           tooltip-enable="addForm.contactAddress.$invalid"
+                           id="contactAddress" name="contactAddress" required placeholder="联系地址">
+                    <span ng-if="!addForm.contactAddress.$error.required"
+                          clear-input-btn="addModifyReqParam.entity.contactAddress"
+                          class="fa fa-times form-control-feedback color345795" aria-hidden="true"></span>
+                </div>
+            </div>
+        </panel>
 
-            <button type="button" class="btn btn-info">修改</button>
+        <!--企业功能授权-->
+        <panel title="企业功能授权">
+             <function-selection origin-datas="addModifyReqParam.volist"></function-selection>
+        </panel>
+        <!--/企业功能授权-->
 
-            <button type="button" class="btn btn-info">生效</button>
-
-            <button type="button" class="btn btn-info">失效</button>
-
+        <div class="mg-bm-50 mg-lt20">
+            <button class="btn btn-info mg-lt20" ng-click="addModifyBtnAction.temporarilySave(addForm)">暂存</button>
+            <button class="btn btn-info mg-lt20" ng-click="addModifyBtnAction.saveEffectBack(addForm)">保存并返回</button>
+            <button class="btn btn-info mg-lt20" ng-click="btnAction.addPage()">返回</button>
         </div>
-    </div>
-    <!--按钮组end-->
-    <div class="receive-table" data-example-id="hoverable-table">
-        <table class="table table-hover table-striped">
-            <thead>
-            <tr>
-                <th>
-                    <label>
-                        <input type="checkbox" aria-label="...">
-                    </label>
-                </th>
-                <th>序号</th>
-                <th>企业代码</th>
-                <th>企业名称</th>
-                <th>简称</th>
-                <th>城市</th>
-                <th>联系人<br>
-                    联系电话</th>
-                <th>备注</th>
-                <th>状态</th>
-                <th>创建人<br>
-                    创建时间</th>
-                <th>最后修改人<br>
-                     修改时间</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th><label>
-                    <input type="checkbox" aria-label="...">
-                </label></th>
+    </form>
+</section>
+<!--新增/修改页面-->
 
-            </tr>
+<!--查看详情页面-->
+<section class="animate-enter-leave posAb" ng-if="btnAction.showDetail">
+    <form class="form-horizontal" name="viewForm" novalidate>
+        <panel title="{{btnAction.showText.firstTitle}}">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">企业代码</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.orgNo"></label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">开户银行</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.bank"></label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">联系电话</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.contactPhone"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">企业名称</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.orgName"></label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">银行账户</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.bankAccount"></label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">电子邮箱</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.email"></label>
+                        </div>
+                    </div>
 
-            </tbody>
-        </table>
-    </div>
-    <!-- /example -->
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">简称</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.orgShortName"></label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">城市</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.city"></label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">传真</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.fax"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title" for="exampleInputName2">税号</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.taxNo"></label>
+                        </div>
+                    </div>
+                    <div class="form-group  has-feedback">
+                        <label class="col-sm-4 control-label receive-form-title">联系人</label>
+                        <div class="col-sm-8">
+                            <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.contactPerson"></label>
+                        </div>
+                    </div>
 
+                </div>
+            </div>
 
-    <page></page>
+            <div class="form-group  has-feedback">
+                <label class="col-sm-1 control-label receive-form-title">联系地址</label>
+                <div class="col-sm-8">
+                    <label class="form-control text-left pdTp5" ng-bind="viewRspParam.entity.contactAddress"></label>
+                </div>
+            </div>
 
+        </panel>
 
-</div>
-<footer></footer>
+        <!--企业功能授权-->
+        <panel title="企业功能授权">
+            <function-selection origin-datas="viewRspParam.volist"></function-selection>
+        </panel>
+        <!--/企业功能授权-->
 
-
-
+        <div class="mg-bm-50 mg-lt20">
+            <button class="btn btn-info mg-lt20" ng-click="btnAction.showDetailAction()">返回</button>
+        </div>
+    </form>
+</section>
+<!--查看详情页面-->
