@@ -150,14 +150,14 @@ module.exports = angular.module('directive.focusChangeLogo', []).directive('focu
         restrict:'EA',
         link:function(scope,ele,attrs){
             $(ele).datetimepicker({
-                language:'zh-CN',
-                autoclose:true,
-                todayHighlight:true,
-                format:'yyyy/mm/dd',
-                weekStart:'1',
-                todayBtn:true,
-                forceParse:true,
-                minView:'2'
+                language:'zh-CN', //日期语言
+                autoclose:true, //是否自动关闭
+                todayHighlight:true, //今天高亮
+                format:'yyyy/mm/dd',//格式化日期
+                weekStart:'1', //星期开始天数周一开始
+                todayBtn:true,//今天按钮
+                forceParse:true,//输入不正确 是否开启强制转换
+                minView:'2' //最小试图到日
             });
         }
     }
