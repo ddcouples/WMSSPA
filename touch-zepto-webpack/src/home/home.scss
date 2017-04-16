@@ -1,0 +1,224 @@
+@import "../scss/comm";
+#root{
+  width:100%;
+  height: 100%;
+  min-width: 4096px;
+  min-height: 4096px;
+  overflow: hidden;
+  .main{
+    width:100%;
+    height: 100%;
+    -webkit-transition: display 0.8s ease-in-out;
+    -moz-transition: display 0.8s ease-in-out ;
+    -ms-transition: display 0.8s ease-in-out ;
+    -o-transition: display 0.8s ease-in-out ;
+    transition: display 0.8s ease-in-out ;
+    font-size: 4rem;
+  }
+  .home{
+    background: #0094ff;
+  }
+  .container{
+    background-image: url('./img/container.png');
+    background-size:cover;
+    h1{
+      color:#333;
+    }
+  }
+  .noDisplay{
+    display: none;
+  }
+}
+.header{
+  padding:8rem 0 0 8rem;
+  line-height: 4rem;
+  vertical-align: middle;
+  .logo{
+    float:left;
+    width: 4rem;
+    height: 8rem;
+    background: red;
+  }
+  .logo_text{
+    float:left;
+    h1{
+      color:#fff;
+      font-size: 4rem;
+      opacity: .8;
+    }
+  }
+}
+.home_container{
+  .proofSeal{
+    float:left;
+    width: 33.3%;
+    height: 50rem;
+    position: relative;
+    .center{
+      @extend %center;
+      text-align: center;
+    }
+    .proofSeal_logo{
+      width: (23.2rem / 1.5) ;
+      height:  (25.6rem / 1.5);
+      margin-bottom: 4rem;
+    }
+    .save{
+      background-image: url('./img/save.png');
+      background-size:cover;
+    }
+    .get_proof{
+      background-image: url('./img/get_proof.png');
+      background-size:cover;
+    }
+    .search_proof{
+      background-image: url('./img/search_proof.png');
+      background-size:cover;
+    }
+    @at-root .proofSeal_btn{
+        border: none;
+        outline: none;
+
+      width: (23.2rem / 1.6) ;
+      height:  5rem;
+      background-image: url('./img/btn_proof.png');
+      background-size:cover;
+      text-align: center;
+      font-size: 2.5rem;
+      color:#fff;
+      text-shadow: 0 .3rem 5px #999;
+      font-weight: bold;
+      opacity: .8;
+    }
+  }
+}
+.msg_center{
+  @extend %center;
+  vertical-align: middle;
+  .msg_logo{
+    display: inline-block;
+    width: 8rem;
+    height: 8rem;
+    vertical-align: bottom;
+  }
+  .msg_text{
+    font-size: 6rem;
+    color:green;
+    margin-left: 1rem;
+  }
+  .msg_logo_success{
+    background-image: url('./img/success.png');
+    background-size:cover;
+  }
+  .msg_logo_error{
+    background-image: url('./img/error.png');
+    background-size:cover;
+  }
+  .msg_logo_warning{
+    background-image: url('./img/warning.png');
+    background-size:cover;
+  }
+}
+.footer{
+  position: fixed;
+  bottom: 5rem;
+  left:4rem;
+  right: 4rem;
+  font-size: 3rem;
+  .right{
+    float: right;
+
+
+  }
+  .left{
+    float:left;
+  }
+}
+.right_header{
+  float: right;
+  margin-right: 7rem;
+  font-size: 3rem;
+}
+.input_canvas{
+  font-size: 3rem;
+  width: 3000px;
+  margin:0 auto;
+  .left{
+    float: left;
+    margin-top:8rem;
+  }
+  .right{
+    float:right;
+    canvas{
+      width: 20rem;
+      height: 30rem;
+      background: #0094ff;
+    }
+  }
+}
+.input_class{
+  input{
+    width: 20rem;
+    font-size: 2rem;
+    height: 4rem;
+    border: 5px solid #ddd;
+    border-radius: 5%;
+  }
+}
+.check{
+  font-size: 4rem;
+  font-weight: bolder;
+}
+.chapterStatus{
+  font-size: 2rem;
+}
+.chapter_status{
+  display: inline-block;
+  width: 5rem;
+  height: 2rem;
+}
+.chapter_container{
+  width:4000px;
+  margin: 1rem auto;
+  text-align: center;
+  font-size: 1.5rem;
+  .table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+  table.table{
+    table-layout: fixed;
+    tr{
+      display: table-row;
+    }
+  }
+
+  table.table>tbody>tr>td{
+    border: none;
+    padding: 20px;
+    line-height: 1.42857;
+    vertical-align: top;
+  }
+  .ark_status{
+    background-color: #f4f7f7;
+  }
+  .chapter_ark_status{
+    display: inline-block;
+    width:8rem;
+    height: 2.3rem;
+  }
+  .border-white2{
+    border: 1px solid #fff !important;
+    color:#fff;
+  }
+}
+.chapter_msg{
+  text-align: center;
+  color:#ff0;
+  margin-top: 1rem;
+  text-shadow: 0 3px 3px #ddd;
+  span{
+    margin-right: 1.5rem;
+  }
+}

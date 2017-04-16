@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>验讫章触屏端</title>
+    <script src='static/js/bundle.js'></script>
+</head>
+<body>
+   <div id="root">
+       <!--主页面-->
+     <div class="main home noDisplay">
+           <div class="header over-flow">
+               <div class="logo"></div>
+               <div class="logo_text"><h1>验讫章柜管理系统</h1></div>
+           </div>
+           <div class="home_container">
+               <div class="proofSeal">
+                   <div class="center">
+                       <div class="proofSeal_logo save"></div>
+                       <button class="proofSeal_btn">存章</button>
+                   </div>
+               </div>
+               <div class="proofSeal">
+                   <div class="center">
+                       <div class="proofSeal_logo get_proof"></div>
+                       <button class="proofSeal_btn">取章</button>
+                   </div>
+               </div>
+               <div class="proofSeal">
+                   <div class="center">
+                       <div class="proofSeal_logo search_proof"></div>
+                       <button class="proofSeal_btn">查询
+                       </button>
+                   </div>
+               </div>
+           </div>
+     </div>
+       <!--/主页面-->
+
+       <!--信息提示页面-->
+     <div class="main container noDisplay ">
+         <div class="header over-flow">
+             <div class="logo"></div>
+             <div class="logo_text"><h1>验讫章柜管理系统</h1></div>
+             <div class="right_header">
+                 <div>组长：<span>张三</span></div>
+                 <div>查验员：<span>李四</span></div>
+             </div>
+         </div>
+         <div class="msg_center">
+             <span class="msg_logo msg_logo_success"></span>
+             <span class="msg_text">验证通过</span>
+         </div>
+         <div class="footer over-flow">
+             <div class="left">
+                 本次已经取章数量:<span>10</span>枚
+             </div>
+             <div class="right">
+                 取章<span>21</span>
+                 <button class="proofSeal_btn">查询
+                 </button>
+             </div>
+         </div>
+     </div>
+       <!--/信息提示页面-->
+
+       <!--输入页面-->
+     <div class="main container noDisplay">
+           <div class="header over-flow">
+               <div class="logo"></div>
+               <div class="logo_text"><h1>验讫章柜管理系统</h1></div>
+           </div>
+           <div class="msg_center">
+               <div class="input_canvas over-flow">
+                   <div class="left">
+                       <label class="input_class">个人编号：
+                           <input type="text" name="" id="p" placeholder="请输入个人编号">
+                       </label>
+                       <br>
+                       <label>&nbsp;</label>
+                       <br>
+                       <label class="input_class">个人密码：
+                           <input type="text" name="" id="d" placeholder="请输入个人密码">
+                       </label>
+                   </div>
+                   <div class="right">
+                       <canvas width="10rem" height="20rem"></canvas>
+                   </div>
+               </div>
+           </div>
+           <div class="footer over-flow">
+               <div class="left">
+                   本次已经取章数量:<span>10</span>枚
+               </div>
+               <div class="right">
+                   取章<span>21</span>
+                   <button class="proofSeal_btn">查询
+                   </button>
+               </div>
+           </div>
+       </div>
+       <!--/输入页面-->
+
+       <!--验证指纹页面-->
+       <div class="main container ">
+           <div class="header over-flow">
+               <div class="logo"></div>
+               <div class="logo_text"><h1>验讫章柜管理系统</h1></div>
+           </div>
+           <div class="msg_center">
+               <div class="input_canvas over-flow">
+                   <div class="left check">
+                       请组长验证指纹
+                   </div>
+                   <div class="right">
+                       <canvas width="10rem" height="20rem"></canvas>
+                   </div>
+               </div>
+           </div>
+           <div class="footer over-flow">
+               <div class="left">
+                   本次已经取章数量:<span>10</span>枚
+               </div>
+               <div class="right">
+                   取章<span>21</span>
+                   <button class="proofSeal_btn">查询
+                   </button>
+               </div>
+           </div>
+       </div>
+       <!--/验证指纹页面-->
+   </div>
+</body>
+</html>

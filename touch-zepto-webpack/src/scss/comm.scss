@@ -1,0 +1,136 @@
+@charset "utf-8";
+/* 定义全局样式 */
+html,
+body {
+  height: 100%;
+  color: #333;
+  background: #f2f1ef;
+}
+html{
+  font-size:62.5%;
+}
+//
+//@media screen and (device-width: 1024px) {
+//  html {
+//    font-size:5%;
+//  }
+//}
+@media screen and (min-width: 4000px) {
+  html {
+    font-size:62.5% * 5;
+  }
+}
+body {
+  color: #000;
+  font: normal 100% Microsoft Yahei;
+  font-size:14px;
+  font-size:1.4rem;
+  margin: 0;
+  padding: 0;
+  padding-right:0 !important;
+}
+html,
+body,
+form,
+input,
+select,
+textarea,
+div,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li,
+form,
+img,
+dl,
+dt,
+dd,
+table,
+th,
+td,
+blockquote,
+fieldset,
+div,
+strong,
+label,
+em {
+  margin: 0;
+  padding: 0;
+}
+ul,
+li,
+dl,
+dt,
+dd {
+  list-style: none;
+}
+h1,
+h2,
+h3 {
+  font-weight: bold;
+  color: #303030;
+  font-family: Microsoft Yahei, w3;
+}
+table,
+td,
+img {
+  border: 0;
+}
+table,
+tr,
+td {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+button {
+  cursor: pointer;
+}
+a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+a:focus {
+  text-decoration: none;
+  outline: none;
+  color: inherit;
+}
+%center{
+  position: absolute;
+  top:50%;
+  left:50%;
+  -webkit-transform:translate3d(-50%,-50%,0);
+  -moz-transform:translate3d(-50%,-50%,0);
+  -ms-transform:translate3d(-50%,-50%,0);
+  -o-transform:translate3d(-50%,-50%,0);
+  transform:translate3d(-50%,-50%,0);
+}
+/*去掉自带number样式*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin:0;
+}
+input[type="number"]{
+  -moz-appearance: textfield;
+  ime-mode:disabled;
+}
+input::-ms-clear
+{display:none;}
+.over-flow{
+  overflow: auto; zoom: 1; //zoom: 1; 是在处理兼容性问题
+}
+.clear_fix {zoom:1;}    /*==for IE6/7 Maxthon2==*/
+.clear_fix :after {clear:both;content:'.';display:block;width: 0;height: 0;visibility:hidden;}
+.bg-red{
+  background: #ff0000;
+}
+.bg-green{
+  background-color:#00d04e;
+}
